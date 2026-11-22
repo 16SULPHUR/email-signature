@@ -10,7 +10,7 @@ export function AdminGoogleLogin() {
     setError('')
     const { error } = await authClient.signIn.social({
       provider: 'google',
-      callbackURL: `${window.location.origin}/admin`,
+      callbackURL: `${window.location.origin}/auth/complete?next=/admin`,
     })
     if (error) setError(error.message || 'Could not start sign in')
   }
