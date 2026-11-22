@@ -1213,3 +1213,14 @@ input[type='range'] {
 .prose li + li {
   margin-top: 8px;
 }
+
+.nav__link,
+.nav__links .btn {
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .nav__links > a[href='/#templates'] {
+    display: none;
+  }
+}
