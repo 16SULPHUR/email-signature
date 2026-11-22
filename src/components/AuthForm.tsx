@@ -69,6 +69,11 @@ export function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
           autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
         />
       </div>
+      {mode === 'login' && (
+        <p className="hint">
+          <Link href="/forgot-password">Forgot password?</Link>
+        </p>
+      )}
       {error && <p className="error">{error}</p>}
       <button className="btn btn--primary" disabled={busy}>
         {busy ? 'Please wait…' : mode === 'login' ? 'Log in' : 'Create account'}
