@@ -1,0 +1,58 @@
+{
+  "id": "anim-typing-name",
+  "name": "Typing name",
+  "category": "general",
+  "tags": [
+    "animated",
+    "dark",
+    "compact",
+    "monospace"
+  ],
+  "description": "A compact bar that types your name and role with a blinking caret.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "typename",
+    "width": 440,
+    "height": 80
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#ff7a1a",
+    "text": "#ffffff",
+    "muted": "#999999",
+    "bg": "#111111",
+    "font": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Neha Kapoor",
+    "title": "Product Manager",
+    "company": "Orbit",
+    "email": "hello@orbit.com",
+    "phone": "+91 98200 11223",
+    "website": "https://orbit.com",
+    "websiteLabel": "orbit.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

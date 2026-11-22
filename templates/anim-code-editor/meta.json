@@ -1,0 +1,62 @@
+{
+  "id": "anim-code-editor",
+  "name": "Code editor",
+  "category": "developer",
+  "tags": [
+    "animated",
+    "dark",
+    "monospace",
+    "code"
+  ],
+  "description": "An editor tab types your details into a const object.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "editor",
+    "width": 440,
+    "height": 178
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#c678dd",
+    "text": "#abb2bf",
+    "muted": "#5c6370",
+    "bg": "#282c34",
+    "font": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Leo Martins",
+    "title": "Full-stack Developer",
+    "company": "Brightwave",
+    "email": "hello@brightwave.com",
+    "phone": "+91 98200 11223",
+    "website": "https://brightwave.com",
+    "websiteLabel": "brightwave.com",
+    "socials": [
+      {
+        "network": "github",
+        "url": "https://github.com/example"
+      },
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

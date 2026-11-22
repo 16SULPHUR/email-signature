@@ -1,5 +1,7 @@
 import Mustache from 'mustache'
 
+import { animUrl } from '@/lib/anim/url'
+
 import { NETWORK_MAP } from './networks'
 import type { SignatureData, Style, Template } from './types'
 
@@ -121,6 +123,9 @@ export function buildContext(template: Template, data: SignatureData, siteUrl: s
     emailIcon: contactIcon('email'),
     webIcon: contactIcon('website'),
     addressIcon: contactIcon('address'),
+    animUrl: template.animation
+      ? animUrl(siteUrl, template.animation, f, { accent: `#${accent}`, text: `#${text}`, muted: `#${muted}`, bg: `#${bg}` })
+      : '',
     socials,
     hasSocials: socials.length > 0,
     customFields,

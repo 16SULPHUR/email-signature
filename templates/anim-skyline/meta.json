@@ -1,0 +1,58 @@
+{
+  "id": "anim-skyline",
+  "name": "Rising skyline",
+  "category": "real-estate",
+  "tags": [
+    "animated",
+    "light",
+    "warm",
+    "city"
+  ],
+  "description": "A city skyline builds up and lights its windows beside your name.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "skyline",
+    "width": 440,
+    "height": 124
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#b45309",
+    "text": "#1c1917",
+    "muted": "#78716c",
+    "bg": "#f6f3ee",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Tara Singh",
+    "title": "Senior Property Advisor",
+    "company": "Skyline Realty",
+    "email": "hello@skylinerealty.com",
+    "phone": "+91 98200 11223",
+    "website": "https://skylinerealty.com",
+    "websiteLabel": "skylinerealty.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "id": "anim-pulse",
+  "name": "Heartbeat",
+  "category": "healthcare",
+  "tags": [
+    "animated",
+    "light",
+    "calm",
+    "teal"
+  ],
+  "description": "An ECG trace draws across beneath your name.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "pulse",
+    "width": 440,
+    "height": 112
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#0d9488",
+    "text": "#0f3d3e",
+    "muted": "#5f7f80",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Dr. Anika Rao",
+    "title": "Consultant Cardiologist",
+    "company": "Heartwell Clinic",
+    "email": "hello@heartwellclinic.com",
+    "phone": "+91 98200 11223",
+    "website": "https://heartwellclinic.com",
+    "websiteLabel": "heartwellclinic.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

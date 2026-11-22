@@ -68,6 +68,7 @@ export type TemplateMeta = {
   fields: FieldKey[]
   theme: Theme
   animated?: boolean
+  animation?: { kind: string; width: number; height: number; params?: Record<string, string> }
   defaults?: Partial<Omit<Style, keyof Theme>> & { avatarRadius?: string }
   preview?: Partial<Pick<SignatureData, 'fields' | 'socials'>>
 }

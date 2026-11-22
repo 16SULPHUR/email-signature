@@ -1,0 +1,62 @@
+{
+  "id": "anim-neon-sign",
+  "name": "Neon sign",
+  "category": "hospitality",
+  "tags": [
+    "animated",
+    "dark",
+    "neon",
+    "bold"
+  ],
+  "description": "A neon sign flickers on with your name.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "neon",
+    "width": 440,
+    "height": 118
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#ff3df2",
+    "text": "#ffffff",
+    "muted": "#c9a0ff",
+    "bg": "#0a0612",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Marco Bellini",
+    "title": "Head Sommelier",
+    "company": "Lumen Bistro",
+    "email": "hello@lumenbistro.com",
+    "phone": "+91 98200 11223",
+    "website": "https://lumenbistro.com",
+    "websiteLabel": "lumenbistro.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      },
+      {
+        "network": "instagram",
+        "url": "https://instagram.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

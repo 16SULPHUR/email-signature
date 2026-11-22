@@ -79,7 +79,14 @@ export function Editor({ template, templates }: Props) {
     return () => clearTimeout(t)
   }, [data, ready, template.id])
 
-  const previewHtml = useMemo(() => renderSignature(template, data, ''), [template, data])
+  const [settled, setSettled] = useState(data)
+  useEffect(() => {
+    if (!template.animation) return
+    const t = setTimeout(() => setSettled(data), 700)
+    return () => clearTimeout(t)
+  }, [data, template.animation])
+  const shown = template.animation ? settled : data
+  const previewHtml = useMemo(() => renderSignature(template, shown, ''), [template, shown])
   const exportHtml = () => renderSignature(template, data, siteUrl())
   const style = resolveStyle(template, data)
 
