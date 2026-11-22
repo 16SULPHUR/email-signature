@@ -33,6 +33,12 @@ export function Editor({ template, templates }: Props) {
   const [sigName, setSigName] = useState('')
   const statusTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
 
+  const flash = (msg: string) => {
+    setStatus(msg)
+    clearTimeout(statusTimer.current)
+    statusTimer.current = setTimeout(() => setStatus(''), 2500)
+  }
+
   useEffect(() => {
     if (savedId) {
       api
@@ -46,25 +52,21 @@ export function Editor({ template, templates }: Props) {
       return
     }
     const draft = loadDraft()
-    if (draft)
+    if (draft) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage is only readable after hydration
       setData({
         fields: draft.fields,
         socials: draft.socials,
         customFields: draft.customFields || [],
         style: draft.styles?.[template.id] || {},
       })
+    }
     setReady(true)
   }, [savedId, template.id])
 
   useEffect(() => {
     if (ready && !savedId) saveDraft(template.id, data)
   }, [data, ready, savedId, template.id])
-
-  const flash = (msg: string) => {
-    setStatus(msg)
-    clearTimeout(statusTimer.current)
-    statusTimer.current = setTimeout(() => setStatus(''), 2500)
-  }
 
   const previewHtml = useMemo(() => renderSignature(template, data, ''), [template, data])
   const exportHtml = () => renderSignature(template, data, siteUrl())

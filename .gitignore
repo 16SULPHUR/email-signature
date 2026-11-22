@@ -49,3 +49,5 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /src/generated
+.env.*
+!.env.example

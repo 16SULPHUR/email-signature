@@ -20,7 +20,7 @@ function listSlugs() {
     .map((d) => d.name)
 }
 
-const STYLE_KEYS = ['iconSize', 'avatarSize', 'iconStyle']
+const STYLE_KEYS = ['iconSize', 'avatarSize', 'iconStyle', 'logoWidth', 'avatarRadius']
 
 function normalize(meta, slug, html) {
   const theme = { ...meta.theme }

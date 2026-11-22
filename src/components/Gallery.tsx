@@ -9,6 +9,38 @@ import { renderSignature } from '@/lib/signature/render'
 import { categoryLabel } from '@/lib/signature/templates'
 import type { Template } from '@/lib/signature/types'
 
+const SYNONYMS: Record<string, string> = {
+  lawyer: 'legal',
+  attorney: 'legal',
+  advocate: 'legal',
+  doctor: 'healthcare',
+  nurse: 'healthcare',
+  dentist: 'healthcare',
+  medical: 'healthcare',
+  realtor: 'real-estate',
+  agent: 'real-estate',
+  broker: 'real-estate',
+  property: 'real-estate',
+  engineer: 'developer',
+  programmer: 'developer',
+  coder: 'developer',
+  software: 'developer',
+  ceo: 'executive',
+  founder: 'startup',
+  teacher: 'education',
+  professor: 'education',
+  student: 'education',
+  accountant: 'finance',
+  banker: 'finance',
+  influencer: 'creator',
+  youtuber: 'creator',
+  hotel: 'hospitality',
+  restaurant: 'hospitality',
+  chef: 'hospitality',
+  artist: 'designer',
+  photographer: 'creator',
+}
+
 export function Gallery({ templates, categories }: { templates: Template[]; categories: string[] }) {
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('all')
@@ -18,7 +50,7 @@ export function Gallery({ templates, categories }: { templates: Template[]; cate
     return templates.filter((t) => {
       if (category !== 'all' && t.category !== category) return false
       const hay = [t.name, t.category, categoryLabel(t.category), t.description, ...t.tags].join(' ').toLowerCase()
-      return words.every((w) => hay.includes(w))
+      return words.every((w) => hay.includes(w) || (SYNONYMS[w] && hay.includes(SYNONYMS[w])))
     })
   }, [templates, query, category])
 

@@ -3,6 +3,9 @@ import Mustache from 'mustache'
 import { NETWORK_MAP } from './networks'
 import type { SignatureData, Style, Template } from './types'
 
+const ESC: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }
+Mustache.escape = (v: string) => String(v).replace(/[&<>"']/g, (c) => ESC[c])
+
 export const DEFAULT_STYLE: Omit<Style, keyof Template['theme']> = {
   iconSize: 20,
   avatarSize: 80,
@@ -122,7 +125,8 @@ export function buildContext(template: Template, data: SignatureData, siteUrl: s
     hasSocials: socials.length > 0,
     customFields,
     hasCustomFields: customFields.length > 0,
-    avatarRadius: style.avatarShape === 'template' ? '50%' : AVATAR_RADIUS[style.avatarShape],
+    avatarRadius:
+      style.avatarShape === 'template' ? template.defaults?.avatarRadius || '50%' : AVATAR_RADIUS[style.avatarShape],
     logoWidth: Number(style.logoWidth) || 96,
     photoLink: safeUrl(style.photoLink),
     siteUrl,

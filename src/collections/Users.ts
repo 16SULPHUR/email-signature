@@ -36,8 +36,9 @@ export const Users: CollectionConfig = {
     beforeChange: [
       async ({ data, operation, req }) => {
         if (operation !== 'create') return data
-        const { totalDocs } = await req.payload.count({ collection: 'users', req })
-        return { ...data, role: totalDocs === 0 ? 'admin' : data.role || 'user' }
+        const adminEmails = (process.env.ADMIN_EMAILS || '').toLowerCase().split(',').map((e) => e.trim())
+        const isListed = Boolean(data.email) && adminEmails.includes(String(data.email).toLowerCase())
+        return { ...data, role: isListed ? 'admin' : req.user?.role === 'admin' ? data.role || 'user' : 'user' }
       },
     ],
   },
