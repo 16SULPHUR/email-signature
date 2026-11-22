@@ -29,17 +29,24 @@ export async function POST(req: Request) {
     ...(user ? { user: user.id } : {}),
   }
 
-  const existing = await payload.find({
-    collection: 'submissions',
-    where: { visitorId: { equals: visitorId } },
-    limit: 1,
-    depth: 0,
-    overrideAccess: true,
-  })
-  if (existing.docs[0]) {
-    await payload.update({ collection: 'submissions', id: existing.docs[0].id, data: doc, overrideAccess: true })
-  } else {
-    await payload.create({ collection: 'submissions', data: doc, overrideAccess: true })
+  const save = async () => {
+    const existing = await payload.find({
+      collection: 'submissions',
+      where: { visitorId: { equals: visitorId } },
+      limit: 1,
+      depth: 0,
+      overrideAccess: true,
+    })
+    if (existing.docs[0]) {
+      await payload.update({ collection: 'submissions', id: existing.docs[0].id, data: doc, overrideAccess: true })
+    } else {
+      await payload.create({ collection: 'submissions', data: doc, overrideAccess: true })
+    }
+  }
+  try {
+    await save()
+  } catch {
+    await save().catch(() => {})
   }
   return new Response(null, { status: 204 })
 }

@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url'
 import { CopyEvents } from './collections/CopyEvents'
 import { Signatures } from './collections/Signatures'
 import { Submissions } from './collections/Submissions'
+import { Templates } from './collections/Templates'
 import { Users } from './collections/Users'
 import { migrations } from './migrations'
 
@@ -18,11 +19,12 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     user: Users.slug,
+    components: { beforeLogin: ['@/components/AdminGoogleLogin#AdminGoogleLogin'] },
     importMap: {
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Signatures, Submissions, CopyEvents],
+  collections: [Users, Signatures, Templates, Submissions, CopyEvents],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   serverURL: process.env.NEXT_PUBLIC_SITE_URL || '',
@@ -44,6 +46,10 @@ export default buildConfig({
         defaultFromName: 'Sigrio',
       })
     : undefined,
+  onInit: async (payload) => {
+    const { seedTemplates } = await import('./lib/server/templates')
+    await seedTemplates(payload).catch((err) => payload.logger.error({ err }, 'template seed failed'))
+  },
   sharp,
   plugins: [],
 })

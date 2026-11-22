@@ -1,0 +1,14 @@
+<table cellpadding="0" cellspacing="0" border="0" width="460" style="border-collapse:separate;background:{{bg}};border-radius:12px;font-family:{{font}};">
+<tr><td style="padding:16px 18px;">
+<table cellpadding="0" cellspacing="0" border="0"><tr>
+{{#photoUrl}}<td valign="middle" style="padding:0 14px 0 0;"><img src="{{photoUrl}}" width="{{avatarSize}}" height="{{avatarSize}}" alt="{{name}}" style="display:block;border:0;width:{{avatarSize}}px;height:{{avatarSize}}px;border-radius:{{avatarRadius}};"></td>{{/photoUrl}}
+<td valign="middle">
+<div style="font-size:17px;line-height:23px;font-weight:bold;color:{{text}};">{{name}}</div>
+<div style="font-size:12px;line-height:18px;color:{{muted}};">{{title}}{{#company}} · {{company}}{{/company}}</div>
+</td></tr></table>
+{{#tagline}}<table cellpadding="0" cellspacing="0" border="0" style="margin-top:12px;"><tr><td style="background:{{accent}};border-radius:14px 14px 14px 3px;padding:8px 14px;font-size:13px;line-height:19px;color:#ffffff;">{{tagline}} <img src="{{siteUrl}}/anim/typing.gif?c=FFFFFF&amp;bg={{accentHex}}" width="30" height="12" alt="" style="display:inline-block;vertical-align:middle;border:0;"></td></tr></table>{{/tagline}}
+<div style="padding-top:12px;font-size:12px;line-height:19px;color:{{text}};">{{#phone}}<a href="{{phoneHref}}" style="color:{{text}};text-decoration:none;">{{phone}}</a>&nbsp;&nbsp;{{/phone}}{{#email}}<a href="{{emailHref}}" style="color:{{text}};text-decoration:none;">{{email}}</a>&nbsp;&nbsp;{{/email}}{{#website}}<a href="{{website}}" style="color:{{accent}};text-decoration:none;">{{websiteLabel}}</a>{{/website}}</div>
+{{#ctaUrl}}<div style="padding-top:10px;"><a href="{{ctaUrl}}" style="display:inline-block;border:2px solid {{accent}};color:{{accent}};text-decoration:none;font-size:12px;line-height:16px;font-weight:bold;padding:6px 14px;border-radius:6px;">{{ctaText}}{{^ctaText}}Book a demo{{/ctaText}}</a></div>{{/ctaUrl}}
+{{#socials.length}}<div style="padding-top:10px;">{{#socials}}<a href="{{url}}" style="text-decoration:none;"><img src="{{icon}}" width="{{iconSize}}" height="{{iconSize}}" alt="{{label}}" style="display:inline-block;vertical-align:middle;border:0;width:{{iconSize}}px;height:{{iconSize}}px;"></a>&nbsp;&nbsp;{{/socials}}</div>{{/socials.length}}
+</td></tr>
+</table>

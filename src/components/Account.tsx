@@ -7,9 +7,9 @@ import { useEffect, useState } from 'react'
 import { SignatureFrame } from '@/components/SignatureFrame'
 import { api, type SavedSignature, useSession } from '@/lib/client/api'
 import { renderSignature } from '@/lib/signature/render'
-import { getTemplate } from '@/lib/signature/templates'
+import type { Template } from '@/lib/signature/types'
 
-export function Account() {
+export function Account({ templates }: { templates: Template[] }) {
   const router = useRouter()
   const user = useSession()
   const [items, setItems] = useState<SavedSignature[]>()
@@ -55,7 +55,7 @@ export function Account() {
 
       <div className="grid">
         {items?.map((s) => {
-          const t = getTemplate(s.template)
+          const t = templates.find((x) => x.id === s.template)
           return (
             <article key={s.id} className="card">
               <div className="card__stage">{t && <SignatureFrame html={renderSignature(t, s.data, '')} fit />}</div>

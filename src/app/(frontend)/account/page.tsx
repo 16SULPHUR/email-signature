@@ -1,7 +1,9 @@
 import { Account } from '@/components/Account'
+import { getTemplates } from '@/lib/server/templates'
 
 export const metadata = { title: 'My signatures' }
+export const dynamic = 'force-dynamic'
 
-export default function AccountPage() {
-  return <Account />
+export default async function AccountPage() {
+  return <Account templates={await getTemplates()} />
 }
