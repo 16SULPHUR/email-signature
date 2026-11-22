@@ -1,7 +1,7 @@
 <table cellpadding="0" cellspacing="0" border="0" width="540" style="border-collapse:collapse;font-family:{{font}};">
 <tr><td>
 <table cellpadding="0" cellspacing="0" border="0"><tr>
-{{#photoUrl}}<td valign="middle" style="padding-right:12px;"><img src="{{photoUrl}}" width="{{avatarSize}}" height="{{avatarSize}}" alt="{{name}}" style="display:block;border:0;border-radius:50%;width:{{avatarSize}}px;height:{{avatarSize}}px;"></td>{{/photoUrl}}
+{{#photoUrl}}<td valign="middle" style="padding-right:12px;">{{#photoLink}}<a href="{{photoLink}}" style="text-decoration:none;">{{/photoLink}}<img src="{{photoUrl}}" width="{{avatarSize}}" height="{{avatarSize}}" alt="{{name}}" style="display:block;border:0;border-radius:{{avatarRadius}};width:{{avatarSize}}px;height:{{avatarSize}}px;">{{#photoLink}}</a>{{/photoLink}}</td>{{/photoUrl}}
 <td valign="middle">
 <span style="font-size:17px;line-height:22px;font-weight:bold;color:{{text}};">{{name}}</span>{{#pronouns}}<span style="font-size:12px;color:{{muted}};"> &nbsp;{{pronouns}}</span>{{/pronouns}}<br>
 <span style="font-size:13px;line-height:20px;color:{{muted}};">{{title}}{{#company}}, <span style="color:{{accent}};font-weight:bold;">{{company}}</span>{{/company}}</span>

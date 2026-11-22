@@ -1,8 +1,8 @@
 <table cellpadding="0" cellspacing="0" border="0" width="500" style="border-collapse:collapse;font-family:{{font}};">
 <tr>
 <td width="140" valign="middle" align="center" style="background:{{accent}};padding:22px 16px;">
-{{#photoUrl}}<img src="{{photoUrl}}" width="{{avatarSize}}" height="{{avatarSize}}" alt="{{name}}" style="display:block;border:3px solid #ffffff;border-radius:50%;width:{{avatarSize}}px;height:{{avatarSize}}px;">{{/photoUrl}}
-{{^photoUrl}}{{#logoUrl}}<img src="{{logoUrl}}" width="96" alt="{{company}}" style="display:block;border:0;width:96px;height:auto;">{{/logoUrl}}{{/photoUrl}}
+{{#photoUrl}}{{#photoLink}}<a href="{{photoLink}}" style="text-decoration:none;">{{/photoLink}}<img src="{{photoUrl}}" width="{{avatarSize}}" height="{{avatarSize}}" alt="{{name}}" style="display:block;border:3px solid #ffffff;border-radius:{{avatarRadius}};width:{{avatarSize}}px;height:{{avatarSize}}px;">{{#photoLink}}</a>{{/photoLink}}{{/photoUrl}}
+{{^photoUrl}}{{#logoUrl}}<img src="{{logoUrl}}" width="{{logoWidth}}" alt="{{company}}" style="display:block;border:0;width:{{logoWidth}}px;height:auto;">{{/logoUrl}}{{/photoUrl}}
 </td>
 <td valign="middle" style="padding:16px 22px;background:{{bg}};">
 <div style="font-size:22px;line-height:26px;font-weight:bold;color:{{text}};letter-spacing:-0.3px;">{{name}}</div>

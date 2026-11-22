@@ -27,7 +27,8 @@
     "muted": "#78716c",
     "bg": "#fffbeb",
     "font": "Georgia, 'Times New Roman', serif",
-    "iconSize": 18
+    "iconSize": 18,
+    "logoWidth": 90
   },
   "preview": {
     "name": "Isabella Moretti",

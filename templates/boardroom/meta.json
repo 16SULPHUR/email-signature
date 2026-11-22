@@ -25,7 +25,8 @@
     "muted": "#6b6b6b",
     "bg": "#ffffff",
     "font": "Helvetica, Arial, sans-serif",
-    "iconSize": 16
+    "iconSize": 16,
+    "logoWidth": 100
   },
   "preview": {
     "name": "Vikram Malhotra",

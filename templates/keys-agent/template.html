@@ -1,6 +1,6 @@
 <table cellpadding="0" cellspacing="0" border="0" width="540" style="border-collapse:collapse;font-family:{{font}};">
 <tr>
-{{#photoUrl}}<td width="{{avatarSize}}" valign="top" style="padding-right:18px;"><img src="{{photoUrl}}" width="{{avatarSize}}" height="{{avatarSize}}" alt="{{name}}" style="display:block;border:0;border-radius:50%;width:{{avatarSize}}px;height:{{avatarSize}}px;"></td>{{/photoUrl}}
+{{#photoUrl}}<td width="{{avatarSize}}" valign="top" style="padding-right:18px;">{{#photoLink}}<a href="{{photoLink}}" style="text-decoration:none;">{{/photoLink}}<img src="{{photoUrl}}" width="{{avatarSize}}" height="{{avatarSize}}" alt="{{name}}" style="display:block;border:0;border-radius:{{avatarRadius}};width:{{avatarSize}}px;height:{{avatarSize}}px;">{{#photoLink}}</a>{{/photoLink}}</td>{{/photoUrl}}
 <td valign="top">
 <div style="font-size:20px;line-height:24px;font-weight:bold;color:{{text}};">{{name}}</div>
 <div style="font-size:13px;line-height:20px;color:{{accent}};font-weight:bold;">{{title}}</div>
@@ -15,6 +15,6 @@
 <td>{{#socials}}<a href="{{url}}" style="text-decoration:none;"><img src="{{icon}}" width="{{iconSize}}" height="{{iconSize}}" alt="{{label}}" style="display:inline-block;vertical-align:middle;border:0;width:{{iconSize}}px;height:{{iconSize}}px;"></a>&nbsp;{{/socials}}</td>
 </tr></table>
 </td>
-{{#logoUrl}}<td width="110" valign="middle" align="right" style="border-left:1px solid #e5e7eb;padding-left:16px;"><img src="{{logoUrl}}" width="96" alt="{{company}}" style="display:block;border:0;width:96px;height:auto;"></td>{{/logoUrl}}
+{{#logoUrl}}<td width="110" valign="middle" align="right" style="border-left:1px solid #e5e7eb;padding-left:16px;"><img src="{{logoUrl}}" width="{{logoWidth}}" alt="{{company}}" style="display:block;border:0;width:{{logoWidth}}px;height:auto;"></td>{{/logoUrl}}
 </tr>
 </table>

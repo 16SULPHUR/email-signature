@@ -30,7 +30,9 @@
     "bg": "#ffffff",
     "font": "Helvetica, Arial, sans-serif",
     "iconSize": 20,
-    "avatarSize": 84
+    "avatarSize": 84,
+    "avatarRadius": "50%",
+    "logoWidth": 96
   },
   "preview": {
     "name": "Marcus Bell",
