@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { resendAdapter } from '@payloadcms/email-resend'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -36,6 +37,13 @@ export default buildConfig({
     push: false,
     prodMigrations: migrations,
   }),
+  email: process.env.RESEND_API_KEY
+    ? resendAdapter({
+        apiKey: process.env.RESEND_API_KEY,
+        defaultFromAddress: process.env.EMAIL_FROM || 'hello@sigrio.ankit.ninja',
+        defaultFromName: 'Sigrio',
+      })
+    : undefined,
   sharp,
   plugins: [],
 })
