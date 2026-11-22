@@ -1,0 +1,64 @@
+{
+  "id": "anim-terminal",
+  "name": "Typing terminal",
+  "category": "developer",
+  "tags": [
+    "animated",
+    "dark",
+    "monospace",
+    "tech"
+  ],
+  "description": "A terminal window types out whoami, your name and role.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "terminal",
+    "width": 440,
+    "height": 172
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "tagline",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#7aa2f7",
+    "text": "#c0caf5",
+    "muted": "#565f89",
+    "bg": "#16161e",
+    "font": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Riya Mehta",
+    "title": "Backend Engineer",
+    "company": "Stackline",
+    "email": "hello@stackline.com",
+    "phone": "+91 98200 11223",
+    "website": "https://stackline.com",
+    "websiteLabel": "stackline.com",
+    "tagline": "shipping APIs that stay up",
+    "socials": [
+      {
+        "network": "github",
+        "url": "https://github.com/example"
+      },
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

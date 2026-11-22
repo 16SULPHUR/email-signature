@@ -1,0 +1,62 @@
+{
+  "id": "anim-crt-boot",
+  "name": "Retro CRT boot",
+  "category": "developer",
+  "tags": [
+    "animated",
+    "dark",
+    "retro",
+    "monospace"
+  ],
+  "description": "A phosphor-green CRT powers on, boots, and glows your name.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "crt",
+    "width": 440,
+    "height": 170
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#33ff66",
+    "text": "#33ff66",
+    "muted": "#1a8f3a",
+    "bg": "#050a06",
+    "font": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Sam Okafor",
+    "title": "Systems Engineer",
+    "company": "Mainframe Labs",
+    "email": "hello@mainframelabs.com",
+    "phone": "+91 98200 11223",
+    "website": "https://mainframelabs.com",
+    "websiteLabel": "mainframelabs.com",
+    "socials": [
+      {
+        "network": "github",
+        "url": "https://github.com/example"
+      },
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

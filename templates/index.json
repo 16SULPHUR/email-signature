@@ -15,6 +15,23 @@
     "marquee",
     "classic-photo",
     "minimal-line",
-    "realtor-card"
+    "realtor-card",
+    "anim-terminal",
+    "anim-npm-build",
+    "anim-crt-boot",
+    "anim-typing-name",
+    "anim-code-editor",
+    "anim-decode",
+    "anim-executive",
+    "anim-counsel",
+    "anim-neon-sign",
+    "anim-chat",
+    "anim-ticker",
+    "anim-pulse",
+    "anim-skyline",
+    "anim-designer",
+    "anim-launch",
+    "anim-chalkboard",
+    "anim-consultant"
   ]
 }

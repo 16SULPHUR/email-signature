@@ -1,0 +1,58 @@
+{
+  "id": "anim-executive",
+  "name": "Executive shimmer",
+  "category": "executive",
+  "tags": [
+    "animated",
+    "dark",
+    "elegant",
+    "gold"
+  ],
+  "description": "Navy and gold. A light sweeps across your name and a rule draws in.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "shimmer",
+    "width": 440,
+    "height": 124
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#d4af37",
+    "text": "#ffffff",
+    "muted": "#9fb2d0",
+    "bg": "#0b1d3a",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Daniel Whitfield",
+    "title": "Chief Executive Officer",
+    "company": "Harbor Group",
+    "email": "hello@harborgroup.com",
+    "phone": "+91 98200 11223",
+    "website": "https://harborgroup.com",
+    "websiteLabel": "harborgroup.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

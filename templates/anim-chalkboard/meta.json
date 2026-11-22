@@ -1,0 +1,58 @@
+{
+  "id": "anim-chalkboard",
+  "name": "Chalkboard",
+  "category": "education",
+  "tags": [
+    "animated",
+    "dark",
+    "green",
+    "classroom"
+  ],
+  "description": "Chalk-white type on a green board for teachers and tutors.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "typename",
+    "width": 440,
+    "height": 80
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#ffd54a",
+    "text": "#f4f1e8",
+    "muted": "#b7c9bd",
+    "bg": "#1f3d2f",
+    "font": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Elena Brooks",
+    "title": "Mathematics Teacher",
+    "company": "Lakeside High",
+    "email": "hello@lakesidehigh.com",
+    "phone": "+91 98200 11223",
+    "website": "https://lakesidehigh.com",
+    "websiteLabel": "lakesidehigh.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

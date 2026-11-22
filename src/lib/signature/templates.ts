@@ -22,6 +22,9 @@ const CATEGORY_LABELS: Record<string, string> = {
   hospitality: 'Hospitality',
   nonprofit: 'Nonprofit',
   student: 'Student',
+  security: 'Security',
+  recruiting: 'Recruiting',
+  consulting: 'Consulting',
 }
 
 export const categoryLabel = (id: string) =>
