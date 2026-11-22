@@ -1,0 +1,15 @@
+<table cellpadding="0" cellspacing="0" border="0" width="460" style="border-collapse:separate;border-spacing:0;background:{{bg}};border-radius:10px;font-family:{{font}};">
+<tr><td style="padding:10px 14px;border-bottom:1px solid #262838;font-size:0;line-height:0;"><span style="display:inline-block;width:10px;height:10px;border-radius:5px;background:#ff5f57;"></span>&nbsp;<span style="display:inline-block;width:10px;height:10px;border-radius:5px;background:#febc2e;"></span>&nbsp;<span style="display:inline-block;width:10px;height:10px;border-radius:5px;background:#28c840;"></span></td></tr>
+<tr><td style="padding:14px 18px 6px;font-size:13px;line-height:20px;color:{{muted}};">
+<span style="color:{{accent}};">~</span> $ whoami<br>
+<span style="font-size:20px;line-height:28px;font-weight:bold;color:{{text}};">{{name}}</span>{{#pronouns}} <span style="color:{{muted}};font-size:12px;">({{pronouns}})</span>{{/pronouns}}<br>
+<span style="color:{{muted}};">// </span><span style="color:{{accent}};">{{title}}</span>{{#company}}<span style="color:{{muted}};"> @ </span><span style="color:{{text}};">{{company}}</span>{{/company}}
+{{#tagline}}<br><span style="color:{{muted}};"># {{tagline}}</span>{{/tagline}}
+</td></tr>
+<tr><td style="padding:6px 18px 14px;font-size:12px;line-height:22px;color:{{text}};">
+{{#email}}<span style="color:{{accent}};">email</span>&nbsp;&nbsp;<a href="mailto:{{email}}" style="color:{{text}};text-decoration:none;">{{email}}</a><br>{{/email}}
+{{#phone}}<span style="color:{{accent}};">phone</span>&nbsp;&nbsp;<a href="tel:{{phone}}" style="color:{{text}};text-decoration:none;">{{phone}}</a><br>{{/phone}}
+{{#website}}<span style="color:{{accent}};">web</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{website}}" style="color:{{text}};text-decoration:none;">{{websiteLabel}}{{^websiteLabel}}{{website}}{{/websiteLabel}}</a><br>{{/website}}
+</td></tr>
+{{#socials.length}}<tr><td style="border-top:1px solid #262838;padding:10px 18px;">{{#socials}}<a href="{{url}}" style="text-decoration:none;"><img src="{{iconMono}}" width="{{iconSize}}" height="{{iconSize}}" alt="{{label}}" style="display:inline-block;vertical-align:middle;border:0;width:{{iconSize}}px;height:{{iconSize}}px;"></a>&nbsp;&nbsp;{{/socials}}</td></tr>{{/socials.length}}
+</table>

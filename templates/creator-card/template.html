@@ -1,0 +1,11 @@
+<table cellpadding="0" cellspacing="0" border="0" width="420" style="border-collapse:separate;border-spacing:0;font-family:{{font}};background:{{bg}};border-radius:16px;">
+<tr><td align="center" style="padding:22px 20px 8px;">
+{{#photoUrl}}<img src="{{photoUrl}}" width="{{avatarSize}}" height="{{avatarSize}}" alt="{{name}}" style="display:block;border:3px solid {{accent}};border-radius:50%;width:{{avatarSize}}px;height:{{avatarSize}}px;">{{/photoUrl}}
+<div style="font-size:20px;line-height:26px;font-weight:bold;color:{{text}};padding-top:10px;">{{name}}</div>
+<div style="font-size:13px;line-height:18px;color:{{accent}};font-weight:bold;">{{title}}</div>
+{{#tagline}}<div style="font-size:13px;line-height:19px;color:{{muted}};padding-top:6px;">{{tagline}}</div>{{/tagline}}
+</td></tr>
+{{#socials.length}}<tr><td align="center" style="padding:8px 20px 4px;">{{#socials}}<a href="{{url}}" style="text-decoration:none;"><img src="{{icon}}" width="{{iconSize}}" height="{{iconSize}}" alt="{{label}}" style="display:inline-block;vertical-align:middle;border:0;width:{{iconSize}}px;height:{{iconSize}}px;"></a>&nbsp;&nbsp;{{/socials}}</td></tr>{{/socials.length}}
+{{#ctaUrl}}<tr><td align="center" style="padding:10px 20px 4px;"><table cellpadding="0" cellspacing="0" border="0"><tr><td style="background:{{accent}};border-radius:20px;"><a href="{{ctaUrl}}" style="display:inline-block;padding:8px 20px;font-size:13px;line-height:16px;font-weight:bold;color:#ffffff;text-decoration:none;">{{ctaText}}{{^ctaText}}Watch my latest{{/ctaText}}</a></td></tr></table></td></tr>{{/ctaUrl}}
+<tr><td align="center" style="padding:10px 20px 20px;font-size:12px;line-height:18px;color:{{muted}};">{{#email}}<a href="mailto:{{email}}" style="color:{{muted}};text-decoration:none;">{{email}}</a>{{/email}}{{#website}}&nbsp;·&nbsp;<a href="{{website}}" style="color:{{muted}};text-decoration:none;">{{websiteLabel}}{{^websiteLabel}}{{website}}{{/websiteLabel}}</a>{{/website}}</td></tr>
+</table>

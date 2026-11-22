@@ -1,0 +1,56 @@
+{
+  "id": "terminal-dev",
+  "name": "Terminal",
+  "category": "developer",
+  "tags": [
+    "dark",
+    "monospace",
+    "tech"
+  ],
+  "description": "A terminal window with a whoami prompt, for engineers and devops folks.",
+  "width": 460,
+  "fields": [
+    "name",
+    "pronouns",
+    "title",
+    "company",
+    "tagline",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#7aa2f7",
+    "text": "#c0caf5",
+    "muted": "#565f89",
+    "bg": "#16161e",
+    "font": "'Courier New', Consolas, monospace",
+    "iconSize": 18
+  },
+  "preview": {
+    "name": "Riya Mehta",
+    "pronouns": "she/her",
+    "title": "Backend Engineer",
+    "company": "Stackline",
+    "tagline": "shipping APIs that stay up",
+    "email": "riya@stackline.dev",
+    "phone": "+91 98200 11223",
+    "website": "https://riya.dev",
+    "websiteLabel": "riya.dev",
+    "socials": [
+      {
+        "network": "github",
+        "url": "https://github.com/example"
+      },
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  }
+}

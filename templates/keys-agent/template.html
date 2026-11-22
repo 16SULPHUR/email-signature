@@ -1,0 +1,20 @@
+<table cellpadding="0" cellspacing="0" border="0" width="540" style="border-collapse:collapse;font-family:{{font}};">
+<tr>
+{{#photoUrl}}<td width="{{avatarSize}}" valign="top" style="padding-right:18px;"><img src="{{photoUrl}}" width="{{avatarSize}}" height="{{avatarSize}}" alt="{{name}}" style="display:block;border:0;border-radius:50%;width:{{avatarSize}}px;height:{{avatarSize}}px;"></td>{{/photoUrl}}
+<td valign="top">
+<div style="font-size:20px;line-height:24px;font-weight:bold;color:{{text}};">{{name}}</div>
+<div style="font-size:13px;line-height:20px;color:{{accent}};font-weight:bold;">{{title}}</div>
+{{#company}}<div style="font-size:12px;line-height:18px;color:{{muted}};">{{company}}{{#license}} · Lic. {{license}}{{/license}}</div>{{/company}}
+<div style="font-size:12px;line-height:20px;color:{{text}};padding-top:8px;">
+{{#mobile}}<img src="{{phoneIcon}}" width="14" height="14" alt="" style="display:inline-block;vertical-align:middle;border:0;width:14px;height:14px;">&nbsp;<a href="tel:{{mobile}}" style="color:{{text}};text-decoration:none;">{{mobile}}</a>&nbsp;&nbsp;{{/mobile}}{{#phone}}<img src="{{phoneIcon}}" width="14" height="14" alt="" style="display:inline-block;vertical-align:middle;border:0;width:14px;height:14px;">&nbsp;<a href="tel:{{phone}}" style="color:{{text}};text-decoration:none;">{{phone}}</a>{{/phone}}<br>
+{{#email}}<img src="{{emailIcon}}" width="14" height="14" alt="" style="display:inline-block;vertical-align:middle;border:0;width:14px;height:14px;">&nbsp;<a href="mailto:{{email}}" style="color:{{text}};text-decoration:none;">{{email}}</a><br>{{/email}}
+{{#address}}<img src="{{addressIcon}}" width="14" height="14" alt="" style="display:inline-block;vertical-align:middle;border:0;width:14px;height:14px;">&nbsp;{{address}}{{/address}}
+</div>
+<table cellpadding="0" cellspacing="0" border="0" style="margin-top:12px;"><tr>
+{{#ctaUrl}}<td style="background:{{accent}};border-radius:6px;"><a href="{{ctaUrl}}" style="display:inline-block;padding:8px 16px;font-size:13px;line-height:16px;font-weight:bold;color:#ffffff;text-decoration:none;">{{ctaText}}{{^ctaText}}View my listings{{/ctaText}}</a></td><td width="14"></td>{{/ctaUrl}}
+<td>{{#socials}}<a href="{{url}}" style="text-decoration:none;"><img src="{{icon}}" width="{{iconSize}}" height="{{iconSize}}" alt="{{label}}" style="display:inline-block;vertical-align:middle;border:0;width:{{iconSize}}px;height:{{iconSize}}px;"></a>&nbsp;{{/socials}}</td>
+</tr></table>
+</td>
+{{#logoUrl}}<td width="110" valign="middle" align="right" style="border-left:1px solid #e5e7eb;padding-left:16px;"><img src="{{logoUrl}}" width="96" alt="{{company}}" style="display:block;border:0;width:96px;height:auto;"></td>{{/logoUrl}}
+</tr>
+</table>

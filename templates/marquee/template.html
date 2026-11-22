@@ -1,0 +1,14 @@
+<table cellpadding="0" cellspacing="0" border="0" width="480" style="border-collapse:collapse;font-family:{{font}};">
+<tr><td align="center" style="background:{{bg}};padding:20px 24px;border-top:3px solid {{accent}};border-bottom:3px solid {{accent}};">
+{{#logoUrl}}<img src="{{logoUrl}}" width="90" alt="{{company}}" style="display:block;border:0;width:90px;height:auto;margin:0 auto 8px;">{{/logoUrl}}
+<div style="font-size:22px;line-height:28px;font-style:italic;color:{{text}};">{{name}}</div>
+<div style="font-size:11px;line-height:18px;letter-spacing:2px;text-transform:uppercase;color:{{accent}};">{{title}}{{#company}} &nbsp;·&nbsp; {{company}}{{/company}}</div>
+{{#tagline}}<div style="font-size:13px;line-height:19px;font-style:italic;color:{{muted}};padding-top:8px;">"{{tagline}}"</div>{{/tagline}}
+<div style="font-size:12px;line-height:20px;color:{{text}};padding-top:10px;">
+{{#address}}{{address}}<br>{{/address}}
+{{#phone}}<a href="tel:{{phone}}" style="color:{{text}};text-decoration:none;">{{phone}}</a>{{/phone}}{{#email}}&nbsp;&nbsp;·&nbsp;&nbsp;<a href="mailto:{{email}}" style="color:{{text}};text-decoration:none;">{{email}}</a>{{/email}}
+</div>
+{{#ctaUrl}}<table cellpadding="0" cellspacing="0" border="0" align="center" style="margin-top:12px;"><tr><td style="border:1px solid {{accent}};"><a href="{{ctaUrl}}" style="display:inline-block;padding:7px 18px;font-size:11px;line-height:14px;letter-spacing:2px;text-transform:uppercase;color:{{accent}};text-decoration:none;">{{ctaText}}{{^ctaText}}Reserve a table{{/ctaText}}</a></td></tr></table>{{/ctaUrl}}
+{{#socials.length}}<div style="padding-top:12px;">{{#socials}}<a href="{{url}}" style="text-decoration:none;"><img src="{{iconMono}}" width="{{iconSize}}" height="{{iconSize}}" alt="{{label}}" style="display:inline-block;vertical-align:middle;border:0;width:{{iconSize}}px;height:{{iconSize}}px;"></a>&nbsp;&nbsp;{{/socials}}</div>{{/socials.length}}
+</td></tr>
+</table>
