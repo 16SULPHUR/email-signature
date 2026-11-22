@@ -48,15 +48,14 @@ export const api = {
     }).then((r) => json<{ doc: SavedSignature }>(r)),
   deleteSignature: (id: string | number) =>
     fetch(`/api/signatures/${id}`, { method: 'DELETE', credentials: 'include' }).then((r) => json(r)),
-  uploadImage: async (file: File, square = false) => {
+  uploadImage: async (file: File, kind: 'photo' | 'logo') => {
     const form = new FormData()
     form.append('file', file)
-    form.append('_payload', JSON.stringify({ alt: file.name }))
-    const { doc } = await fetch('/api/media', { method: 'POST', credentials: 'include', body: form }).then((r) =>
-      json<{ doc: { url: string; sizes?: { avatar?: { url?: string } } } }>(r),
-    )
-    const url = (square && doc.sizes?.avatar?.url) || doc.url
-    return new URL(url, window.location.origin).toString()
+    form.append('kind', kind)
+    const res = await fetch('/upload', { method: 'POST', credentials: 'include', body: form })
+    const body = await res.json().catch(() => ({}))
+    if (!res.ok) throw new Error(body.error || 'Upload failed')
+    return body.url as string
   },
   trackCopy: (template: string, kind: 'rich' | 'html' | 'download') =>
     fetch('/api/copy-events', {

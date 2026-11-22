@@ -1,0 +1,11 @@
+export const IMAGE_LIMITS = {
+  maxInputBytes: 5 * 1024 * 1024,
+  maxStoredBytes: 200 * 1024,
+  photoSize: 300,
+  logoMaxWidth: 400,
+  logoMaxHeight: 200,
+  perIpPerHour: 10,
+  perIpPerDay: 30,
+  perUserTotal: 50,
+  totalStoreBytes: Number(process.env.IMAGE_STORE_LIMIT_MB || 300) * 1024 * 1024,
+}

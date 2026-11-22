@@ -36,6 +36,9 @@ export type Style = Theme & {
   iconSize: number
   avatarSize: number
   iconStyle: 'brand' | 'mono' | 'badge' | 'badgeMono'
+  avatarShape: 'template' | 'circle' | 'rounded' | 'square'
+  logoWidth: number
+  photoLink: string
 }
 
 export type SocialLink = {
@@ -43,9 +46,15 @@ export type SocialLink = {
   url: string
 }
 
+export type CustomField = {
+  label: string
+  value: string
+}
+
 export type SignatureData = {
   fields: Fields
   socials: SocialLink[]
+  customFields?: CustomField[]
   style: Partial<Style>
 }
 
