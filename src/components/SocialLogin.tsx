@@ -32,7 +32,7 @@ export function SocialLogin() {
     setError('')
     const { error } = await authClient.signIn.social({
       provider: provider as 'google',
-      callbackURL: `${window.location.origin}/account`,
+      callbackURL: `${window.location.origin}/auth/complete?next=/account`,
     })
     if (error) setError(error.message || 'Could not start sign in')
   }
