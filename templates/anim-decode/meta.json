@@ -1,0 +1,62 @@
+{
+  "id": "anim-decode",
+  "name": "Decode",
+  "category": "security",
+  "tags": [
+    "animated",
+    "dark",
+    "hacker",
+    "monospace"
+  ],
+  "description": "Scrambled characters lock in one by one to reveal your name.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "decode",
+    "width": 440,
+    "height": 116
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#22d3ee",
+    "text": "#e6fbff",
+    "muted": "#5b7a85",
+    "bg": "#05080d",
+    "font": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Maya Chen",
+    "title": "Security Engineer",
+    "company": "Fortis",
+    "email": "hello@fortis.com",
+    "phone": "+91 98200 11223",
+    "website": "https://fortis.com",
+    "websiteLabel": "fortis.com",
+    "socials": [
+      {
+        "network": "github",
+        "url": "https://github.com/example"
+      },
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

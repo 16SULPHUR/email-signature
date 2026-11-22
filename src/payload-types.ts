@@ -194,6 +194,15 @@ export interface Template {
   width: number;
   animated?: boolean | null;
   published?: boolean | null;
+  animation?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   fields?:
     | {
         [k: string]: unknown;
@@ -405,6 +414,7 @@ export interface TemplatesSelect<T extends boolean = true> {
   width?: T;
   animated?: T;
   published?: T;
+  animation?: T;
   fields?: T;
   theme?: T;
   defaults?: T;

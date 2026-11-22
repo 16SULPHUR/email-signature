@@ -1,0 +1,60 @@
+{
+  "id": "anim-ticker",
+  "name": "Market ticker",
+  "category": "finance",
+  "tags": [
+    "animated",
+    "dark",
+    "ticker",
+    "green"
+  ],
+  "description": "A stock-ticker tape scrolls your name, role and firm.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "ticker",
+    "width": 440,
+    "height": 76
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "tagline",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#22c55e",
+    "text": "#e8fff1",
+    "muted": "#6fae8a",
+    "bg": "#0b1410",
+    "font": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Rohan Desai",
+    "title": "Portfolio Manager",
+    "company": "Meridian Capital",
+    "email": "hello@meridiancapital.com",
+    "phone": "+91 98200 11223",
+    "website": "https://meridiancapital.com",
+    "websiteLabel": "meridiancapital.com",
+    "tagline": "research that compounds",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

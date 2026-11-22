@@ -1,0 +1,58 @@
+{
+  "id": "anim-consultant",
+  "name": "Consultant shimmer",
+  "category": "consulting",
+  "tags": [
+    "animated",
+    "light",
+    "clean",
+    "teal"
+  ],
+  "description": "A crisp white and teal shimmer for consultants and coaches.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "shimmer",
+    "width": 440,
+    "height": 124
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#0d9488",
+    "text": "#0f172a",
+    "muted": "#64748b",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Vikram Joshi",
+    "title": "Strategy Consultant",
+    "company": "Clearpath Advisory",
+    "email": "hello@clearpathadvisory.com",
+    "phone": "+91 98200 11223",
+    "website": "https://clearpathadvisory.com",
+    "websiteLabel": "clearpathadvisory.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

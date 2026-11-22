@@ -1,0 +1,66 @@
+{
+  "id": "anim-launch",
+  "name": "Campaign launch",
+  "category": "marketing",
+  "tags": [
+    "animated",
+    "dark",
+    "purple",
+    "playful"
+  ],
+  "description": "A launch sequence finishes with your name on the live campaign.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "build",
+    "width": 440,
+    "height": 184,
+    "params": {
+      "cmd": "launch campaign",
+      "done": "Campaign is live"
+    }
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#f472b6",
+    "text": "#f3e8ff",
+    "muted": "#a78bfa",
+    "bg": "#1a1033",
+    "font": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Kabir Shah",
+    "title": "Growth Marketer",
+    "company": "Sparkle",
+    "email": "hello@sparkle.com",
+    "phone": "+91 98200 11223",
+    "website": "https://sparkle.com",
+    "websiteLabel": "sparkle.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      },
+      {
+        "network": "instagram",
+        "url": "https://instagram.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

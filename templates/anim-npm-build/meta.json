@@ -1,0 +1,62 @@
+{
+  "id": "anim-npm-build",
+  "name": "npm build",
+  "category": "developer",
+  "tags": [
+    "animated",
+    "dark",
+    "monospace",
+    "tech"
+  ],
+  "description": "A build log fills a progress bar, then prints your name as the output.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "build",
+    "width": 440,
+    "height": 184
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#2aa198",
+    "text": "#93a1a1",
+    "muted": "#586e75",
+    "bg": "#002b36",
+    "font": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Arjun Nair",
+    "title": "Frontend Engineer",
+    "company": "Pixelforge",
+    "email": "hello@pixelforge.com",
+    "phone": "+91 98200 11223",
+    "website": "https://pixelforge.com",
+    "websiteLabel": "pixelforge.com",
+    "socials": [
+      {
+        "network": "github",
+        "url": "https://github.com/example"
+      },
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

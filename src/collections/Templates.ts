@@ -24,6 +24,7 @@ export const Templates: CollectionConfig = {
     { name: 'width', type: 'number', required: true, defaultValue: 520 },
     { name: 'animated', type: 'checkbox', defaultValue: false },
     { name: 'published', type: 'checkbox', defaultValue: true, index: true },
+    { name: 'animation', type: 'json' },
     { name: 'fields', type: 'json', defaultValue: [] },
     { name: 'theme', type: 'json', required: true },
     { name: 'defaults', type: 'json' },

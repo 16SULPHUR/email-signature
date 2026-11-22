@@ -14,6 +14,7 @@ const fromRow = (r: Row): Template => ({
   tags: (r.tags as string[]) || [],
   fields: (r.fields as Template['fields']) || [],
   defaults: r.defaults || undefined,
+  animation: r.animation || undefined,
   preview: r.preview || undefined,
   description: r.description || '',
   animated: r.animated || undefined,

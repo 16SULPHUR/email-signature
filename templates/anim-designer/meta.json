@@ -1,0 +1,65 @@
+{
+  "id": "anim-designer",
+  "name": "Designer type",
+  "category": "designer",
+  "tags": [
+    "animated",
+    "light",
+    "minimal",
+    "sans"
+  ],
+  "description": "Clean sans-serif type typed onto white, with a hot-pink caret.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "typename",
+    "width": 440,
+    "height": 80,
+    "params": {
+      "font": "sans"
+    }
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#e11d89",
+    "text": "#111111",
+    "muted": "#6b6b6b",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Zoe Alvarez",
+    "title": "Product Designer",
+    "company": "Studio Nine",
+    "email": "hello@studionine.com",
+    "phone": "+91 98200 11223",
+    "website": "https://studionine.com",
+    "websiteLabel": "studionine.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      },
+      {
+        "network": "instagram",
+        "url": "https://instagram.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

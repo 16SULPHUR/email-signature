@@ -1,0 +1,58 @@
+{
+  "id": "anim-counsel",
+  "name": "Counsel shimmer",
+  "category": "legal",
+  "tags": [
+    "animated",
+    "light",
+    "serif",
+    "formal"
+  ],
+  "description": "A quiet burgundy and cream shimmer for lawyers and advisors.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "shimmer",
+    "width": 440,
+    "height": 124
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#7b1e2b",
+    "text": "#2b1a1a",
+    "muted": "#7a6a62",
+    "bg": "#faf6ef",
+    "font": "Georgia, 'Times New Roman', serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Priya Raman",
+    "title": "Senior Partner",
+    "company": "Raman & Co Advocates",
+    "email": "hello@ramanandcoadvocates.com",
+    "phone": "+91 98200 11223",
+    "website": "https://ramanandcoadvocates.com",
+    "websiteLabel": "ramanandcoadvocates.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}
