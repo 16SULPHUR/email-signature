@@ -62,14 +62,19 @@ export function Gallery({ templates, categories }: { templates: Template[]; cate
   return (
     <section id="templates" className="gallery">
       <div className="gallery__controls">
-        <input
-          type="search"
-          className="input gallery__search"
-          placeholder="Search by role, industry or style: lawyer, dark, photo…"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          aria-label="Search templates"
-        />
+        <div className="gallery__bar">
+          <div className="gallery__search-wrap">
+            <input
+              type="search"
+              className="input gallery__search"
+              placeholder="role, industry or style: lawyer, dark, photo"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              aria-label="Search templates"
+            />
+          </div>
+          <span className="gallery__count">{filtered.length} results</span>
+        </div>
         <div className="chips" role="tablist" aria-label="Categories">
           {['all', ...categories].map((c) => (
             <button
@@ -87,11 +92,15 @@ export function Gallery({ templates, categories }: { templates: Template[]; cate
       </div>
 
       {filtered.length === 0 ? (
-        <p className="empty">No templates match “{query}”. Try a broader word like “photo” or “minimal”.</p>
+        <p className="empty">0 results for “{query}”. try a broader word like “photo” or “minimal”.</p>
       ) : (
         <div className="grid">
           {filtered.map((t) => (
             <article key={t.id} className="card">
+              <div className="card__bar">
+                <span>{t.id}.sig</span>
+                <span className="tag">{categoryLabel(t.category).toLowerCase()}</span>
+              </div>
               <div className="card__stage">
                 <SignatureFrame html={previews[t.id]} fit />
               </div>
@@ -104,7 +113,7 @@ export function Gallery({ templates, categories }: { templates: Template[]; cate
                   </h3>
                   <p>{t.description}</p>
                 </div>
-                <span className="tag">{categoryLabel(t.category)}</span>
+                <span className="card__go">→</span>
               </div>
             </article>
           ))}

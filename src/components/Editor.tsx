@@ -137,7 +137,7 @@ export function Editor({ template, templates }: Props) {
             ← All templates
           </Link>
           <label className="field field--inline">
-            <span>Template</span>
+            <span>template</span>
             <select className="input" value={template.id} onChange={(e) => switchTemplate(e.target.value)}>
               {templates.map((t) => (
                 <option key={t.id} value={t.id}>
