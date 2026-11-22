@@ -1,0 +1,47 @@
+{
+  "id": "care-clinic",
+  "name": "Care",
+  "category": "healthcare",
+  "tags": [
+    "calm",
+    "credentials",
+    "appointment"
+  ],
+  "description": "Calm clinical layout with credentials, department and an appointment link.",
+  "width": 520,
+  "fields": [
+    "name",
+    "credentials",
+    "title",
+    "department",
+    "company",
+    "phone",
+    "email",
+    "address",
+    "tagline",
+    "ctaText",
+    "ctaUrl",
+    "disclaimer"
+  ],
+  "theme": {
+    "accent": "#0e7490",
+    "text": "#0f172a",
+    "muted": "#64748b",
+    "bg": "#ffffff",
+    "font": "Verdana, Geneva, sans-serif"
+  },
+  "preview": {
+    "name": "Dr. Priya Sharma",
+    "credentials": "MD, FACC",
+    "title": "Consultant Cardiologist",
+    "department": "Heart Institute",
+    "company": "Sunrise Hospital",
+    "phone": "+91 80 4567 8900",
+    "email": "priya.sharma@sunrisehospital.in",
+    "address": "Whitefield Main Rd, Bengaluru",
+    "tagline": "OPD: Mon to Fri, 10 am to 2 pm",
+    "ctaText": "Book an appointment",
+    "ctaUrl": "https://example.com",
+    "disclaimer": "This message may contain confidential patient information. Please do not forward without consent."
+  }
+}

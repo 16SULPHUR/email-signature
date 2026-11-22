@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "templates": [
+    "terminal-dev",
+    "studio-block",
+    "counsel-classic",
+    "keys-agent",
+    "care-clinic",
+    "pipeline-sales",
+    "creator-card",
+    "boardroom",
+    "founder-split",
+    "campus",
+    "ledger",
+    "marquee"
+  ]
+}

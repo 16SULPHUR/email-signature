@@ -1,0 +1,51 @@
+{
+  "id": "ledger",
+  "name": "Ledger",
+  "category": "finance",
+  "tags": [
+    "navy",
+    "trust",
+    "band"
+  ],
+  "description": "Navy header band with gold accents, for finance, consulting and accounting.",
+  "width": 500,
+  "fields": [
+    "name",
+    "credentials",
+    "title",
+    "company",
+    "department",
+    "phone",
+    "email",
+    "website",
+    "websiteLabel",
+    "logoUrl",
+    "disclaimer"
+  ],
+  "theme": {
+    "accent": "#d4af37",
+    "text": "#1e293b",
+    "muted": "#64748b",
+    "bg": "#0b1f3a",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 18
+  },
+  "preview": {
+    "name": "Arjun Nair",
+    "credentials": "CFA",
+    "title": "Wealth Advisor",
+    "company": "Crestline Capital",
+    "department": "Private Clients",
+    "phone": "+91 22 6123 4500",
+    "email": "arjun.nair@crestline.in",
+    "website": "https://crestline.in",
+    "websiteLabel": "crestline.in",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      }
+    ],
+    "disclaimer": "Investments are subject to market risks. Read all scheme related documents carefully."
+  }
+}
