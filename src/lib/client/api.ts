@@ -32,7 +32,10 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password }),
     }).then((r) => json(r)),
-  logout: () => fetch('/api/users/logout', { method: 'POST', credentials: 'include' }),
+  logout: async () => {
+    await fetch('/api/users/logout', { method: 'POST', credentials: 'include' }).catch(() => {})
+    await fetch('/api/auth/sign-out', { method: 'POST', credentials: 'include' }).catch(() => {})
+  },
   listSignatures: () =>
     fetch('/api/signatures?limit=100&sort=-updatedAt&depth=0', { credentials: 'include' }).then((r) =>
       json<{ docs: SavedSignature[] }>(r),

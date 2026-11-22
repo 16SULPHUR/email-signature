@@ -774,3 +774,29 @@ input[type='range'] {
 .prose li + li {
   margin-top: 8px;
 }
+
+.social-login {
+  display: grid;
+  gap: 8px;
+}
+
+.social-login .btn {
+  min-height: 44px;
+  gap: 10px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-top: 1px solid var(--line);
+}
