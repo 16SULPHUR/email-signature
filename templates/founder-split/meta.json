@@ -30,7 +30,8 @@
     "bg": "#dcfce7",
     "font": "Helvetica, Arial, sans-serif",
     "iconSize": 16,
-    "avatarSize": 44
+    "avatarSize": 44,
+    "avatarRadius": "50%"
   },
   "preview": {
     "name": "Sam Okafor",

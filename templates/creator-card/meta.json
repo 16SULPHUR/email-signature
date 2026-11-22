@@ -27,11 +27,12 @@
     "bg": "#fdf2f8",
     "font": "'Trebuchet MS', Tahoma, sans-serif",
     "iconSize": 26,
-    "avatarSize": 80
+    "avatarSize": 80,
+    "avatarRadius": "50%"
   },
   "preview": {
     "name": "Zoe Fernandes",
-    "title": "Food Creator · 480K",
+    "title": "Food Creator \u00b7 480K",
     "tagline": "Easy weeknight recipes, every Friday.",
     "email": "collabs@zoecooks.com",
     "website": "https://zoecooks.com",

@@ -1,6 +1,6 @@
 <table cellpadding="0" cellspacing="0" border="0" width="420" style="border-collapse:separate;border-spacing:0;font-family:{{font}};background:{{bg}};border-radius:16px;">
 <tr><td align="center" style="padding:22px 20px 8px;">
-{{#photoUrl}}<img src="{{photoUrl}}" width="{{avatarSize}}" height="{{avatarSize}}" alt="{{name}}" style="display:block;border:3px solid {{accent}};border-radius:50%;width:{{avatarSize}}px;height:{{avatarSize}}px;">{{/photoUrl}}
+{{#photoUrl}}{{#photoLink}}<a href="{{photoLink}}" style="text-decoration:none;">{{/photoLink}}<img src="{{photoUrl}}" width="{{avatarSize}}" height="{{avatarSize}}" alt="{{name}}" style="display:block;border:3px solid {{accent}};border-radius:{{avatarRadius}};width:{{avatarSize}}px;height:{{avatarSize}}px;">{{#photoLink}}</a>{{/photoLink}}{{/photoUrl}}
 <div style="font-size:20px;line-height:26px;font-weight:bold;color:{{text}};padding-top:10px;">{{name}}</div>
 <div style="font-size:13px;line-height:18px;color:{{accent}};font-weight:bold;">{{title}}</div>
 {{#tagline}}<div style="font-size:13px;line-height:19px;color:{{muted}};padding-top:6px;">{{tagline}}</div>{{/tagline}}

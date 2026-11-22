@@ -27,7 +27,8 @@
     "bg": "#eef2ff",
     "font": "Helvetica, Arial, sans-serif",
     "iconSize": 18,
-    "avatarSize": 64
+    "avatarSize": 64,
+    "avatarRadius": "12px"
   },
   "preview": {
     "name": "Jordan Lee",

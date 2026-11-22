@@ -28,7 +28,8 @@
     "muted": "#64748b",
     "bg": "#0b1f3a",
     "font": "Helvetica, Arial, sans-serif",
-    "iconSize": 18
+    "iconSize": 18,
+    "logoWidth": 80
   },
   "preview": {
     "name": "Arjun Nair",
