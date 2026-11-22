@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
+import { SocialLogin } from '@/components/SocialLogin'
 import { api } from '@/lib/client/api'
 
 export function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
@@ -38,6 +39,7 @@ export function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
           ? 'Log in to open your saved signatures.'
           : 'Optional. Save signatures and open them on any device.'}
       </p>
+      <SocialLogin />
       {mode === 'signup' && (
         <div className="field">
           <label htmlFor="name">Name</label>

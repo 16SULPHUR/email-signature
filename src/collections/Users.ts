@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { resetPasswordEmail, welcomeEmail } from '../lib/server/email'
 import { adminOrSelf, isAdmin } from '../access'
+import { neonAuthStrategy } from '../lib/auth/strategy'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -10,6 +11,7 @@ export const Users: CollectionConfig = {
   },
   auth: {
     tokenExpiration: 60 * 60 * 24 * 30,
+    strategies: [neonAuthStrategy],
     forgotPassword: {
       generateEmailSubject: () => 'Reset your Sigrio password',
       generateEmailHTML: (args) => resetPasswordEmail(args?.token || ''),
