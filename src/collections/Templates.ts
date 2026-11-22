@@ -16,6 +16,7 @@ export const Templates: CollectionConfig = {
     delete: isAdmin,
   },
   fields: [
+    { name: 'livePreview', type: 'ui', admin: { components: { Field: '@/components/TemplatePreview#TemplatePreview' } } },
     { name: 'slug', type: 'text', required: true, unique: true, index: true },
     { name: 'name', type: 'text', required: true },
     { name: 'category', type: 'text', required: true, index: true },
