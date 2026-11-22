@@ -43,5 +43,8 @@
     "ctaText": "Book an appointment",
     "ctaUrl": "https://example.com",
     "disclaimer": "This message may contain confidential patient information. Please do not forward without consent."
+  },
+  "defaults": {
+    "iconStyle": "brand"
   }
 }

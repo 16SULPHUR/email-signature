@@ -41,5 +41,8 @@
         "url": "https://linkedin.com/in/example"
       }
     ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
   }
 }

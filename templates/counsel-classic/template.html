@@ -5,8 +5,8 @@
 <tr><td style="font-size:14px;line-height:20px;font-weight:bold;color:{{accent}};letter-spacing:0.5px;">{{company}}</td></tr>
 <tr><td style="font-size:12px;line-height:20px;color:{{text}};padding-top:2px;">
 {{#address}}{{address}}<br>{{/address}}
-{{#phone}}T&nbsp;<a href="tel:{{phone}}" style="color:{{text}};text-decoration:none;">{{phone}}</a>{{/phone}}{{#mobile}}&nbsp;&nbsp;&nbsp;M&nbsp;<a href="tel:{{mobile}}" style="color:{{text}};text-decoration:none;">{{mobile}}</a>{{/mobile}}<br>
-{{#email}}<a href="mailto:{{email}}" style="color:{{text}};text-decoration:none;">{{email}}</a>{{/email}}{{#website}}&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{website}}" style="color:{{accent}};text-decoration:none;">{{websiteLabel}}{{^websiteLabel}}{{website}}{{/websiteLabel}}</a>{{/website}}
+{{#phone}}T&nbsp;<a href="{{phoneHref}}" style="color:{{text}};text-decoration:none;">{{phone}}</a>{{/phone}}{{#mobile}}&nbsp;&nbsp;&nbsp;M&nbsp;<a href="{{mobileHref}}" style="color:{{text}};text-decoration:none;">{{mobile}}</a>{{/mobile}}<br>
+{{#email}}<a href="{{emailHref}}" style="color:{{text}};text-decoration:none;">{{email}}</a>{{/email}}{{#website}}&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{website}}" style="color:{{accent}};text-decoration:none;">{{websiteLabel}}{{^websiteLabel}}{{website}}{{/websiteLabel}}</a>{{/website}}
 </td></tr>
 {{#disclaimer}}<tr><td style="padding-top:12px;font-size:10px;line-height:14px;color:{{muted}};">{{disclaimer}}</td></tr>{{/disclaimer}}
 </table>

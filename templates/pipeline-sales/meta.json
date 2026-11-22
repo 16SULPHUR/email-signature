@@ -48,5 +48,8 @@
         "url": "https://x.com/example"
       }
     ]
+  },
+  "defaults": {
+    "iconStyle": "brand"
   }
 }

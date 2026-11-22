@@ -43,5 +43,8 @@
     "website": "https://raodesai.law",
     "websiteLabel": "raodesai.law",
     "disclaimer": "This email and any attachments are confidential and may be legally privileged. If you are not the intended recipient, please notify the sender and delete it."
+  },
+  "defaults": {
+    "iconStyle": "brand"
   }
 }
