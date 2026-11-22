@@ -20,6 +20,25 @@ function listSlugs() {
     .map((d) => d.name)
 }
 
+const STYLE_KEYS = ['iconSize', 'avatarSize', 'iconStyle']
+
+function normalize(meta, slug, html) {
+  const theme = { ...meta.theme }
+  const defaults = { ...meta.defaults }
+  for (const k of STYLE_KEYS) {
+    if (theme[k] !== undefined) {
+      defaults[k] ??= theme[k]
+      delete theme[k]
+    }
+  }
+  let preview = meta.preview
+  if (preview && !preview.fields) {
+    const { socials, ...fields } = preview
+    preview = { fields, socials }
+  }
+  return { tags: [], description: '', fields: [], ...meta, id: meta.id || slug, theme, defaults, preview, html }
+}
+
 const errors = []
 const templates = []
 
@@ -39,14 +58,7 @@ for (const slug of listSlugs()) {
   const html = fs.readFileSync(htmlPath, 'utf8')
   if (/{{{|{{&/.test(html)) errors.push(`${slug}: unescaped Mustache tags are not allowed`)
   if (/<style|<script/i.test(html)) errors.push(`${slug}: <style> and <script> are not email safe`)
-  templates.push({
-    tags: [],
-    description: '',
-    fields: [],
-    ...meta,
-    id: meta.id || slug,
-    html,
-  })
+  templates.push(normalize(meta, slug, html))
 }
 
 if (errors.length) {

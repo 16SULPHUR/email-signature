@@ -4,6 +4,8 @@ export const FIELD_KEYS = [
   'company',
   'department',
   'pronouns',
+  'credentials',
+  'license',
   'phone',
   'mobile',
   'email',

@@ -1,0 +1,84 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+
+export type SessionUser = { id: number | string; email: string; name?: string; role?: string }
+
+async function json<T>(res: Response): Promise<T> {
+  const body = await res.json().catch(() => ({}))
+  if (!res.ok) {
+    const msg = body?.errors?.[0]?.message || body?.message || `Request failed (${res.status})`
+    throw new Error(msg)
+  }
+  return body as T
+}
+
+export const api = {
+  me: () =>
+    fetch('/api/users/me', { credentials: 'include' })
+      .then((r) => json<{ user: SessionUser | null }>(r))
+      .then((b) => b.user),
+  login: (email: string, password: string) =>
+    fetch('/api/users/login', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    }).then((r) => json<{ user: SessionUser }>(r)),
+  signup: (name: string, email: string, password: string) =>
+    fetch('/api/users', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password }),
+    }).then((r) => json(r)),
+  logout: () => fetch('/api/users/logout', { method: 'POST', credentials: 'include' }),
+  listSignatures: () =>
+    fetch('/api/signatures?limit=100&sort=-updatedAt&depth=0', { credentials: 'include' }).then((r) =>
+      json<{ docs: SavedSignature[] }>(r),
+    ),
+  getSignature: (id: string) =>
+    fetch(`/api/signatures/${id}?depth=0`, { credentials: 'include' }).then((r) => json<SavedSignature>(r)),
+  saveSignature: (body: Omit<SavedSignature, 'id' | 'updatedAt'>, id?: string | number) =>
+    fetch(id ? `/api/signatures/${id}` : '/api/signatures', {
+      method: id ? 'PATCH' : 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    }).then((r) => json<{ doc: SavedSignature }>(r)),
+  deleteSignature: (id: string | number) =>
+    fetch(`/api/signatures/${id}`, { method: 'DELETE', credentials: 'include' }).then((r) => json(r)),
+  uploadImage: async (file: File, square = false) => {
+    const form = new FormData()
+    form.append('file', file)
+    form.append('_payload', JSON.stringify({ alt: file.name }))
+    const { doc } = await fetch('/api/media', { method: 'POST', credentials: 'include', body: form }).then((r) =>
+      json<{ doc: { url: string; sizes?: { avatar?: { url?: string } } } }>(r),
+    )
+    const url = (square && doc.sizes?.avatar?.url) || doc.url
+    return new URL(url, window.location.origin).toString()
+  },
+  trackCopy: (template: string, kind: 'rich' | 'html' | 'download') =>
+    fetch('/api/copy-events', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ template, kind }),
+      keepalive: true,
+    }).catch(() => {}),
+}
+
+export type SavedSignature = {
+  id: number | string
+  name: string
+  template: string
+  data: import('@/lib/signature/types').SignatureData
+  updatedAt: string
+}
+
+export function useSession() {
+  const [user, setUser] = useState<SessionUser | null | undefined>(undefined)
+  useEffect(() => {
+    api.me().then(setUser).catch(() => setUser(null))
+  }, [])
+  return user
+}
