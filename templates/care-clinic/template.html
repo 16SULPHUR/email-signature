@@ -4,7 +4,7 @@
 <div style="font-size:13px;line-height:20px;color:{{accent}};">{{title}}{{#department}} · {{department}}{{/department}}</div>
 {{#company}}<div style="font-size:13px;line-height:20px;color:{{text}};font-weight:bold;">{{company}}</div>{{/company}}
 <div style="font-size:12px;line-height:20px;color:{{text}};padding-top:6px;">
-{{#phone}}<img src="{{phoneIcon}}" width="14" height="14" alt="" style="display:inline-block;vertical-align:middle;border:0;width:14px;height:14px;">&nbsp;<a href="tel:{{phone}}" style="color:{{text}};text-decoration:none;">{{phone}}</a>&nbsp;&nbsp;&nbsp;{{/phone}}{{#email}}<img src="{{emailIcon}}" width="14" height="14" alt="" style="display:inline-block;vertical-align:middle;border:0;width:14px;height:14px;">&nbsp;<a href="mailto:{{email}}" style="color:{{text}};text-decoration:none;">{{email}}</a>{{/email}}<br>
+{{#phone}}<img src="{{phoneIcon}}" width="14" height="14" alt="" style="display:inline-block;vertical-align:middle;border:0;width:14px;height:14px;">&nbsp;<a href="{{phoneHref}}" style="color:{{text}};text-decoration:none;">{{phone}}</a>&nbsp;&nbsp;&nbsp;{{/phone}}{{#email}}<img src="{{emailIcon}}" width="14" height="14" alt="" style="display:inline-block;vertical-align:middle;border:0;width:14px;height:14px;">&nbsp;<a href="{{emailHref}}" style="color:{{text}};text-decoration:none;">{{email}}</a>{{/email}}<br>
 {{#address}}<img src="{{addressIcon}}" width="14" height="14" alt="" style="display:inline-block;vertical-align:middle;border:0;width:14px;height:14px;">&nbsp;{{address}}<br>{{/address}}
 {{#tagline}}<span style="color:{{muted}};">{{tagline}}</span>{{/tagline}}
 </div>

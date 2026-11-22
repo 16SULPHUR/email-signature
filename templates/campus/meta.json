@@ -42,5 +42,8 @@
     "website": "https://example.com",
     "websiteLabel": "lakeview.ac.uk/~petrova",
     "tagline": "Tue and Thu, 2 to 4 pm"
+  },
+  "defaults": {
+    "iconStyle": "brand"
   }
 }

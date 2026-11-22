@@ -60,5 +60,8 @@
         "url": "https://threads.net/@example"
       }
     ]
+  },
+  "defaults": {
+    "iconStyle": "brand"
   }
 }

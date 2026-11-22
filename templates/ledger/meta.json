@@ -47,5 +47,8 @@
       }
     ],
     "disclaimer": "Investments are subject to market risks. Read all scheme related documents carefully."
+  },
+  "defaults": {
+    "iconStyle": "mono"
   }
 }

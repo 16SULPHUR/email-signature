@@ -49,5 +49,8 @@
         "url": "https://facebook.com/example"
       }
     ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
   }
 }

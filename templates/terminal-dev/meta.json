@@ -52,5 +52,8 @@
         "url": "https://x.com/example"
       }
     ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
   }
 }
