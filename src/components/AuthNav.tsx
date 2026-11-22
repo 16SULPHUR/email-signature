@@ -9,15 +9,15 @@ export function AuthNav() {
   if (user === undefined) return <span className="nav__placeholder" />
   return user ? (
     <Link href="/account" className="btn btn--ghost">
-      My signatures
+      my signatures
     </Link>
   ) : (
     <>
       <Link href="/login" className="nav__link">
-        Log in
+        log in
       </Link>
       <Link href="/signup" className="btn btn--ghost">
-        Sign up
+        sign up
       </Link>
     </>
   )

@@ -1,3 +1,4 @@
+import { JetBrains_Mono, Space_Grotesk } from 'next/font/google'
 import Link from 'next/link'
 import React from 'react'
 
@@ -5,6 +6,9 @@ import { AuthNav } from '@/components/AuthNav'
 import { SITE_NAME } from '@/lib/site'
 
 import './styles.css'
+
+const sans = Space_Grotesk({ subsets: ['latin'], variable: '--font-sans' })
+const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' })
 
 export const metadata = {
   title: `${SITE_NAME}: free email signature generator`,
@@ -14,24 +18,33 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <body>
         <header className="nav">
-          <Link href="/" className="nav__brand">
-            <span className="nav__logo">✍</span> {SITE_NAME}
-          </Link>
-          <nav className="nav__links">
-            <Link href="/#templates" className="nav__link">
-              Templates
+          <div className="nav__inner">
+            <Link href="/" className="nav__brand">
+              <span className="nav__logo">/</span>
+              {SITE_NAME.toLowerCase()}
             </Link>
-            <AuthNav />
-          </nav>
+            <nav className="nav__links">
+              <Link href="/#templates" className="nav__link">
+                templates
+              </Link>
+              <AuthNav />
+            </nav>
+          </div>
         </header>
         <main>{children}</main>
         <footer className="footer">
-          <p>
-            {SITE_NAME} is free to use, no account needed. <Link href="/privacy">Privacy policy</Link>
-          </p>
+          <div className="footer__inner">
+            <span className="footer__live">free, no ads, no account needed</span>
+            <span>
+              {SITE_NAME.toLowerCase()} © {new Date().getFullYear()}
+            </span>
+            <Link href="/privacy" className="footer__spacer">
+              privacy
+            </Link>
+          </div>
         </footer>
       </body>
     </html>
