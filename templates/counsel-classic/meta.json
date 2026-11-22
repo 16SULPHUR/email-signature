@@ -1,0 +1,50 @@
+{
+  "id": "counsel-classic",
+  "name": "Counsel",
+  "category": "legal",
+  "tags": [
+    "serif",
+    "formal",
+    "disclaimer"
+  ],
+  "description": "Formal serif layout for law firms, with credentials and a confidentiality notice.",
+  "width": 520,
+  "fields": [
+    "name",
+    "credentials",
+    "title",
+    "department",
+    "company",
+    "address",
+    "phone",
+    "mobile",
+    "email",
+    "website",
+    "websiteLabel",
+    "disclaimer"
+  ],
+  "theme": {
+    "accent": "#7c2d12",
+    "text": "#1f2937",
+    "muted": "#6b7280",
+    "bg": "#ffffff",
+    "font": "Georgia, 'Times New Roman', serif"
+  },
+  "preview": {
+    "name": "Anjali Rao",
+    "credentials": "LL.M.",
+    "title": "Senior Associate",
+    "department": "Corporate & M&A",
+    "company": "Rao, Desai & Partners",
+    "address": "12th Floor, Nariman Point, Mumbai 400021",
+    "phone": "+91 22 4000 1200",
+    "mobile": "+91 98330 44556",
+    "email": "a.rao@raodesai.law",
+    "website": "https://raodesai.law",
+    "websiteLabel": "raodesai.law",
+    "disclaimer": "This email and any attachments are confidential and may be legally privileged. If you are not the intended recipient, please notify the sender and delete it."
+  },
+  "defaults": {
+    "iconStyle": "brand"
+  }
+}

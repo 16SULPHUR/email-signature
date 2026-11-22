@@ -1,0 +1,17 @@
+<table cellpadding="0" cellspacing="0" border="0" width="520" style="border-collapse:collapse;font-family:{{font}};">
+<tr>
+{{#logoUrl}}<td width="64" valign="top" style="padding-right:16px;"><img src="{{logoUrl}}" width="{{logoWidth}}" alt="{{company}}" style="display:block;border:0;width:{{logoWidth}}px;height:auto;"></td>{{/logoUrl}}
+<td valign="top">
+<div style="font-size:17px;line-height:22px;font-weight:bold;color:{{text}};">{{name}}{{#credentials}}<span style="font-weight:normal;color:{{muted}};">, {{credentials}}</span>{{/credentials}}</div>
+<div style="font-size:13px;line-height:19px;color:{{text}};">{{title}}</div>
+{{#department}}<div style="font-size:13px;line-height:19px;color:{{muted}};">{{department}}</div>{{/department}}
+{{#company}}<div style="font-size:13px;line-height:19px;color:{{accent}};font-weight:bold;">{{company}}</div>{{/company}}
+<div style="font-size:12px;line-height:19px;color:{{text}};padding-top:8px;">
+{{#address}}{{address}}<br>{{/address}}
+{{#phone}}<a href="{{phoneHref}}" style="color:{{text}};text-decoration:none;">{{phone}}</a>{{#email}}&nbsp;&nbsp;|&nbsp;&nbsp;{{/email}}{{/phone}}{{#email}}<a href="{{emailHref}}" style="color:{{text}};text-decoration:none;">{{email}}</a>{{/email}}<br>
+{{#website}}<a href="{{website}}" style="color:{{accent}};text-decoration:none;">{{websiteLabel}}{{^websiteLabel}}{{website}}{{/websiteLabel}}</a>{{/website}}
+</div>
+{{#tagline}}<table cellpadding="0" cellspacing="0" border="0" style="margin-top:8px;"><tr><td style="background:{{bg}};padding:5px 10px;font-size:11px;line-height:15px;color:{{text}};"><b style="color:{{accent}};">Office hours</b>&nbsp; {{tagline}}</td></tr></table>{{/tagline}}
+</td>
+</tr>
+</table>

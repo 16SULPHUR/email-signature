@@ -4,6 +4,8 @@ export const FIELD_KEYS = [
   'company',
   'department',
   'pronouns',
+  'credentials',
+  'license',
   'phone',
   'mobile',
   'email',
@@ -34,6 +36,9 @@ export type Style = Theme & {
   iconSize: number
   avatarSize: number
   iconStyle: 'brand' | 'mono' | 'badge' | 'badgeMono'
+  avatarShape: 'template' | 'circle' | 'rounded' | 'square'
+  logoWidth: number
+  photoLink: string
 }
 
 export type SocialLink = {
@@ -41,9 +46,15 @@ export type SocialLink = {
   url: string
 }
 
+export type CustomField = {
+  label: string
+  value: string
+}
+
 export type SignatureData = {
   fields: Fields
   socials: SocialLink[]
+  customFields?: CustomField[]
   style: Partial<Style>
 }
 
@@ -57,7 +68,7 @@ export type TemplateMeta = {
   fields: FieldKey[]
   theme: Theme
   animated?: boolean
-  defaults?: Partial<Omit<Style, keyof Theme>>
+  defaults?: Partial<Omit<Style, keyof Theme>> & { avatarRadius?: string }
   preview?: Partial<Pick<SignatureData, 'fields' | 'socials'>>
 }
 

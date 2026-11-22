@@ -1,0 +1,65 @@
+{
+  "id": "keys-agent",
+  "name": "Keys",
+  "category": "real-estate",
+  "tags": [
+    "photo",
+    "cta",
+    "logo"
+  ],
+  "description": "Agent photo, brokerage logo, licence number and a listings button.",
+  "width": 540,
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "license",
+    "mobile",
+    "phone",
+    "email",
+    "address",
+    "ctaText",
+    "ctaUrl",
+    "photoUrl",
+    "logoUrl"
+  ],
+  "theme": {
+    "accent": "#0f766e",
+    "text": "#111827",
+    "muted": "#6b7280",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20,
+    "avatarSize": 84,
+    "avatarRadius": "50%",
+    "logoWidth": 96
+  },
+  "preview": {
+    "name": "Marcus Bell",
+    "title": "Licensed Realtor",
+    "company": "Harbor & Pine Realty",
+    "license": "DRE 02145678",
+    "mobile": "(512) 555-0198",
+    "email": "marcus@harborpine.com",
+    "address": "901 Lavaca St, Austin TX",
+    "ctaText": "View my listings",
+    "ctaUrl": "https://example.com",
+    "socials": [
+      {
+        "network": "instagram",
+        "url": "https://instagram.com/example"
+      },
+      {
+        "network": "facebook",
+        "url": "https://facebook.com/example"
+      },
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "brand"
+  }
+}

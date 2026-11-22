@@ -1,0 +1,56 @@
+{
+  "id": "pipeline-sales",
+  "name": "Pipeline",
+  "category": "sales",
+  "tags": [
+    "cta",
+    "photo",
+    "meeting"
+  ],
+  "description": "Built around one big \"book a call\" banner, for sales and account managers.",
+  "width": 520,
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "phone",
+    "email",
+    "tagline",
+    "ctaText",
+    "ctaUrl",
+    "photoUrl"
+  ],
+  "theme": {
+    "accent": "#4f46e5",
+    "text": "#111827",
+    "muted": "#6b7280",
+    "bg": "#eef2ff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 18,
+    "avatarSize": 64,
+    "avatarRadius": "12px"
+  },
+  "preview": {
+    "name": "Jordan Lee",
+    "title": "Account Executive",
+    "company": "Flowdesk",
+    "phone": "+1 646 555 0110",
+    "email": "jordan@flowdesk.io",
+    "tagline": "Got 15 minutes? See how teams cut reporting time in half.",
+    "ctaText": "Book a call",
+    "ctaUrl": "https://example.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "brand"
+  }
+}

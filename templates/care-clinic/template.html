@@ -1,0 +1,14 @@
+<table cellpadding="0" cellspacing="0" border="0" width="520" style="border-collapse:collapse;font-family:{{font}};">
+<tr><td style="border-left:4px solid {{accent}};padding:2px 0 2px 16px;">
+<div style="font-size:19px;line-height:24px;font-weight:bold;color:{{text}};">{{name}}{{#credentials}}<span style="font-weight:normal;color:{{muted}};">, {{credentials}}</span>{{/credentials}}</div>
+<div style="font-size:13px;line-height:20px;color:{{accent}};">{{title}}{{#department}} · {{department}}{{/department}}</div>
+{{#company}}<div style="font-size:13px;line-height:20px;color:{{text}};font-weight:bold;">{{company}}</div>{{/company}}
+<div style="font-size:12px;line-height:20px;color:{{text}};padding-top:6px;">
+{{#phone}}<img src="{{phoneIcon}}" width="14" height="14" alt="" style="display:inline-block;vertical-align:middle;border:0;width:14px;height:14px;">&nbsp;<a href="{{phoneHref}}" style="color:{{text}};text-decoration:none;">{{phone}}</a>&nbsp;&nbsp;&nbsp;{{/phone}}{{#email}}<img src="{{emailIcon}}" width="14" height="14" alt="" style="display:inline-block;vertical-align:middle;border:0;width:14px;height:14px;">&nbsp;<a href="{{emailHref}}" style="color:{{text}};text-decoration:none;">{{email}}</a>{{/email}}<br>
+{{#address}}<img src="{{addressIcon}}" width="14" height="14" alt="" style="display:inline-block;vertical-align:middle;border:0;width:14px;height:14px;">&nbsp;{{address}}<br>{{/address}}
+{{#tagline}}<span style="color:{{muted}};">{{tagline}}</span>{{/tagline}}
+</div>
+{{#ctaUrl}}<table cellpadding="0" cellspacing="0" border="0" style="margin-top:10px;"><tr><td style="border:1px solid {{accent}};border-radius:20px;"><a href="{{ctaUrl}}" style="display:inline-block;padding:6px 16px;font-size:12px;line-height:16px;font-weight:bold;color:{{accent}};text-decoration:none;">{{ctaText}}{{^ctaText}}Book an appointment{{/ctaText}}</a></td></tr></table>{{/ctaUrl}}
+</td></tr>
+{{#disclaimer}}<tr><td style="padding-top:12px;font-size:10px;line-height:14px;color:{{muted}};">{{disclaimer}}</td></tr>{{/disclaimer}}
+</table>

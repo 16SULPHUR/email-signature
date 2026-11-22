@@ -3,11 +3,19 @@ import Mustache from 'mustache'
 import { NETWORK_MAP } from './networks'
 import type { SignatureData, Style, Template } from './types'
 
+const ESC: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }
+Mustache.escape = (v: string) => String(v).replace(/[&<>"']/g, (c) => ESC[c])
+
 export const DEFAULT_STYLE: Omit<Style, keyof Template['theme']> = {
   iconSize: 20,
   avatarSize: 80,
   iconStyle: 'brand',
+  avatarShape: 'template',
+  logoWidth: 96,
+  photoLink: '',
 }
+
+const AVATAR_RADIUS = { circle: '50%', rounded: '12px', square: '0' } as const
 
 const hex = (v: string | undefined, fallback: string) => {
   const c = (v || '').replace('#', '').trim()
@@ -82,6 +90,10 @@ export function buildContext(template: Template, data: SignatureData, siteUrl: s
       }
     })
 
+  const customFields = (data.customFields || [])
+    .filter((c) => c.value?.trim())
+    .map((c) => ({ label: c.label?.trim() || '', value: c.value.trim(), href: /^https?:\/\//i.test(c.value.trim()) ? c.value.trim() : '' }))
+
   const website = safeUrl(f.website)
   const ctaUrl = safeUrl(f.ctaUrl)
   const contactIcon = (name: string) => iconUrl(siteUrl, name, accent)
@@ -111,14 +123,40 @@ export function buildContext(template: Template, data: SignatureData, siteUrl: s
     addressIcon: contactIcon('address'),
     socials,
     hasSocials: socials.length > 0,
+    customFields,
+    hasCustomFields: customFields.length > 0,
+    avatarRadius:
+      style.avatarShape === 'template' ? template.defaults?.avatarRadius || '50%' : AVATAR_RADIUS[style.avatarShape],
+    logoWidth: Number(style.logoWidth) || 96,
+    photoLink: safeUrl(style.photoLink),
     siteUrl,
   }
 }
 
+const CUSTOM_FIELDS_BLOCK = `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:8px;font-family:{{font}};"><tr><td style="font-size:12px;line-height:18px;color:{{muted}};">{{#customFields}}{{#label}}<span style="color:{{muted}};">{{label}}:</span> {{/label}}{{#href}}<a href="{{href}}" style="color:{{accent}};text-decoration:none;">{{value}}</a>{{/href}}{{^href}}<span style="color:{{text}};">{{value}}</span>{{/href}}<br>{{/customFields}}</td></tr></table>`
+
+const escapeRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+function applyPhotoOptions(html: string, ctx: ReturnType<typeof buildContext>, template: Template, style: Style) {
+  if (!ctx.photoUrl) return html
+  const src = Mustache.render('{{photoUrl}}', ctx)
+  const imgRe = new RegExp(`<img[^>]*src="${escapeRe(src)}"[^>]*>`, 'g')
+  return html.replace(imgRe, (tag) => {
+    let out = tag
+    if (style.avatarShape !== 'template' && !template.html.includes('avatarRadius'))
+      out = out.replace(/border-radius:[^;"]+/g, `border-radius:${ctx.avatarRadius}`)
+    if (ctx.photoLink && !template.html.includes('photoLink'))
+      out = `<a href="${Mustache.render('{{photoLink}}', ctx)}" style="text-decoration:none;">${out}</a>`
+    return out
+  })
+}
+
 export function renderSignature(template: Template, data: SignatureData, siteUrl: string): string {
-  return Mustache.render(template.html, buildContext(template, data, siteUrl))
-    .replace(/>\s*\n\s*</g, '><')
-    .trim()
+  const ctx = buildContext(template, data, siteUrl)
+  let html = Mustache.render(template.html, ctx)
+  if (ctx.hasCustomFields && !template.html.includes('customFields')) html += Mustache.render(CUSTOM_FIELDS_BLOCK, ctx)
+  html = applyPhotoOptions(html, ctx, template, resolveStyle(template, data))
+  return html.replace(/>\s*\n\s*</g, '><').trim()
 }
 
 export function toPlainText(html: string): string {

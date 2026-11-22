@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { resendAdapter } from '@payloadcms/email-resend'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -6,8 +7,8 @@ import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
 import { CopyEvents } from './collections/CopyEvents'
-import { Media } from './collections/Media'
 import { Signatures } from './collections/Signatures'
+import { Submissions } from './collections/Submissions'
 import { Users } from './collections/Users'
 import { migrations } from './migrations'
 
@@ -21,7 +22,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Signatures, Media, CopyEvents],
+  collections: [Users, Signatures, Submissions, CopyEvents],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   serverURL: process.env.NEXT_PUBLIC_SITE_URL || '',
@@ -36,6 +37,13 @@ export default buildConfig({
     push: false,
     prodMigrations: migrations,
   }),
+  email: process.env.RESEND_API_KEY
+    ? resendAdapter({
+        apiKey: process.env.RESEND_API_KEY,
+        defaultFromAddress: process.env.EMAIL_FROM || 'hello@sigrio.ankit.ninja',
+        defaultFromName: 'Sigrio',
+      })
+    : undefined,
   sharp,
   plugins: [],
 })

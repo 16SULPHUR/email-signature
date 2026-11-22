@@ -1,0 +1,57 @@
+{
+  "id": "marquee",
+  "name": "Marquee",
+  "category": "hospitality",
+  "tags": [
+    "elegant",
+    "centered",
+    "reservation"
+  ],
+  "description": "Centered, elegant card with a reservation button for restaurants, hotels and venues.",
+  "width": 480,
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "tagline",
+    "address",
+    "phone",
+    "email",
+    "ctaText",
+    "ctaUrl",
+    "logoUrl"
+  ],
+  "theme": {
+    "accent": "#a16207",
+    "text": "#292524",
+    "muted": "#78716c",
+    "bg": "#fffbeb",
+    "font": "Georgia, 'Times New Roman', serif",
+    "iconSize": 18,
+    "logoWidth": 90
+  },
+  "preview": {
+    "name": "Isabella Moretti",
+    "title": "General Manager",
+    "company": "Olive & Ember",
+    "tagline": "Wood-fired, slow-cooked, made to share.",
+    "address": "27 Church Street, Bengaluru",
+    "phone": "+91 80 4111 2727",
+    "email": "hello@oliveandember.in",
+    "ctaText": "Reserve a table",
+    "ctaUrl": "https://example.com",
+    "socials": [
+      {
+        "network": "instagram",
+        "url": "https://instagram.com/example"
+      },
+      {
+        "network": "facebook",
+        "url": "https://facebook.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

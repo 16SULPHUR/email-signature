@@ -11,6 +11,9 @@ importers:
       '@payloadcms/db-postgres':
         specifier: 3.94.1
         version: 3.94.1(payload@3.94.1(graphql@16.15.0)(typescript@5.7.3))
+      '@payloadcms/email-resend':
+        specifier: 3.94.1
+        version: 3.94.1(payload@3.94.1(graphql@16.15.0)(typescript@5.7.3))
       '@payloadcms/next':
         specifier: 3.94.1
         version: 3.94.1(@types/react@19.2.14)(graphql@16.15.0)(monaco-editor@0.57.0)(next@16.4.6(@babel/core@7.29.13)(@types/node@22.19.9)(react-dom@19.2.9(react@19.2.9))(react@19.2.9)(sass@1.77.4))(payload@3.94.1(graphql@16.15.0)(typescript@5.7.3))(react-dom@19.2.9(react@19.2.9))(react@19.2.9)(typescript@5.7.3)
@@ -38,6 +41,9 @@ importers:
       payload:
         specifier: 3.94.1
         version: 3.94.1(graphql@16.15.0)(typescript@5.7.3)
+      pg:
+        specifier: 8.20.0
+        version: 8.20.0
       react:
         specifier: 19.2.9
         version: 19.2.9
@@ -57,6 +63,9 @@ importers:
       '@types/node':
         specifier: 22.19.9
         version: 22.19.9
+      '@types/pg':
+        specifier: ^8.23.1
+        version: 8.23.1
       '@types/react':
         specifier: 19.2.14
         version: 19.2.14
@@ -1395,6 +1404,12 @@ packages:
     peerDependencies:
       payload: 3.94.1
 
+  '@payloadcms/email-resend@3.94.1':
+    resolution: {integrity: sha512-+HY8vmnhvHx/qVEfYcDq5KOC9NrAU2go/m/H3w6GiXO0Pcid5RZUMFDjP0/BYODFFVxv/JcvwtNvqbows/wsGA==}
+    engines: {node: ^22.23.5 || ^24.22.3 || >=26.13.1}
+    peerDependencies:
+      payload: 3.94.1
+
   '@payloadcms/graphql@3.94.1':
     resolution: {integrity: sha512-i+ZAbb0i6B0hekIiz8xTX37BauIiOpW6FnlhfJkcM9GlRIW6/GHcZj5FaFwhLhgrqOcf66gT8xtJPEzXBU/nUQ==}
     hasBin: true
@@ -1499,6 +1514,9 @@ packages:
 
   '@types/pg@8.20.0':
     resolution: {integrity: sha512-bEPFOaMAHTEP1EzpvHTbmwR8UsFyHSKsRisLIHVMXnpNefSbGA1bD6CVy+qKjGSqmZqNqBDV2azOBo8TgkcVow==}
+
+  '@types/pg@8.23.1':
+    resolution: {integrity: sha512-fKVHpikPdg4GKks3JuLEhvwSyvwzF23hnabPy6DD8ljVbC7+6J5dQzdv4arV6jqq57djnMgs1HKBxX4P8aBI3A==}
 
   '@types/react-dom@19.2.3':
     resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==}
@@ -4942,6 +4960,10 @@ snapshots:
       - sql.js
       - sqlite3
 
+  '@payloadcms/email-resend@3.94.1(payload@3.94.1(graphql@16.15.0)(typescript@5.7.3))':
+    dependencies:
+      payload: 3.94.1(graphql@16.15.0)(typescript@5.7.3)
+
   '@payloadcms/graphql@3.94.1(graphql@16.15.0)(payload@3.94.1(graphql@16.15.0)(typescript@5.7.3))(typescript@5.7.3)':
     dependencies:
       graphql: 16.15.0
@@ -5131,6 +5153,12 @@ snapshots:
   '@types/parse-json@4.0.2': {}
 
   '@types/pg@8.20.0':
+    dependencies:
+      '@types/node': 22.19.9
+      pg-protocol: 1.16.1
+      pg-types: 2.2.0
+
+  '@types/pg@8.23.1':
     dependencies:
       '@types/node': 22.19.9
       pg-protocol: 1.16.1

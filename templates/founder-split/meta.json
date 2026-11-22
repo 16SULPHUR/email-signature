@@ -1,0 +1,65 @@
+{
+  "id": "founder-split",
+  "name": "Founder",
+  "category": "startup",
+  "tags": [
+    "friendly",
+    "hiring",
+    "compact"
+  ],
+  "description": "Compact and friendly, with a one-liner about the company and a hiring pill.",
+  "width": 540,
+  "fields": [
+    "name",
+    "pronouns",
+    "title",
+    "company",
+    "tagline",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel",
+    "ctaText",
+    "ctaUrl",
+    "photoUrl"
+  ],
+  "theme": {
+    "accent": "#16a34a",
+    "text": "#111827",
+    "muted": "#6b7280",
+    "bg": "#dcfce7",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 16,
+    "avatarSize": 44,
+    "avatarRadius": "50%"
+  },
+  "preview": {
+    "name": "Sam Okafor",
+    "pronouns": "they/them",
+    "title": "Co-founder & CTO",
+    "company": "Leafwise",
+    "tagline": "We help farms predict yield with satellite data.",
+    "email": "sam@leafwise.ag",
+    "website": "https://leafwise.ag",
+    "websiteLabel": "leafwise.ag",
+    "ctaText": "We're hiring",
+    "ctaUrl": "https://example.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      },
+      {
+        "network": "github",
+        "url": "https://github.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "campus",
+  "name": "Campus",
+  "category": "education",
+  "tags": [
+    "academic",
+    "office hours",
+    "logo"
+  ],
+  "description": "Academic layout with department, university crest and office hours.",
+  "width": 520,
+  "fields": [
+    "name",
+    "credentials",
+    "title",
+    "department",
+    "company",
+    "address",
+    "phone",
+    "email",
+    "website",
+    "websiteLabel",
+    "tagline",
+    "logoUrl"
+  ],
+  "theme": {
+    "accent": "#1d4ed8",
+    "text": "#111827",
+    "muted": "#6b7280",
+    "bg": "#eff6ff",
+    "font": "Georgia, 'Times New Roman', serif",
+    "logoWidth": 56
+  },
+  "preview": {
+    "name": "Prof. Elena Petrova",
+    "credentials": "PhD",
+    "title": "Associate Professor",
+    "department": "Department of Computer Science",
+    "company": "Lakeview University",
+    "address": "Room 4.12, Turing Building",
+    "phone": "+44 20 7946 0321",
+    "email": "e.petrova@lakeview.ac.uk",
+    "website": "https://example.com",
+    "websiteLabel": "lakeview.ac.uk/~petrova",
+    "tagline": "Tue and Thu, 2 to 4 pm"
+  },
+  "defaults": {
+    "iconStyle": "brand"
+  }
+}

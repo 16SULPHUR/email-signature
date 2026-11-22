@@ -1,0 +1,49 @@
+{
+  "id": "boardroom",
+  "name": "Boardroom",
+  "category": "executive",
+  "tags": [
+    "minimal",
+    "logo",
+    "uppercase"
+  ],
+  "description": "Restrained, letter-spaced type next to your company logo, for leadership roles.",
+  "width": 520,
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "phone",
+    "email",
+    "website",
+    "websiteLabel",
+    "logoUrl"
+  ],
+  "theme": {
+    "accent": "#b08d57",
+    "text": "#111111",
+    "muted": "#6b6b6b",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 16,
+    "logoWidth": 100
+  },
+  "preview": {
+    "name": "Vikram Malhotra",
+    "title": "Chief Executive Officer",
+    "company": "Meridian Holdings",
+    "phone": "+91 11 4100 2000",
+    "email": "vikram@meridianholdings.com",
+    "website": "https://meridianholdings.com",
+    "websiteLabel": "meridianholdings.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

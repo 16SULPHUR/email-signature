@@ -1,0 +1,68 @@
+{
+  "id": "creator-card",
+  "name": "Creator Card",
+  "category": "creator",
+  "tags": [
+    "centered",
+    "social",
+    "colorful"
+  ],
+  "description": "Centered card with a big avatar and a full row of brand-coloured social icons.",
+  "width": 420,
+  "fields": [
+    "name",
+    "title",
+    "tagline",
+    "email",
+    "website",
+    "websiteLabel",
+    "ctaText",
+    "ctaUrl",
+    "photoUrl"
+  ],
+  "theme": {
+    "accent": "#db2777",
+    "text": "#18181b",
+    "muted": "#71717a",
+    "bg": "#fdf2f8",
+    "font": "'Trebuchet MS', Tahoma, sans-serif",
+    "iconSize": 26,
+    "avatarSize": 80,
+    "avatarRadius": "50%"
+  },
+  "preview": {
+    "name": "Zoe Fernandes",
+    "title": "Food Creator \u00b7 480K",
+    "tagline": "Easy weeknight recipes, every Friday.",
+    "email": "collabs@zoecooks.com",
+    "website": "https://zoecooks.com",
+    "websiteLabel": "zoecooks.com",
+    "ctaText": "Watch the latest",
+    "ctaUrl": "https://example.com",
+    "socials": [
+      {
+        "network": "youtube",
+        "url": "https://youtube.com/@example"
+      },
+      {
+        "network": "instagram",
+        "url": "https://instagram.com/example"
+      },
+      {
+        "network": "tiktok",
+        "url": "https://tiktok.com/@example"
+      },
+      {
+        "network": "pinterest",
+        "url": "https://pinterest.com/example"
+      },
+      {
+        "network": "threads",
+        "url": "https://threads.net/@example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "brand"
+  }
+}

@@ -1,0 +1,18 @@
+<table cellpadding="0" cellspacing="0" border="0" width="500" style="border-collapse:collapse;font-family:{{font}};">
+<tr><td style="background:{{bg}};padding:14px 20px;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
+<td valign="middle">
+<div style="font-size:18px;line-height:22px;font-weight:bold;color:#ffffff;">{{name}}{{#credentials}}<span style="font-weight:normal;font-size:13px;color:{{accent}};">&nbsp; {{credentials}}</span>{{/credentials}}</div>
+<div style="font-size:12px;line-height:18px;color:{{accent}};letter-spacing:0.5px;">{{title}}</div>
+</td>
+{{#logoUrl}}<td align="right" valign="middle"><img src="{{logoUrl}}" width="{{logoWidth}}" alt="{{company}}" style="display:block;border:0;width:{{logoWidth}}px;height:auto;"></td>{{/logoUrl}}
+</tr></table>
+</td></tr>
+<tr><td style="padding:12px 20px;border:1px solid #e5e7eb;border-top:0;font-size:12px;line-height:20px;color:{{text}};">
+{{#company}}<b>{{company}}</b>{{#department}} · {{department}}{{/department}}<br>{{/company}}
+{{#phone}}<img src="{{phoneIcon}}" width="12" height="12" alt="" style="display:inline-block;vertical-align:middle;border:0;width:12px;height:12px;">&nbsp;<a href="{{phoneHref}}" style="color:{{text}};text-decoration:none;">{{phone}}</a>&nbsp;&nbsp;&nbsp;{{/phone}}{{#email}}<img src="{{emailIcon}}" width="12" height="12" alt="" style="display:inline-block;vertical-align:middle;border:0;width:12px;height:12px;">&nbsp;<a href="{{emailHref}}" style="color:{{text}};text-decoration:none;">{{email}}</a>{{/email}}<br>
+{{#website}}<img src="{{webIcon}}" width="12" height="12" alt="" style="display:inline-block;vertical-align:middle;border:0;width:12px;height:12px;">&nbsp;<a href="{{website}}" style="color:{{text}};text-decoration:none;">{{websiteLabel}}{{^websiteLabel}}{{website}}{{/websiteLabel}}</a>{{/website}}
+{{#socials.length}}<div style="padding-top:6px;">{{#socials}}<a href="{{url}}" style="text-decoration:none;"><img src="{{icon}}" width="{{iconSize}}" height="{{iconSize}}" alt="{{label}}" style="display:inline-block;vertical-align:middle;border:0;width:{{iconSize}}px;height:{{iconSize}}px;"></a>&nbsp;{{/socials}}</div>{{/socials.length}}
+</td></tr>
+{{#disclaimer}}<tr><td style="padding-top:10px;font-size:10px;line-height:14px;color:{{muted}};">{{disclaimer}}</td></tr>{{/disclaimer}}
+</table>

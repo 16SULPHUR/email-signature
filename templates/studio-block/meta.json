@@ -1,0 +1,66 @@
+{
+  "id": "studio-block",
+  "name": "Studio Block",
+  "category": "designer",
+  "tags": [
+    "bold",
+    "color block",
+    "photo"
+  ],
+  "description": "A solid colour panel holding your photo, with clean type beside it.",
+  "width": 500,
+  "fields": [
+    "name",
+    "title",
+    "pronouns",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel",
+    "photoUrl",
+    "logoUrl"
+  ],
+  "theme": {
+    "accent": "#ff4f5a",
+    "text": "#111111",
+    "muted": "#6b7280",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20,
+    "avatarSize": 88,
+    "avatarRadius": "50%",
+    "logoWidth": 96
+  },
+  "preview": {
+    "name": "Kabir Sethi",
+    "title": "Product Designer",
+    "pronouns": "he/him",
+    "company": "Northpaw Studio",
+    "email": "kabir@northpaw.design",
+    "phone": "+1 415 555 0142",
+    "website": "https://northpaw.design",
+    "websiteLabel": "northpaw.design",
+    "socials": [
+      {
+        "network": "dribbble",
+        "url": "https://dribbble.com/example"
+      },
+      {
+        "network": "behance",
+        "url": "https://behance.net/example"
+      },
+      {
+        "network": "instagram",
+        "url": "https://instagram.com/example"
+      },
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "brand"
+  }
+}

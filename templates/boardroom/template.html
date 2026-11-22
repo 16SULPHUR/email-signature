@@ -1,0 +1,17 @@
+<table cellpadding="0" cellspacing="0" border="0" width="520" style="border-collapse:collapse;font-family:{{font}};">
+<tr>
+{{#logoUrl}}<td width="110" valign="middle" style="padding-right:20px;"><img src="{{logoUrl}}" width="{{logoWidth}}" alt="{{company}}" style="display:block;border:0;width:{{logoWidth}}px;height:auto;"></td>
+<td width="1" style="background:{{accent}};font-size:0;line-height:0;">&nbsp;</td>{{/logoUrl}}
+<td valign="middle" style="padding-left:20px;">
+<div style="font-size:15px;line-height:20px;letter-spacing:3px;text-transform:uppercase;color:{{text}};font-weight:bold;">{{name}}</div>
+<div style="font-size:12px;line-height:18px;letter-spacing:1px;text-transform:uppercase;color:{{accent}};padding-top:2px;">{{title}}</div>
+{{#company}}<div style="font-size:12px;line-height:18px;color:{{muted}};">{{company}}</div>{{/company}}
+<div style="font-size:12px;line-height:19px;color:{{text}};padding-top:10px;">
+{{#phone}}<a href="{{phoneHref}}" style="color:{{text}};text-decoration:none;">{{phone}}</a><br>{{/phone}}
+{{#email}}<a href="{{emailHref}}" style="color:{{text}};text-decoration:none;">{{email}}</a><br>{{/email}}
+{{#website}}<a href="{{website}}" style="color:{{accent}};text-decoration:none;">{{websiteLabel}}{{^websiteLabel}}{{website}}{{/websiteLabel}}</a>{{/website}}
+</div>
+{{#socials.length}}<div style="padding-top:8px;">{{#socials}}<a href="{{url}}" style="text-decoration:none;"><img src="{{icon}}" width="{{iconSize}}" height="{{iconSize}}" alt="{{label}}" style="display:inline-block;vertical-align:middle;border:0;width:{{iconSize}}px;height:{{iconSize}}px;"></a>&nbsp;&nbsp;{{/socials}}</div>{{/socials.length}}
+</td>
+</tr>
+</table>
