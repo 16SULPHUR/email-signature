@@ -1,0 +1,34 @@
+{
+  "id": "realtor-card",
+  "name": "Agent card",
+  "category": "real-estate",
+  "tags": ["realtor", "sales", "logo", "button", "cta", "photo", "agent", "broker"],
+  "description": "Photo, brokerage logo and a bold call-to-action button. Made for agents and sales teams.",
+  "width": 540,
+  "fields": ["name", "title", "company", "phone", "mobile", "email", "website", "websiteLabel", "address", "photoUrl", "logoUrl", "ctaText", "ctaUrl", "disclaimer"],
+  "theme": {
+    "accent": "#B45309",
+    "text": "#1C1917",
+    "muted": "#78716C",
+    "bg": "#FFFBF5",
+    "font": "Verdana, Geneva, sans-serif"
+  },
+  "defaults": { "iconStyle": "badge", "iconSize": 22, "avatarSize": 96 },
+  "preview": {
+    "fields": {
+      "name": "Maya Patel",
+      "title": "Licensed Realtor",
+      "company": "Harbor & Hill Realty",
+      "photoUrl": "/sample/avatar.svg",
+      "logoUrl": "/sample/logo.svg",
+      "ctaText": "Schedule a viewing",
+      "ctaUrl": "https://calendly.com"
+    },
+    "socials": [
+      { "network": "facebook", "url": "https://facebook.com" },
+      { "network": "instagram", "url": "https://instagram.com" },
+      { "network": "youtube", "url": "https://youtube.com" },
+      { "network": "whatsapp", "url": "https://wa.me/1555" }
+    ]
+  }
+}

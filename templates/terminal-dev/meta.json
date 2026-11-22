@@ -1,0 +1,25 @@
+{
+  "id": "terminal-dev",
+  "name": "Terminal",
+  "category": "developer",
+  "tags": ["dark", "monospace", "engineer", "tech"],
+  "description": "A dark terminal window with a whoami prompt, built for developers.",
+  "width": 460,
+  "fields": ["name", "title", "company", "phone", "email", "website", "websiteLabel", "tagline"],
+  "theme": {
+    "accent": "#7AA2F7",
+    "text": "#C0CAF5",
+    "muted": "#565F89",
+    "bg": "#16161E",
+    "font": "'JetBrains Mono', Consolas, 'Courier New', monospace"
+  },
+  "defaults": { "iconStyle": "mono", "iconSize": 20 },
+  "preview": {
+    "fields": { "name": "Jordan Lee", "title": "Backend Engineer", "company": "Northwind Labs", "tagline": "shipping reliable APIs" },
+    "socials": [
+      { "network": "github", "url": "https://github.com" },
+      { "network": "linkedin", "url": "https://linkedin.com" },
+      { "network": "x", "url": "https://x.com" }
+    ]
+  }
+}

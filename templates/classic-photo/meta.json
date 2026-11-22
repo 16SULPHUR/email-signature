@@ -1,0 +1,20 @@
+{
+  "id": "classic-photo",
+  "name": "Classic with photo",
+  "category": "executive",
+  "tags": ["photo", "corporate", "professional", "business", "manager"],
+  "description": "Round headshot beside your details, split by an accent rule. Works for any business role.",
+  "width": 520,
+  "fields": ["name", "title", "company", "department", "pronouns", "phone", "mobile", "email", "website", "websiteLabel", "address", "photoUrl", "disclaimer"],
+  "theme": {
+    "accent": "#2563EB",
+    "text": "#111827",
+    "muted": "#6B7280",
+    "bg": "#FFFFFF",
+    "font": "Arial, Helvetica, sans-serif"
+  },
+  "defaults": { "iconStyle": "badgeMono", "iconSize": 22, "avatarSize": 88 },
+  "preview": {
+    "fields": { "photoUrl": "/sample/avatar.svg", "title": "Chief Operating Officer" }
+  }
+}

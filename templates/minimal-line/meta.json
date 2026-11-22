@@ -1,0 +1,17 @@
+{
+  "id": "minimal-line",
+  "name": "Minimal line",
+  "category": "general",
+  "tags": ["simple", "text", "clean", "plain", "freelancer", "student"],
+  "description": "Text only, one accent line, no images except small social icons. Loads fast everywhere.",
+  "width": 480,
+  "fields": ["name", "title", "company", "phone", "email", "website", "websiteLabel"],
+  "theme": {
+    "accent": "#0F766E",
+    "text": "#1F2937",
+    "muted": "#6B7280",
+    "bg": "#FFFFFF",
+    "font": "Georgia, 'Times New Roman', serif"
+  },
+  "defaults": { "iconStyle": "mono", "iconSize": 16 }
+}
