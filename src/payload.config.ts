@@ -16,6 +16,8 @@ import { migrations } from './migrations'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const isPreview = process.env.VERCEL_ENV === 'preview'
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -37,7 +39,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
     push: false,
-    prodMigrations: migrations,
+    prodMigrations: isPreview ? undefined : migrations,
   }),
   email: process.env.RESEND_API_KEY
     ? resendAdapter({
@@ -47,6 +49,7 @@ export default buildConfig({
       })
     : undefined,
   onInit: async (payload) => {
+    if (isPreview) return
     const { seedTemplates } = await import('./lib/server/templates')
     await seedTemplates(payload).catch((err) => payload.logger.error({ err }, 'template seed failed'))
   },
