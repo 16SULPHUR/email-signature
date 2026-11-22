@@ -1,5 +1,7 @@
 import * as migration_20261122_064227_initial from './20261122_064227_initial';
 import * as migration_20261122_070243_submissions from './20261122_070243_submissions';
+import * as migration_20261122_082859_templates from './20261122_082859_templates';
+import * as migration_20261122_084419_templates from './20261122_084419_templates';
 
 export const migrations = [
   {
@@ -10,6 +12,16 @@ export const migrations = [
   {
     up: migration_20261122_070243_submissions.up,
     down: migration_20261122_070243_submissions.down,
-    name: '20261122_070243_submissions'
+    name: '20261122_070243_submissions',
+  },
+  {
+    up: migration_20261122_082859_templates.up,
+    down: migration_20261122_082859_templates.down,
+    name: '20261122_082859_templates',
+  },
+  {
+    up: migration_20261122_084419_templates.up,
+    down: migration_20261122_084419_templates.down,
+    name: '20261122_084419_templates'
   },
 ];

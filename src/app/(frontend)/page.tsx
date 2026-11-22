@@ -1,8 +1,13 @@
 import { Gallery } from '@/components/Gallery'
 import { HeroStage } from '@/components/HeroStage'
-import { CATEGORIES, TEMPLATES } from '@/lib/signature/templates'
+import { getTemplates } from '@/lib/server/templates'
+import { categoriesOf } from '@/lib/signature/templates'
 
-export default function HomePage() {
+export const revalidate = 60
+
+export default async function HomePage() {
+  const TEMPLATES = await getTemplates()
+  const CATEGORIES = categoriesOf(TEMPLATES)
   return (
     <>
       <section className="hero">

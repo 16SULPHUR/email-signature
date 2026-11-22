@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     signatures: Signature;
+    templates: Template;
     submissions: Submission;
     'copy-events': CopyEvent;
     'payload-kv': PayloadKv;
@@ -80,6 +81,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     signatures: SignaturesSelect<false> | SignaturesSelect<true>;
+    templates: TemplatesSelect<false> | TemplatesSelect<true>;
     submissions: SubmissionsSelect<false> | SubmissionsSelect<true>;
     'copy-events': CopyEventsSelect<false> | CopyEventsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -172,6 +174,77 @@ export interface Signature {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "templates".
+ */
+export interface Template {
+  id: number;
+  slug: string;
+  name: string;
+  category: string;
+  description?: string | null;
+  tags?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  width: number;
+  animated?: boolean | null;
+  published?: boolean | null;
+  animation?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  fields?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  theme:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  defaults?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  preview?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  html: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "submissions".
  */
 export interface Submission {
@@ -236,6 +309,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'signatures';
         value: number | Signature;
+      } | null)
+    | ({
+        relationTo: 'templates';
+        value: number | Template;
       } | null)
     | ({
         relationTo: 'submissions';
@@ -321,6 +398,28 @@ export interface SignaturesSelect<T extends boolean = true> {
   template?: T;
   data?: T;
   owner?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "templates_select".
+ */
+export interface TemplatesSelect<T extends boolean = true> {
+  slug?: T;
+  name?: T;
+  category?: T;
+  description?: T;
+  tags?: T;
+  width?: T;
+  animated?: T;
+  published?: T;
+  animation?: T;
+  fields?: T;
+  theme?: T;
+  defaults?: T;
+  preview?: T;
+  html?: T;
   updatedAt?: T;
   createdAt?: T;
 }

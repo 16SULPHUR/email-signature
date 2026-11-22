@@ -4,14 +4,17 @@ import { Suspense } from 'react'
 
 import { Editor } from '@/components/Editor'
 import { SITE_NAME } from '@/lib/site'
-import { categoryLabel, getTemplate, TEMPLATES } from '@/lib/signature/templates'
+import { getTemplateById, getTemplates } from '@/lib/server/templates'
+import { categoryLabel } from '@/lib/signature/templates'
 
 type Params = { params: Promise<{ id: string }> }
 
-export const generateStaticParams = () => TEMPLATES.map((t) => ({ id: t.id }))
+export const revalidate = 60
+
+export const generateStaticParams = async () => (await getTemplates()).map((t) => ({ id: t.id }))
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const t = getTemplate((await params).id)
+  const t = await getTemplateById((await params).id)
   if (!t) return {}
   return {
     title: `${t.name} email signature for ${categoryLabel(t.category).toLowerCase()} · ${SITE_NAME}`,
@@ -20,11 +23,11 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function TemplatePage({ params }: Params) {
-  const template = getTemplate((await params).id)
+  const [template, all] = await Promise.all([getTemplateById((await params).id), getTemplates()])
   if (!template) notFound()
   return (
     <Suspense>
-      <Editor template={template} templates={TEMPLATES.map(({ id, name }) => ({ id, name }))} />
+      <Editor template={template} templates={all.map(({ id, name }) => ({ id, name }))} />
     </Suspense>
   )
 }
