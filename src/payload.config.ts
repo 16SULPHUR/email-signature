@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url'
 
 import { CopyEvents } from './collections/CopyEvents'
 import { Signatures } from './collections/Signatures'
+import { Submissions } from './collections/Submissions'
 import { Users } from './collections/Users'
 import { migrations } from './migrations'
 
@@ -20,7 +21,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Signatures, CopyEvents],
+  collections: [Users, Signatures, Submissions, CopyEvents],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   serverURL: process.env.NEXT_PUBLIC_SITE_URL || '',

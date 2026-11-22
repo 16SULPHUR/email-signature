@@ -1,6 +1,6 @@
-# Email Signature Creator
+# Sigrio
 
-Free email signature generator. Visitors browse templates by industry, role or style, fill in their details, customize colours, icons and links, and copy a signature that works in Gmail, Outlook, Apple Mail, Yahoo and Thunderbird. Accounts are optional.
+Sigrio is a free email signature generator. Visitors browse templates by industry, role or style, fill in their details, customize colours, icons and links, and copy a signature that works in Gmail, Outlook, Apple Mail, Yahoo and Thunderbird. Accounts are optional.
 
 Stack: Next.js 16, Payload CMS 3 (admin at `/admin`), Postgres on Neon.
 

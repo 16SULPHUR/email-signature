@@ -57,6 +57,14 @@ export const api = {
     if (!res.ok) throw new Error(body.error || 'Upload failed')
     return body.url as string
   },
+  collect: (template: string, data: import('@/lib/signature/types').SignatureData, copied = false) =>
+    fetch('/collect', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ visitorId: visitorId(), template, data, copied }),
+      keepalive: true,
+    }).catch(() => {}),
   trackCopy: (template: string, kind: 'rich' | 'html' | 'download') =>
     fetch('/api/copy-events', {
       method: 'POST',
@@ -64,6 +72,20 @@ export const api = {
       body: JSON.stringify({ template, kind }),
       keepalive: true,
     }).catch(() => {}),
+}
+
+function visitorId() {
+  const key = 'sig:visitor'
+  try {
+    let id = localStorage.getItem(key)
+    if (!id) {
+      id = crypto.randomUUID()
+      localStorage.setItem(key, id)
+    }
+    return id
+  } catch {
+    return crypto.randomUUID()
+  }
 }
 
 export type SavedSignature = {

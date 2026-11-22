@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     signatures: Signature;
+    submissions: Submission;
     'copy-events': CopyEvent;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -79,6 +80,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     signatures: SignaturesSelect<false> | SignaturesSelect<true>;
+    submissions: SubmissionsSelect<false> | SubmissionsSelect<true>;
     'copy-events': CopyEventsSelect<false> | CopyEventsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -170,6 +172,30 @@ export interface Signature {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "submissions".
+ */
+export interface Submission {
+  id: number;
+  visitorId: string;
+  name?: string | null;
+  email?: string | null;
+  template?: string | null;
+  copied?: boolean | null;
+  data?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  user?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "copy-events".
  */
 export interface CopyEvent {
@@ -210,6 +236,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'signatures';
         value: number | Signature;
+      } | null)
+    | ({
+        relationTo: 'submissions';
+        value: number | Submission;
       } | null)
     | ({
         relationTo: 'copy-events';
@@ -291,6 +321,21 @@ export interface SignaturesSelect<T extends boolean = true> {
   template?: T;
   data?: T;
   owner?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "submissions_select".
+ */
+export interface SubmissionsSelect<T extends boolean = true> {
+  visitorId?: T;
+  name?: T;
+  email?: T;
+  template?: T;
+  copied?: T;
+  data?: T;
+  user?: T;
   updatedAt?: T;
   createdAt?: T;
 }

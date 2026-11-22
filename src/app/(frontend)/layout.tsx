@@ -30,8 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <footer className="footer">
           <p>
-            {SITE_NAME} is free to use. No account needed: your details stay in your browser unless you choose to
-            save them.
+            {SITE_NAME} is free to use, no account needed. <Link href="/privacy">Privacy policy</Link>
           </p>
         </footer>
       </body>

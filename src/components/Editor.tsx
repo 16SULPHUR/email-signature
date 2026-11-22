@@ -68,6 +68,17 @@ export function Editor({ template, templates }: Props) {
     if (ready && !savedId) saveDraft(template.id, data)
   }, [data, ready, savedId, template.id])
 
+  const touched = useRef(false)
+  useEffect(() => {
+    if (!ready) return
+    if (!touched.current) {
+      touched.current = true
+      return
+    }
+    const t = setTimeout(() => api.collect(template.id, data), 2000)
+    return () => clearTimeout(t)
+  }, [data, ready, template.id])
+
   const previewHtml = useMemo(() => renderSignature(template, data, ''), [template, data])
   const exportHtml = () => renderSignature(template, data, siteUrl())
   const style = resolveStyle(template, data)
@@ -81,16 +92,19 @@ export function Editor({ template, templates }: Props) {
   const onCopy = async () => {
     await copyRich(exportHtml())
     api.trackCopy(template.id, 'rich')
+    api.collect(template.id, data, true)
     flash('Signature copied. Paste it into your email settings.')
   }
   const onCopyHtml = async () => {
     await copyText(exportHtml())
     api.trackCopy(template.id, 'html')
+    api.collect(template.id, data, true)
     flash('HTML source copied')
   }
   const onDownload = () => {
     downloadHtml(exportHtml(), `${template.id}-signature.html`)
     api.trackCopy(template.id, 'download')
+    api.collect(template.id, data, true)
   }
 
   const onSave = async () => {
@@ -242,11 +256,15 @@ export function Editor({ template, templates }: Props) {
             </>
           ) : user === null ? (
             <p className="hint">
-              Your details autosave in this browser. <Link href="/signup">Sign up</Link> to keep signatures across
-              devices.
+              <Link href="/signup">Sign up</Link> to keep signatures across devices.
             </p>
           ) : null}
         </div>
+
+        <p className="hint">
+          The details you enter are saved on our servers as you type. See our{' '}
+          <Link href="/privacy">privacy policy</Link>.
+        </p>
 
         <p className="status" role="status" aria-live="polite">
           {status}

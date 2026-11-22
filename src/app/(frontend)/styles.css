@@ -760,3 +760,17 @@ input[type='range'] {
 .account__head .hint {
   margin: 0;
 }
+
+.prose {
+  max-width: 720px;
+  margin: 24px auto;
+}
+
+.prose h2 {
+  font-size: 18px;
+  margin: 28px 0 8px;
+}
+
+.prose li + li {
+  margin-top: 8px;
+}
