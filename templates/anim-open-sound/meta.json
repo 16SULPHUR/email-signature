@@ -1,0 +1,60 @@
+{
+  "id": "anim-open-sound",
+  "name": "Open sound editor",
+  "category": "creator",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card",
+    "sound-editor",
+    "audio",
+    "podcast"
+  ],
+  "description": "Waveform bars move under your name.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "equalizer",
+    "width": 440,
+    "height": 104
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#0d9488",
+    "text": "#111827",
+    "muted": "#6b7280",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Nikhil Bhat",
+    "title": "Sound Editor specs=[ Mixer",
+    "company": "Roomtone Audio",
+    "email": "nikhil@roomtone.fm",
+    "website": "https://roomtone.fm",
+    "websiteLabel": "roomtone.fm",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

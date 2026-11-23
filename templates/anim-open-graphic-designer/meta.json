@@ -1,0 +1,60 @@
+{
+  "id": "anim-open-graphic-designer",
+  "name": "Open swatches",
+  "category": "designer",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card",
+    "graphic-designer",
+    "brand",
+    "print"
+  ],
+  "description": "Colour swatches pop in under your name.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "swatches",
+    "width": 440,
+    "height": 100
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#ea580c",
+    "text": "#111827",
+    "muted": "#6b7280",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Anaya Sethi",
+    "title": "Graphic Designer",
+    "company": "Paper Plane Studio",
+    "email": "anaya@paperplane.design",
+    "website": "https://paperplane.design",
+    "websiteLabel": "paperplane.design",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

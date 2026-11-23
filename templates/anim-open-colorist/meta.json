@@ -1,0 +1,60 @@
+{
+  "id": "anim-open-colorist",
+  "name": "Open colorist",
+  "category": "creator",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card",
+    "colorist",
+    "film",
+    "post-production"
+  ],
+  "description": "A grading palette for colorists and VFX artists.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "swatches",
+    "width": 440,
+    "height": 100
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#2563eb",
+    "text": "#111827",
+    "muted": "#6b7280",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Aditi Kulkarni",
+    "title": "Colorist",
+    "company": "Gradehouse",
+    "email": "aditi@gradehouse.film",
+    "website": "https://gradehouse.film",
+    "websiteLabel": "gradehouse.film",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

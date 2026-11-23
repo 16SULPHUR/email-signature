@@ -1,0 +1,60 @@
+{
+  "id": "anim-open-motion",
+  "name": "Open motion curve",
+  "category": "designer",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card",
+    "motion-designer",
+    "animator",
+    "vfx"
+  ],
+  "description": "An easing curve with keyframes draws itself.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "curve",
+    "width": 440,
+    "height": 108
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#e11d48",
+    "text": "#111827",
+    "muted": "#6b7280",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Riya Desai",
+    "title": "Motion Designer",
+    "company": "Tweenline",
+    "email": "riya@tweenline.tv",
+    "website": "https://tweenline.tv",
+    "websiteLabel": "tweenline.tv",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

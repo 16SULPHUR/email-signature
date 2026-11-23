@@ -1,0 +1,60 @@
+{
+  "id": "anim-open-photo-editor",
+  "name": "Open focus",
+  "category": "creator",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card",
+    "photo-editor",
+    "retouch",
+    "photographer"
+  ],
+  "description": "A viewfinder pulls focus and locks onto your name.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "focus",
+    "width": 440,
+    "height": 100
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#0891b2",
+    "text": "#111827",
+    "muted": "#6b7280",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Kabir Anand",
+    "title": "Photo Editor specs=[ Retoucher",
+    "company": "Lumen Retouch",
+    "email": "kabir@lumenretouch.com",
+    "website": "https://lumenretouch.com",
+    "websiteLabel": "lumenretouch.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}
