@@ -219,7 +219,7 @@ export function Editor({ template }: { template: Template }) {
           <div className="preview__body">
             <p className="preview__line">Hi there,</p>
             <p className="preview__line">Thanks for your time today. Talk soon!</p>
-            <SignatureFrame html={previewHtml} dark={dark} />
+            <SignatureFrame html={previewHtml} dark={dark} fit />
           </div>
         </div>
 
