@@ -2,7 +2,7 @@ import { getPool } from '@/lib/server/db'
 
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const key = id.replace(/\.(png|jpe?g)$/, '')
+  const key = id.replace(/\.(png|jpe?g|gif)$/, '')
   if (!/^[\w-]{8,32}$/.test(key)) return new Response('Not found', { status: 404 })
   const pool = await getPool()
   const { rows } = await pool.query('select mime, data from signature_images where id = $1', [key])

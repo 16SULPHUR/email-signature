@@ -55,6 +55,9 @@ export type CustomField = {
 export type Extras = {
   utm?: boolean
   utmCampaign?: string
+  bannerUrl?: string
+  bannerLink?: string
+  handwritingUrl?: string
 }
 
 export type SignatureData = {

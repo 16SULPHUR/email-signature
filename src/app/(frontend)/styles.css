@@ -1268,3 +1268,36 @@ input[type='range'] {
     display: none;
   }
 }
+
+.hand {
+  display: grid;
+  gap: 8px;
+}
+
+.hand__preview {
+  max-width: 200px;
+  background: #fff;
+  border: 1px solid var(--line, currentColor);
+  padding: 6px;
+}
+
+.hand__tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.hand__pad {
+  display: grid;
+  gap: 8px;
+}
+
+.hand__canvas {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 400 / 160;
+  background: #fff;
+  border: 1px solid var(--line, currentColor);
+  touch-action: none;
+  cursor: crosshair;
+}

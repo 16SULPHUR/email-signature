@@ -194,6 +194,7 @@ export function Editor({ template, templates }: Props) {
             data={data}
             onField={setField}
             onExtras={(patch) => setData((d) => ({ ...d, extras: { ...d.extras, ...patch } }))}
+            onError={flash}
           />
         </fieldset>
 

@@ -91,3 +91,19 @@ export function disclaimerBlock(t: Template, ctx: Ctx) {
   if (!ctx.disclaimer?.trim() || uses(t, 'disclaimer')) return ''
   return Mustache.render(DISCLAIMER, ctx)
 }
+
+const BANNER = `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:14px;"><tr><td>{{#link}}<a href="{{link}}" style="text-decoration:none;">{{/link}}<img src="{{src}}" width="{{width}}" alt="" style="display:block;border:0;width:{{width}}px;max-width:100%;height:auto;">{{#link}}</a>{{/link}}</td></tr></table>`
+
+const HANDWRITING = `<div style="padding-bottom:6px;"><img src="{{src}}" width="150" alt="{{name}}" style="display:block;border:0;width:150px;height:auto;"></div>`
+
+export function bannerBlock(extras: Extras | undefined, link: string) {
+  const src = extras?.bannerUrl?.trim()
+  if (!src) return ''
+  return Mustache.render(BANNER, { src, link, width: 520 })
+}
+
+export function handwritingBlock(extras: Extras | undefined, name: string | undefined) {
+  const src = extras?.handwritingUrl?.trim()
+  if (!src) return ''
+  return Mustache.render(HANDWRITING, { src, name: name || '' })
+}
