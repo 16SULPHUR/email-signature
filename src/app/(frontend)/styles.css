@@ -1423,4 +1423,6 @@ input[type='range'] {
 
 .advanced > .panel {
   margin: 16px;
+.hint--warn {
+  color: var(--warn, #e0a030);
 }

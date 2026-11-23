@@ -17,6 +17,7 @@ import { clearDraft, loadDraft, saveDraft } from '@/lib/client/draft'
 import { siteUrl } from '@/lib/site'
 import { FIELD_GROUPS, FIELDS } from '@/lib/signature/fields'
 import { previewData } from '@/lib/signature/preview'
+import { contrastWarnings } from '@/lib/signature/contrast'
 import { shortVersion } from '@/lib/signature/extras'
 import { renderSignature, resolveStyle } from '@/lib/signature/render'
 import type { FieldKey, SignatureData, Template } from '@/lib/signature/types'
@@ -263,6 +264,12 @@ export function Editor({ template }: { template: Template }) {
             <SignatureFrame html={previewHtml} dark={dark} fit />
           </div>
         </div>
+
+        {contrastWarnings(style).map((w) => (
+          <p key={w} className="hint hint--warn">
+            {w}
+          </p>
+        ))}
 
         <div className="actions">
           <button type="button" className="btn btn--primary" onClick={onCopy}>
