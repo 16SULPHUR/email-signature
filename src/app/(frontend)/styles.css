@@ -1372,3 +1372,7 @@ input[type='range'] {
 .filters .field--inline {
   grid-template-columns: auto 130px;
 }
+
+.hint--warn {
+  color: var(--warn, #e0a030);
+}
