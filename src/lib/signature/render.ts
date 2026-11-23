@@ -32,6 +32,11 @@ export function safeUrl(raw: string | undefined): string {
   return `https://${v.replace(/^\/+/, '')}`
 }
 
+const assetUrl = (siteUrl: string, raw: string | undefined) => {
+  const v = (raw || '').trim()
+  return v.startsWith('/') && !v.startsWith('//') ? `${siteUrl}${v}` : safeUrl(v)
+}
+
 const telHref = (v: string | undefined) => {
   const digits = (v || '').replace(/[^\d+]/g, '')
   return digits ? `tel:${digits}` : ''
@@ -102,8 +107,8 @@ export function buildContext(template: Template, data: SignatureData, siteUrl: s
 
   return {
     ...f,
-    photoUrl: safeUrl(f.photoUrl),
-    logoUrl: safeUrl(f.logoUrl),
+    photoUrl: assetUrl(siteUrl, f.photoUrl),
+    logoUrl: assetUrl(siteUrl, f.logoUrl),
     website,
     websiteLabel: f.websiteLabel?.trim() || (website ? displayHost(website) : ''),
     ctaUrl,

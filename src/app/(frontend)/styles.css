@@ -496,11 +496,19 @@ textarea.input {
 /* chips */
 .chips {
   display: flex;
-  flex-wrap: wrap;
   gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: 0 calc(-1 * max(16px, 3vw));
+  padding: 0 max(16px, 3vw);
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
 }
 
 .chip {
+  flex: none;
   border: 1px solid var(--line);
   background: transparent;
   color: var(--muted);
@@ -596,6 +604,8 @@ textarea.input {
 }
 
 .card {
+  color: inherit;
+  text-decoration: none;
   position: relative;
   background: var(--panel);
   border: 1px solid var(--line-strong);
@@ -623,9 +633,8 @@ textarea.input {
   color: var(--muted);
 }
 
-.card__bar::before {
-  content: counter(card, decimal-leading-zero);
-  color: var(--accent-text);
+.card__bar span:first-child {
+  color: var(--ink);
   font-weight: 700;
 }
 
@@ -895,10 +904,37 @@ textarea.input {
 
 .socials__row {
   display: grid;
-  grid-template-columns: 20px 150px 1fr auto;
+  grid-template-columns: 20px 1fr auto;
   align-items: center;
   gap: 8px;
   width: 100%;
+}
+
+.socials__input {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.socials__input .input {
+  flex: 1;
+  min-width: 0;
+}
+
+.socials__base {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  padding: 0 8px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-right: 0;
+  white-space: nowrap;
+  max-width: 55%;
+  overflow: hidden;
 }
 
 .socials__row img {
@@ -911,14 +947,11 @@ textarea.input {
 }
 
 @media (max-width: 520px) {
-  .socials__row {
-    grid-template-columns: 20px 1fr auto;
-  }
-  .socials__row > .input:not(select) {
-    grid-column: 1 / -1;
-  }
   .socials__row--custom {
     grid-template-columns: 1fr auto;
+  }
+  .socials__row--custom > .input:not(select) {
+    grid-column: 1 / -1;
   }
 }
 
@@ -1248,5 +1281,31 @@ input[type='range'] {
 @media (max-width: 480px) {
   .nav__links > a[href='/#templates'] {
     display: none;
+  }
+}
+
+.gallery__bar .gallery__search-wrap {
+  max-width: none;
+}
+
+.more {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.page-head {
+  padding-top: 28px;
+}
+
+.page-head h1 {
+  font-size: 28px;
+  margin: 0 0 4px;
+}
+
+@media (max-width: 900px) {
+  .gallery__controls {
+    position: static;
+    backdrop-filter: none;
   }
 }

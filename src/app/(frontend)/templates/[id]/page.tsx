@@ -23,11 +23,11 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function TemplatePage({ params }: Params) {
-  const [template, all] = await Promise.all([getTemplateById((await params).id), getTemplates()])
+  const template = await getTemplateById((await params).id)
   if (!template) notFound()
   return (
     <Suspense>
-      <Editor template={template} templates={all.map(({ id, name }) => ({ id, name }))} />
+      <Editor template={template} />
     </Suspense>
   )
 }
