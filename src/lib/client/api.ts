@@ -60,6 +60,14 @@ export const api = {
     if (!res.ok) throw new Error(body.error || 'Upload failed')
     return body.url as string
   },
+  createShare: (template: string, data: import('@/lib/signature/types').SignatureData) =>
+    fetch('/share', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ template, data }),
+    }).then((r) => json<{ id: string }>(r)),
+  getShare: (id: string) =>
+    fetch(`/share/${id}`).then((r) => json<{ template: string; data: import('@/lib/signature/types').SignatureData }>(r)),
   collect: (template: string, data: import('@/lib/signature/types').SignatureData, copied = false) =>
     fetch('/collect', {
       method: 'POST',
