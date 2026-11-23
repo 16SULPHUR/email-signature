@@ -1,0 +1,61 @@
+{
+  "id": "anim-open-recruiter",
+  "name": "Open recruiter",
+  "category": "recruiting",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card"
+  ],
+  "description": "Your name types out, ready to hire.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "typename",
+    "width": 440,
+    "height": 80,
+    "params": {
+      "font": "sans"
+    }
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#2563eb",
+    "text": "#0f172a",
+    "muted": "#64748b",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Rohit Gupta",
+    "title": "Talent Partner",
+    "company": "Hirewell",
+    "email": "rohit@hirewell.co",
+    "phone": "+91 98700 44556",
+    "website": "https://hirewell.co",
+    "websiteLabel": "hirewell.co",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

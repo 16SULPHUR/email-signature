@@ -1,0 +1,58 @@
+{
+  "id": "anim-open-agent",
+  "name": "Open skyline",
+  "category": "real-estate",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card"
+  ],
+  "description": "A skyline rises beside your name, with no card.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "skyline",
+    "width": 440,
+    "height": 124
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#0f766e",
+    "text": "#0f2e2c",
+    "muted": "#5f7a78",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Sana Qureshi",
+    "title": "Senior Property Consultant",
+    "company": "Haven Realty",
+    "email": "sana@havenrealty.in",
+    "phone": "+91 98765 12345",
+    "website": "https://havenrealty.in",
+    "websiteLabel": "havenrealty.in",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

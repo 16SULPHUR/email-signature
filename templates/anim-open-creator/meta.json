@@ -1,0 +1,57 @@
+{
+  "id": "anim-open-creator",
+  "name": "Highlighter yellow",
+  "category": "creator",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card"
+  ],
+  "description": "A yellow highlighter swipe for creators.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "marker",
+    "width": 440,
+    "height": 92
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#eab308",
+    "text": "#111827",
+    "muted": "#6b7280",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Dev Malhotra",
+    "title": "Video Creator",
+    "company": "Dev Makes Things",
+    "email": "dev@devmakes.tv",
+    "website": "https://devmakes.tv",
+    "websiteLabel": "devmakes.tv",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

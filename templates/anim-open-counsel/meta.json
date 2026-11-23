@@ -1,0 +1,58 @@
+{
+  "id": "anim-open-counsel",
+  "name": "Open counsel",
+  "category": "legal",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card"
+  ],
+  "description": "A refined name shimmer, no box around it.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "shimmer",
+    "width": 440,
+    "height": 124
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#7f1d1d",
+    "text": "#1c1917",
+    "muted": "#78716c",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Adv. Rahul Verma",
+    "title": "Partner, Corporate Law",
+    "company": "Verma & Associates",
+    "email": "rahul@vermalaw.in",
+    "phone": "+91 98111 55667",
+    "website": "https://vermalaw.in",
+    "websiteLabel": "vermalaw.in",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

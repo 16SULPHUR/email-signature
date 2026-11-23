@@ -1,0 +1,60 @@
+{
+  "id": "anim-open-teacher",
+  "name": "Open typing",
+  "category": "education",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card"
+  ],
+  "description": "Your name types out in clean sans-serif.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "typename",
+    "width": 440,
+    "height": 80,
+    "params": {
+      "font": "sans"
+    }
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#16a34a",
+    "text": "#14532d",
+    "muted": "#6b7280",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Meera Pillai",
+    "title": "Lecturer, Mathematics",
+    "company": "St. Anne's College",
+    "email": "meera@stannes.edu",
+    "website": "https://stannes.edu",
+    "websiteLabel": "stannes.edu",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}
