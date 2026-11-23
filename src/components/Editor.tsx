@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { CustomFieldsEditor } from '@/components/CustomFieldsEditor'
+import { ExtrasEditor } from '@/components/ExtrasEditor'
 import { InstallGuide } from '@/components/InstallGuide'
 import { SignatureFrame } from '@/components/SignatureFrame'
 import { SocialsEditor } from '@/components/SocialsEditor'
@@ -56,6 +57,7 @@ export function Editor({ template }: { template: Template }) {
         fields: draft.fields,
         socials: draft.socials,
         customFields: draft.customFields || [],
+        extras: draft.extras,
         style: draft.styles?.[template.id] || {},
       })
     }
@@ -123,7 +125,7 @@ export function Editor({ template }: { template: Template }) {
 
   const onClearSample = () => {
     clearDraft()
-    setData({ fields: {}, socials: [], customFields: [], style: {} })
+    setData({ fields: {}, socials: [], customFields: [], extras: {}, style: {} })
   }
 
   return (
@@ -137,6 +139,7 @@ export function Editor({ template }: { template: Template }) {
 
         {FIELD_GROUPS.map((g) => {
           const keys = template.fields.filter((k) => FIELDS[k]?.group === g.id)
+          if (g.id === 'extras') return null
           if (!keys.length) return null
           return (
             <fieldset key={g.id} className="panel">
@@ -163,6 +166,16 @@ export function Editor({ template }: { template: Template }) {
         <fieldset className="panel">
           <legend>Social links</legend>
           <SocialsEditor socials={data.socials} onChange={(socials) => setData((d) => ({ ...d, socials }))} />
+        </fieldset>
+
+        <fieldset className="panel">
+          <legend>Button & extras</legend>
+          <ExtrasEditor
+            data={data}
+            onField={setField}
+            onExtras={(patch) => setData((d) => ({ ...d, extras: { ...d.extras, ...patch } }))}
+            onError={flash}
+          />
         </fieldset>
 
         <fieldset className="panel">

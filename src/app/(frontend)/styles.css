@@ -873,6 +873,24 @@ textarea.input {
   gap: 6px;
 }
 
+.field__prefix {
+  display: flex;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text, inherit);
+  text-transform: none;
+}
+
 .upload {
   position: relative;
   overflow: hidden;
@@ -1282,6 +1300,39 @@ input[type='range'] {
   .nav__links > a[href='/#templates'] {
     display: none;
   }
+}
+
+.hand {
+  display: grid;
+  gap: 8px;
+}
+
+.hand__preview {
+  max-width: 200px;
+  background: #fff;
+  border: 1px solid var(--line, currentColor);
+  padding: 6px;
+}
+
+.hand__tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.hand__pad {
+  display: grid;
+  gap: 8px;
+}
+
+.hand__canvas {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 400 / 160;
+  background: #fff;
+  border: 1px solid var(--line, currentColor);
+  touch-action: none;
+  cursor: crosshair;
 }
 
 .gallery__bar .gallery__search-wrap {

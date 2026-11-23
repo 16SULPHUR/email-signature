@@ -51,7 +51,7 @@ export const api = {
     }).then((r) => json<{ doc: SavedSignature }>(r)),
   deleteSignature: (id: string | number) =>
     fetch(`/api/signatures/${id}`, { method: 'DELETE', credentials: 'include' }).then((r) => json(r)),
-  uploadImage: async (file: File, kind: 'photo' | 'logo') => {
+  uploadImage: async (file: File, kind: 'photo' | 'logo' | 'banner' | 'handwriting') => {
     const form = new FormData()
     form.append('file', file)
     form.append('kind', kind)

@@ -10,7 +10,8 @@ const fail = (error: string, status = 400) => Response.json({ error }, { status 
 export async function POST(req: Request) {
   const form = await req.formData().catch(() => null)
   const file = form?.get('file')
-  const kind = form?.get('kind') === 'logo' ? 'logo' : 'photo'
+  const rawKind = String(form?.get('kind') || '')
+  const kind = (['logo', 'banner', 'handwriting'] as const).find((k) => k === rawKind) || 'photo'
   if (!(file instanceof File)) return fail('No file received')
   if (file.size > L.maxInputBytes) return fail('Image is too large (max 5 MB)')
 
@@ -24,23 +25,42 @@ export async function POST(req: Request) {
   let out: Buffer
   let mime: string
   try {
-    const img = sharp(Buffer.from(await file.arrayBuffer()), { animated: false }).rotate()
-    const meta = await img.metadata()
-    const resized =
-      kind === 'photo'
-        ? img.resize(L.photoSize, L.photoSize, { fit: 'cover', position: 'attention' })
-        : img.resize(L.logoMaxWidth, L.logoMaxHeight, { fit: 'inside', withoutEnlargement: true })
-    if (kind === 'logo' && meta.hasAlpha) {
-      out = await resized.png({ palette: true, compressionLevel: 9 }).toBuffer()
-      mime = 'image/png'
+    const input = Buffer.from(await file.arrayBuffer())
+    const meta = await sharp(input).metadata()
+    if (kind === 'banner' && meta.format === 'gif' && (meta.pages || 1) > 1) {
+      if (input.length > L.bannerGifMaxBytes) return fail('Animated GIF is too large (max 500 KB)')
+      if ((meta.width || 0) > L.bannerWidth) return fail(`Animated GIF must be at most ${L.bannerWidth}px wide`)
+      out = input
+      mime = 'image/gif'
     } else {
-      out = await resized.flatten({ background: '#ffffff' }).jpeg({ quality: 82, mozjpeg: true }).toBuffer()
-      mime = 'image/jpeg'
+      const img = sharp(input, { animated: false }).rotate()
+      if (kind === 'photo') {
+        out = await img
+          .resize(L.photoSize, L.photoSize, { fit: 'cover', position: 'attention' })
+          .flatten({ background: '#ffffff' })
+          .jpeg({ quality: 82, mozjpeg: true })
+          .toBuffer()
+        mime = 'image/jpeg'
+      } else {
+        const resized =
+          kind === 'banner'
+            ? img.resize({ width: L.bannerWidth, withoutEnlargement: true })
+            : kind === 'handwriting'
+              ? img.resize(L.handwritingMaxWidth, L.handwritingMaxHeight, { fit: 'inside', withoutEnlargement: true })
+              : img.resize(L.logoMaxWidth, L.logoMaxHeight, { fit: 'inside', withoutEnlargement: true })
+        if (meta.hasAlpha || kind === 'handwriting') {
+          out = await resized.png({ palette: true, compressionLevel: 9 }).toBuffer()
+          mime = 'image/png'
+        } else {
+          out = await resized.flatten({ background: '#ffffff' }).jpeg({ quality: 82, mozjpeg: true }).toBuffer()
+          mime = 'image/jpeg'
+        }
+      }
     }
   } catch {
     return fail('That file is not an image we can read')
   }
-  if (out.length > L.maxStoredBytes) return fail('Image is too detailed to store, try a simpler one')
+  if (out.length > (mime === 'image/gif' ? L.bannerGifMaxBytes : L.maxStoredBytes)) return fail('Image is too detailed to store, try a simpler one')
 
   const hash = crypto.createHash('sha256').update(out).digest('hex')
   const existing = await pool.query('select id from signature_images where hash = $1', [hash])
@@ -71,5 +91,6 @@ export async function POST(req: Request) {
 
 function imageUrl(req: Request, id: string, mime: string) {
   const base = (process.env.NEXT_PUBLIC_SITE_URL || new URL(req.url).origin).replace(/\/$/, '')
-  return `${base}/img/${id}.${mime === 'image/png' ? 'png' : 'jpg'}`
+  const ext = mime === 'image/png' ? 'png' : mime === 'image/gif' ? 'gif' : 'jpg'
+  return `${base}/img/${id}.${ext}`
 }
