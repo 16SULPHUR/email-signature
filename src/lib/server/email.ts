@@ -30,5 +30,5 @@ export const welcomeEmail = (name?: string) =>
   emailLayout(
     `Welcome${name ? `, ${esc(name)}` : ''}!`,
     `Your ${SITE_NAME} account is ready. Pick a template, fill in your details and click <b>Save to account</b> to keep your signatures on every device.`,
-    { label: 'Browse templates', url: `${site()}/#templates` },
+    { label: 'Browse templates', url: `${site()}/templates` },
   )

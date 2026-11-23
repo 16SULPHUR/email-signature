@@ -1,6 +1,6 @@
 'use client'
 
-import { NETWORK_MAP, NETWORKS } from '@/lib/signature/networks'
+import { buildLink, displayHandle, NETWORK_MAP, NETWORKS } from '@/lib/signature/networks'
 import type { SocialLink } from '@/lib/signature/types'
 
 export function SocialsEditor({ socials, onChange }: { socials: SocialLink[]; onChange: (s: SocialLink[]) => void }) {
@@ -32,14 +32,6 @@ export function SocialsEditor({ socials, onChange }: { socials: SocialLink[]; on
               </option>
             ))}
           </select>
-          <input
-            className="input"
-            inputMode="url"
-            placeholder={NETWORK_MAP[s.network]?.placeholder}
-            value={s.url}
-            onChange={(e) => update(i, { url: e.target.value })}
-            aria-label={`${NETWORK_MAP[s.network]?.label} link`}
-          />
           <span className="socials__tools">
             <button type="button" className="icon-btn" onClick={() => move(i, -1)} aria-label="Move up" disabled={i === 0}>
               ↑
@@ -61,6 +53,21 @@ export function SocialsEditor({ socials, onChange }: { socials: SocialLink[]; on
             >
               ✕
             </button>
+          </span>
+          <span className="socials__input">
+            {NETWORK_MAP[s.network]?.base && (
+              <span className="socials__base">{NETWORK_MAP[s.network].base!.replace(/^https?:\/\//, '')}</span>
+            )}
+            <input
+              className="input"
+              inputMode={NETWORK_MAP[s.network]?.base ? 'text' : 'url'}
+              autoCapitalize="none"
+              autoCorrect="off"
+              placeholder={NETWORK_MAP[s.network]?.base ? NETWORK_MAP[s.network].hint : NETWORK_MAP[s.network]?.placeholder}
+              value={displayHandle(NETWORK_MAP[s.network], s.url)}
+              onChange={(e) => update(i, { url: buildLink(NETWORK_MAP[s.network], e.target.value) })}
+              aria-label={`${NETWORK_MAP[s.network]?.label} ${NETWORK_MAP[s.network]?.base ? 'username' : 'link'}`}
+            />
           </span>
         </div>
       ))}

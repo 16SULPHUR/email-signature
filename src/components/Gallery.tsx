@@ -60,20 +60,19 @@ export function Gallery({ templates, categories }: { templates: Template[]; cate
   )
 
   return (
-    <section id="templates" className="gallery">
+    <section className="gallery">
       <div className="gallery__controls">
         <div className="gallery__bar">
           <div className="gallery__search-wrap">
             <input
               type="search"
               className="input gallery__search"
-              placeholder="role, industry or style: lawyer, dark, photo"
+              placeholder="search role or industry"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               aria-label="Search templates"
             />
           </div>
-          <span className="gallery__count">{filtered.length} results</span>
         </div>
         <div className="chips" role="tablist" aria-label="Categories">
           {['all', ...categories].map((c) => (
@@ -92,33 +91,28 @@ export function Gallery({ templates, categories }: { templates: Template[]; cate
       </div>
 
       {filtered.length === 0 ? (
-        <p className="empty">0 results for “{query}”. try a broader word like “photo” or “minimal”.</p>
+        <p className="empty">No matches for “{query}”.</p>
       ) : (
         <div className="grid">
           {filtered.map((t) => (
-            <article key={t.id} className="card">
-              <div className="card__bar">
-                <span>{t.id}.sig</span>
-                <span className="tag">{categoryLabel(t.category).toLowerCase()}</span>
-              </div>
-              <div className="card__stage">
-                <SignatureFrame html={previews[t.id]} fit />
-              </div>
-              <div className="card__meta">
-                <div>
-                  <h3>
-                    <Link href={`/templates/${t.id}`} className="card__link">
-                      {t.name}
-                    </Link>
-                  </h3>
-                  <p>{t.description}</p>
-                </div>
-                <span className="card__go">→</span>
-              </div>
-            </article>
+            <TemplateCard key={t.id} t={t} html={previews[t.id]} />
           ))}
         </div>
       )}
     </section>
+  )
+}
+
+export function TemplateCard({ t, html }: { t: Template; html: string }) {
+  return (
+    <Link href={`/templates/${t.id}`} className="card">
+      <div className="card__bar">
+        <span>{t.name}</span>
+        <span className="tag">{categoryLabel(t.category).toLowerCase()}</span>
+      </div>
+      <div className="card__stage">
+        <SignatureFrame html={html} fit />
+      </div>
+    </Link>
   )
 }

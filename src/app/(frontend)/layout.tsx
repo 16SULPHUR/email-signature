@@ -2,6 +2,7 @@ import { JetBrains_Mono, Space_Grotesk } from 'next/font/google'
 import Link from 'next/link'
 import React from 'react'
 
+import { Logo } from '@/components/Logo'
 import { AuthNav } from '@/components/AuthNav'
 import { SITE_NAME } from '@/lib/site'
 
@@ -12,6 +13,7 @@ const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' })
 
 export const metadata = {
   title: `${SITE_NAME}: free email signature generator`,
+  icons: { icon: '/logo.svg' },
   description:
     'Pick an email signature template for your industry, fill in your details and paste it into Gmail, Outlook or Apple Mail. No signup needed.',
 }
@@ -23,11 +25,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="nav">
           <div className="nav__inner">
             <Link href="/" className="nav__brand">
-              <span className="nav__logo">/</span>
+              <Logo size={28} />
               {SITE_NAME.toLowerCase()}
             </Link>
             <nav className="nav__links">
-              <Link href="/#templates" className="nav__link">
+              <Link href="/templates" className="nav__link">
                 templates
               </Link>
               <AuthNav />
@@ -37,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <footer className="footer">
           <div className="footer__inner">
-            <span className="footer__live">free, no ads, no account needed</span>
+            <span className="footer__live">free</span>
             <span>
               {SITE_NAME.toLowerCase()} © {new Date().getFullYear()}
             </span>

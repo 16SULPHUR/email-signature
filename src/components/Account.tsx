@@ -49,7 +49,7 @@ export function Account({ templates }: { templates: Template[] }) {
 
       {items?.length === 0 && (
         <p className="empty">
-          Nothing saved yet. <Link href="/#templates">Pick a template</Link> and click Save to account.
+          Nothing saved yet. <Link href="/templates">Pick a template</Link> and click Save to account.
         </p>
       )}
 
