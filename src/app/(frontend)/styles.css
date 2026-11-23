@@ -1360,3 +1360,15 @@ input[type='range'] {
     backdrop-filter: none;
   }
 }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-top: 10px;
+}
+
+.filters .field--inline {
+  grid-template-columns: auto 130px;
+}
