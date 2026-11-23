@@ -1,9 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-
 import { HandwritingPad } from '@/components/HandwritingPad'
-import { api } from '@/lib/client/api'
+import { ImageField } from '@/components/ImageField'
 import { DISCLAIMER_PRESETS, MEETING_PROVIDERS } from '@/lib/signature/extras'
 import type { FieldKey, SignatureData } from '@/lib/signature/types'
 
@@ -17,7 +15,6 @@ type Props = {
 const providerOf = (url: string) => MEETING_PROVIDERS.find((p) => url.toLowerCase().startsWith(p.base))
 
 export function ExtrasEditor({ data, onField, onExtras, onError }: Props) {
-  const [busy, setBusy] = useState(false)
   const f = data.fields
   const ctaUrl = f.ctaUrl || ''
   const provider = providerOf(ctaUrl)
@@ -27,18 +24,6 @@ export function ExtrasEditor({ data, onField, onExtras, onError }: Props) {
     const p = MEETING_PROVIDERS.find((x) => x.id === id)
     onField('ctaUrl', p ? p.base : '')
     if (p && !f.ctaText) onField('ctaText', 'Book a meeting')
-  }
-
-  const uploadBanner = async (file?: File) => {
-    if (!file) return
-    setBusy(true)
-    try {
-      onExtras({ bannerUrl: await api.uploadImage(file, 'banner') })
-    } catch (e) {
-      onError((e as Error).message)
-    } finally {
-      setBusy(false)
-    }
   }
 
   return (
@@ -143,21 +128,14 @@ export function ExtrasEditor({ data, onField, onExtras, onError }: Props) {
       </div>
 
       <div className="field field--wide">
-        <label htmlFor="f-banner">Banner (under the signature)</label>
-        <span className="field__row">
-          <input
-            id="f-banner"
-            className="input"
-            inputMode="url"
-            placeholder="Upload, or paste an image link"
-            value={extras.bannerUrl || ''}
-            onChange={(e) => onExtras({ bannerUrl: e.target.value })}
-          />
-          <span className="btn btn--sm upload">
-            {busy ? '…' : 'Upload'}
-            <input type="file" accept="image/*" onChange={(e) => uploadBanner(e.target.files?.[0])} />
-          </span>
-        </span>
+        <label>Banner (under the signature)</label>
+        <ImageField
+          kind="banner"
+          value={extras.bannerUrl || ''}
+          onChange={(bannerUrl) => onExtras({ bannerUrl })}
+          onError={onError}
+          label="banner"
+        />
         {extras.bannerUrl && (
           <input
             className="input"

@@ -11,11 +11,12 @@ export function SignatureFrame({ html, fit = false, dark = false }: { html: stri
   useEffect(() => {
     if (!fit || !outer.current || !inner.current) return
     const measure = () => {
-      const o = outer.current!.clientWidth
+      const cs = getComputedStyle(outer.current!)
+      const o = outer.current!.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight)
       const i = inner.current!.scrollWidth
       const s = i > o ? o / i : 1
       setScale(s)
-      setHeight(inner.current!.scrollHeight * s)
+      setHeight(inner.current!.scrollHeight * s + parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom))
     }
     measure()
     const ro = new ResizeObserver(measure)

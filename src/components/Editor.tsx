@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { CustomFieldsEditor } from '@/components/CustomFieldsEditor'
 import { ExtrasEditor } from '@/components/ExtrasEditor'
+import { ImageField } from '@/components/ImageField'
 import { InstallGuide } from '@/components/InstallGuide'
 import { SignatureFrame } from '@/components/SignatureFrame'
 import { SocialsEditor } from '@/components/SocialsEditor'
@@ -183,7 +184,6 @@ export function Editor({ template }: { template: Template }) {
                   />
                 ))}
               </div>
-              {g.id === 'media' && <p className="hint">Upload an image or paste a link.</p>}
             </fieldset>
           )
         })}
@@ -196,33 +196,36 @@ export function Editor({ template }: { template: Template }) {
           />
         </fieldset>
 
-        <fieldset className="panel">
-          <legend>Button & extras</legend>
-          <ExtrasEditor
-            data={data}
-            onField={setField}
-            onExtras={(patch) => setData((d) => ({ ...d, extras: { ...d.extras, ...patch } }))}
-            onError={flash}
-          />
-        </fieldset>
+        <details className="advanced">
+          <summary>Advanced options</summary>
+          <fieldset className="panel">
+            <legend>Button & extras</legend>
+            <ExtrasEditor
+              data={data}
+              onField={setField}
+              onExtras={(patch) => setData((d) => ({ ...d, extras: { ...d.extras, ...patch } }))}
+              onError={flash}
+            />
+          </fieldset>
 
-        <fieldset className="panel">
-          <legend>Custom fields</legend>
-          <CustomFieldsEditor
-            items={data.customFields || []}
-            onChange={(customFields) => setData((d) => ({ ...d, customFields }))}
-          />
-        </fieldset>
+          <fieldset className="panel">
+            <legend>Custom fields</legend>
+            <CustomFieldsEditor
+              items={data.customFields || []}
+              onChange={(customFields) => setData((d) => ({ ...d, customFields }))}
+            />
+          </fieldset>
 
-        <fieldset className="panel">
-          <legend>Style</legend>
-          <StyleEditor
-            template={template}
-            style={style}
-            onChange={(patch) => setData((d) => ({ ...d, style: { ...d.style, ...patch } }))}
-            onReset={() => setData((d) => ({ ...d, style: {} }))}
-          />
-        </fieldset>
+          <fieldset className="panel">
+            <legend>Style</legend>
+            <StyleEditor
+              template={template}
+              style={style}
+              onChange={(patch) => setData((d) => ({ ...d, style: { ...d.style, ...patch } }))}
+              onReset={() => setData((d) => ({ ...d, style: {} }))}
+            />
+          </fieldset>
+        </details>
 
         <div className="editor__foot">
           <button type="button" className="btn btn--text" onClick={onClearSample}>
@@ -258,7 +261,7 @@ export function Editor({ template }: { template: Template }) {
           <div className="preview__body">
             <p className="preview__line">Hi there,</p>
             <p className="preview__line">Thanks for your time today. Talk soon!</p>
-            <SignatureFrame html={previewHtml} dark={dark} />
+            <SignatureFrame html={previewHtml} dark={dark} fit />
           </div>
         </div>
 
@@ -319,19 +322,21 @@ function FieldInput({
   onUploadError: (msg: string) => void
 }) {
   const def = FIELDS[k]
-  const [busy, setBusy] = useState(false)
   const id = `f-${k}`
 
-  const upload = async (file?: File) => {
-    if (!file) return
-    setBusy(true)
-    try {
-      onChange(await api.uploadImage(file, k === 'photoUrl' ? 'photo' : 'logo'))
-    } catch (e) {
-      onUploadError((e as Error).message)
-    } finally {
-      setBusy(false)
-    }
+  if (canUpload) {
+    return (
+      <div className="field">
+        <label>{def.label.replace(/ URL$/, '')}</label>
+        <ImageField
+          kind={k === 'photoUrl' ? 'photo' : 'logo'}
+          value={value}
+          onChange={onChange}
+          onError={onUploadError}
+          label={k === 'photoUrl' ? 'photo' : 'logo'}
+        />
+      </div>
+    )
   }
 
   return (
@@ -347,23 +352,15 @@ function FieldInput({
           onChange={(e) => onChange(e.target.value)}
         />
       ) : (
-        <span className="field__row">
-          <input
-            id={id}
-            className="input"
-            type={def.type === 'url' ? 'text' : def.type || 'text'}
-            inputMode={def.type === 'url' ? 'url' : undefined}
-            placeholder={def.placeholder}
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-          />
-          {canUpload && (
-            <span className="btn btn--sm upload">
-              {busy ? '…' : 'Upload'}
-              <input type="file" accept="image/*" onChange={(e) => upload(e.target.files?.[0])} />
-            </span>
-          )}
-        </span>
+        <input
+          id={id}
+          className="input"
+          type={def.type === 'url' ? 'text' : def.type || 'text'}
+          inputMode={def.type === 'url' ? 'url' : undefined}
+          placeholder={def.placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+        />
       )}
     </div>
   )

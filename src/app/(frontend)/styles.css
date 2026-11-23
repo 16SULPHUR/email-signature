@@ -618,6 +618,8 @@ textarea.input {
 }
 
 .card:hover {
+  background: var(--panel);
+  color: inherit;
   transform: translate(-4px, -4px);
   box-shadow: 4px 4px 0 var(--accent);
 }
@@ -1361,6 +1363,19 @@ input[type='range'] {
   }
 }
 
+.imgfield {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.imgfield__thumb {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  background: var(--stage);
+  border: 1px solid var(--line-strong);
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -1373,6 +1388,41 @@ input[type='range'] {
   grid-template-columns: auto 130px;
 }
 
+.advanced {
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+}
+
+.advanced > summary {
+  cursor: pointer;
+  padding: 14px 16px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.advanced > summary::-webkit-details-marker {
+  display: none;
+}
+
+.advanced > summary::after {
+  content: '+';
+  color: var(--accent-text);
+}
+
+.advanced[open] > summary::after {
+  content: '−';
+}
+
+.advanced[open] > summary {
+  border-bottom: 1px solid var(--line);
+}
+
+.advanced > .panel {
+  margin: 16px;
 .hint--warn {
   color: var(--warn, #e0a030);
 }
