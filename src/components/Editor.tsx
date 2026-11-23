@@ -16,6 +16,7 @@ import { clearDraft, loadDraft, saveDraft } from '@/lib/client/draft'
 import { siteUrl } from '@/lib/site'
 import { FIELD_GROUPS, FIELDS } from '@/lib/signature/fields'
 import { previewData } from '@/lib/signature/preview'
+import { shortVersion } from '@/lib/signature/extras'
 import { renderSignature, resolveStyle } from '@/lib/signature/render'
 import type { FieldKey, SignatureData, Template } from '@/lib/signature/types'
 
@@ -23,12 +24,14 @@ export function Editor({ template }: { template: Template }) {
   const router = useRouter()
   const params = useSearchParams()
   const savedId = params.get('sig')
+  const shareId = params.get('share')
   const user = useSession()
 
   const [data, setData] = useState<SignatureData>(() => previewData(template))
   const [ready, setReady] = useState(false)
   const [status, setStatus] = useState('')
   const [dark, setDark] = useState(false)
+  const [short, setShort] = useState(false)
   const [sigName, setSigName] = useState('')
   const statusTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
 
@@ -50,6 +53,14 @@ export function Editor({ template }: { template: Template }) {
         .finally(() => setReady(true))
       return
     }
+    if (shareId) {
+      api
+        .getShare(shareId)
+        .then((s) => setData(s.data))
+        .catch(() => flash('That share link is no longer available'))
+        .finally(() => setReady(true))
+      return
+    }
     const draft = loadDraft()
     if (draft) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage is only readable after hydration
@@ -62,11 +73,11 @@ export function Editor({ template }: { template: Template }) {
       })
     }
     setReady(true)
-  }, [savedId, template.id])
+  }, [savedId, shareId, template.id])
 
   useEffect(() => {
-    if (ready && !savedId) saveDraft(template.id, data)
-  }, [data, ready, savedId, template.id])
+    if (ready && !savedId && !shareId) saveDraft(template.id, data)
+  }, [data, ready, savedId, shareId, template.id])
 
   const touched = useRef(false)
   useEffect(() => {
@@ -86,8 +97,20 @@ export function Editor({ template }: { template: Template }) {
     return () => clearTimeout(t)
   }, [data, template.animation])
   const shown = template.animation ? settled : data
-  const previewHtml = useMemo(() => renderSignature(template, shown, ''), [template, shown])
-  const exportHtml = () => renderSignature(template, data, siteUrl())
+  const previewHtml = useMemo(
+    () => renderSignature(template, short ? shortVersion(shown) : shown, ''),
+    [template, shown, short],
+  )
+  const exportHtml = () => renderSignature(template, short ? shortVersion(data) : data, siteUrl())
+  const onShare = async () => {
+    try {
+      const { id } = await api.createShare(template.id, data)
+      await copyText(`${window.location.origin}/templates/${template.id}?share=${id}`)
+      flash('Share link copied')
+    } catch (e) {
+      flash((e as Error).message)
+    }
+  }
   const style = resolveStyle(template, data)
 
   const setField = (key: FieldKey, value: string) =>
@@ -114,7 +137,10 @@ export function Editor({ template }: { template: Template }) {
   const onSave = async () => {
     const name = sigName || `${data.fields.name || 'My'} · ${template.name}`
     try {
-      const { doc } = await api.saveSignature({ name, template: template.id, data }, savedId || undefined)
+      const { doc } = await api.saveSignature(
+        { name, template: template.id, data },
+        savedId || undefined,
+      )
       setSigName(doc.name)
       if (!savedId) router.replace(`/templates/${template.id}?sig=${doc.id}`, { scroll: false })
       flash('Saved to your account')
@@ -156,16 +182,17 @@ export function Editor({ template }: { template: Template }) {
                   />
                 ))}
               </div>
-              {g.id === 'media' && (
-                <p className="hint">Upload an image or paste a link.</p>
-              )}
+              {g.id === 'media' && <p className="hint">Upload an image or paste a link.</p>}
             </fieldset>
           )
         })}
 
         <fieldset className="panel">
           <legend>Social links</legend>
-          <SocialsEditor socials={data.socials} onChange={(socials) => setData((d) => ({ ...d, socials }))} />
+          <SocialsEditor
+            socials={data.socials}
+            onChange={(socials) => setData((d) => ({ ...d, socials }))}
+          />
         </fieldset>
 
         <fieldset className="panel">
@@ -212,7 +239,18 @@ export function Editor({ template }: { template: Template }) {
               <i />
             </span>
             <span>New message</span>
-            <button type="button" className="btn btn--text btn--sm" onClick={() => setDark((v) => !v)}>
+            <button
+              type="button"
+              className="btn btn--text btn--sm"
+              onClick={() => setShort((v) => !v)}
+            >
+              {short ? 'Short version' : 'Full version'}
+            </button>
+            <button
+              type="button"
+              className="btn btn--text btn--sm"
+              onClick={() => setDark((v) => !v)}
+            >
               {dark ? 'Light inbox' : 'Dark inbox'}
             </button>
           </div>
@@ -232,6 +270,9 @@ export function Editor({ template }: { template: Template }) {
           </button>
           <button type="button" className="btn" onClick={onDownload}>
             Download
+          </button>
+          <button type="button" className="btn" onClick={onShare}>
+            Share link
           </button>
         </div>
 

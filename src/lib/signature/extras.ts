@@ -1,6 +1,6 @@
 import Mustache from 'mustache'
 
-import type { Extras, Fields, Template } from './types'
+import type { Extras, Fields, SignatureData, Template } from './types'
 
 export const DISCLAIMER_PRESETS = [
   {
@@ -56,7 +56,8 @@ const luminance = (hex: string) => {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b
 }
 
-export const readableOn = (hex: string) => (luminance(hex.replace('#', '')) > 0.45 ? '#111827' : '#FFFFFF')
+export const readableOn = (hex: string) =>
+  luminance(hex.replace('#', '')) > 0.45 ? '#111827' : '#FFFFFF'
 
 type Ctx = {
   font: string
@@ -111,7 +112,15 @@ export function handwritingBlock(extras: Extras | undefined, name: string | unde
 export function vcardUrl(siteUrl: string, f: Fields) {
   if (!f.name?.trim()) return ''
   const q = new URLSearchParams({ n: f.name.trim() })
-  const map = { t: f.title, o: f.company, p: f.phone, m: f.mobile, e: f.email, w: f.website, a: f.address }
+  const map = {
+    t: f.title,
+    o: f.company,
+    p: f.phone,
+    m: f.mobile,
+    e: f.email,
+    w: f.website,
+    a: f.address,
+  }
   for (const [k, v] of Object.entries(map)) if (v?.trim()) q.set(k, v.trim())
   return `${siteUrl}/vcard?${q.toString()}`
 }
@@ -124,8 +133,38 @@ export function contactBlock(
 ) {
   const vcard = vcardUrl(o.siteUrl, o.fields)
   const target = extras?.qr === 'contact' ? vcard : extras?.qr === 'link' ? o.link : ''
-  const qr = target ? `${o.siteUrl}/qr?${new URLSearchParams({ d: target, c: o.accent.replace('#', '') })}` : ''
+  const qr = target
+    ? `${o.siteUrl}/qr?${new URLSearchParams({ d: target, c: o.accent.replace('#', '') })}`
+    : ''
   const showVcard = extras?.vcard && vcard
   if (!qr && !showVcard) return ''
-  return Mustache.render(CONTACT, { qr, vcard: showVcard ? vcard : '', font: o.font, accent: o.accent })
+  return Mustache.render(CONTACT, {
+    qr,
+    vcard: showVcard ? vcard : '',
+    font: o.font,
+    accent: o.accent,
+  })
+}
+
+const SHORT_KEYS = [
+  'name',
+  'title',
+  'company',
+  'phone',
+  'email',
+  'website',
+  'websiteLabel',
+  'photoUrl',
+  'logoUrl',
+] as const
+
+export function shortVersion(data: SignatureData): SignatureData {
+  const fields: Fields = {}
+  for (const k of SHORT_KEYS) if (data.fields[k]) fields[k] = data.fields[k]
+  return {
+    fields,
+    socials: [],
+    extras: data.extras?.utm ? { utm: true, utmCampaign: data.extras.utmCampaign } : {},
+    style: data.style,
+  }
 }
