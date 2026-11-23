@@ -19,9 +19,7 @@ import { previewData } from '@/lib/signature/preview'
 import { renderSignature, resolveStyle } from '@/lib/signature/render'
 import type { FieldKey, SignatureData, Template } from '@/lib/signature/types'
 
-type Props = { template: Template; templates: Pick<Template, 'id' | 'name'>[] }
-
-export function Editor({ template, templates }: Props) {
+export function Editor({ template }: { template: Template }) {
   const router = useRouter()
   const params = useSearchParams()
   const savedId = params.get('sig')
@@ -95,9 +93,6 @@ export function Editor({ template, templates }: Props) {
   const setField = (key: FieldKey, value: string) =>
     setData((d) => ({ ...d, fields: { ...d.fields, [key]: value } }))
 
-  const used = new Set<FieldKey>([...template.fields, 'ctaText', 'ctaUrl', 'disclaimer', 'signoff'])
-  const unusedFilled = Object.entries(data.fields).filter(([k, v]) => v && !used.has(k as FieldKey)).length
-
   const onCopy = async () => {
     await copyRich(exportHtml())
     api.trackCopy(template.id, 'rich')
@@ -133,28 +128,13 @@ export function Editor({ template, templates }: Props) {
     setData({ fields: {}, socials: [], customFields: [], extras: {}, style: {} })
   }
 
-  const switchTemplate = (id: string) => {
-    if (!savedId) saveDraft(template.id, data)
-    router.push(`/templates/${id}${savedId ? `?sig=${savedId}` : ''}`)
-  }
-
   return (
     <div className="editor">
       <div className="editor__form">
         <div className="editor__head">
-          <Link href="/#templates" className="back">
-            ← All templates
+          <Link href="/templates" className="back">
+            ← Templates
           </Link>
-          <label className="field field--inline">
-            <span>template</span>
-            <select className="input" value={template.id} onChange={(e) => switchTemplate(e.target.value)}>
-              {templates.map((t) => (
-                <option key={t.id} value={t.id}>
-                  {t.name}
-                </option>
-              ))}
-            </select>
-          </label>
         </div>
 
         {FIELD_GROUPS.map((g) => {
@@ -177,7 +157,7 @@ export function Editor({ template, templates }: Props) {
                 ))}
               </div>
               {g.id === 'media' && (
-                <p className="hint">Upload an image and we host it for you, or paste a public image link.</p>
+                <p className="hint">Upload an image or paste a link.</p>
               )}
             </fieldset>
           )
@@ -200,7 +180,6 @@ export function Editor({ template, templates }: Props) {
 
         <fieldset className="panel">
           <legend>Custom fields</legend>
-          <p className="hint">Add anything else: office hours, languages, a booking link. Shown under your signature.</p>
           <CustomFieldsEditor
             items={data.customFields || []}
             onChange={(customFields) => setData((d) => ({ ...d, customFields }))}
@@ -221,11 +200,6 @@ export function Editor({ template, templates }: Props) {
           <button type="button" className="btn btn--text" onClick={onClearSample}>
             Clear all fields
           </button>
-          {unusedFilled > 0 && (
-            <span className="hint">
-              {unusedFilled} filled field{unusedFilled > 1 ? 's are' : ' is'} kept for other templates.
-            </span>
-          )}
         </div>
       </div>
 
@@ -263,28 +237,15 @@ export function Editor({ template, templates }: Props) {
 
         <div className="save">
           {user ? (
-            <>
-              <input
-                className="input"
-                placeholder="Name this signature"
-                value={sigName}
-                onChange={(e) => setSigName(e.target.value)}
-              />
-              <button type="button" className="btn" onClick={onSave}>
-                {savedId ? 'Update saved' : 'Save to account'}
-              </button>
-            </>
+            <button type="button" className="btn" onClick={onSave}>
+              {savedId ? 'Update saved' : 'Save to account'}
+            </button>
           ) : user === null ? (
             <p className="hint">
-              <Link href="/signup">Sign up</Link> to keep signatures across devices.
+              <Link href="/signup">Sign up</Link> to save signatures.
             </p>
           ) : null}
         </div>
-
-        <p className="hint">
-          The details you enter are saved on our servers as you type. See our{' '}
-          <Link href="/privacy">privacy policy</Link>.
-        </p>
 
         <p className="status" role="status" aria-live="polite">
           {status}

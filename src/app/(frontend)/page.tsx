@@ -1,48 +1,53 @@
-import { Gallery } from '@/components/Gallery'
+import Link from 'next/link'
+
 import { HeroStage } from '@/components/HeroStage'
+import { TemplateCard } from '@/components/Gallery'
 import { getTemplates } from '@/lib/server/templates'
-import { categoriesOf } from '@/lib/signature/templates'
+import { previewData } from '@/lib/signature/preview'
+import { renderSignature } from '@/lib/signature/render'
 
 export const revalidate = 60
 
+const FEATURED = ['terminal-dev', 'counsel-classic', 'studio-block', 'realtor-card', 'boardroom', 'classic-photo']
+
 export default async function HomePage() {
-  const TEMPLATES = await getTemplates()
-  const CATEGORIES = categoriesOf(TEMPLATES)
+  const templates = await getTemplates()
+  const featured = [
+    ...FEATURED.map((id) => templates.find((t) => t.id === id)).filter((t) => !!t),
+    ...templates,
+  ]
+    .filter((t, i, a) => a.indexOf(t) === i)
+    .slice(0, 6)
+
   return (
     <>
       <section className="hero">
         <div>
-          <p className="hero__prompt">
-            <b>~/sigrio</b> $ new --signature --free
-          </p>
           <h1>
             Email signatures <mark>built for your job</mark>
             <span className="cursor" />
           </h1>
-          <p className="hero__lede">
-            Pick a template for developers, lawyers, realtors, doctors, creators and more. Fill in your details, tweak
-            the colors, paste it into Gmail or Outlook.
-          </p>
+          <p className="hero__lede">Pick a template, add your details, paste it into your email.</p>
           <div className="hero__cta">
-            <a href="#templates" className="btn btn--primary">
-              Browse templates ↓
-            </a>
-          </div>
-          <div className="hero__stats">
-            <span>
-              <b>{TEMPLATES.length}</b> templates
-            </span>
-            <span>
-              <b>{CATEGORIES.length}</b> industries
-            </span>
-            <span>
-              <b>0</b> signups required
-            </span>
+            <Link href="/templates" className="btn btn--primary">
+              Browse {templates.length} templates →
+            </Link>
           </div>
         </div>
-        <HeroStage templates={TEMPLATES} />
+        <HeroStage templates={templates} />
       </section>
-      <Gallery templates={TEMPLATES} categories={CATEGORIES} />
+      <section className="gallery">
+        <div className="grid">
+          {featured.map((t) => (
+            <TemplateCard key={t.id} t={t} html={renderSignature(t, previewData(t), '')} />
+          ))}
+        </div>
+        <div className="more">
+          <Link href="/templates" className="btn">
+            View all templates →
+          </Link>
+        </div>
+      </section>
     </>
   )
 }
