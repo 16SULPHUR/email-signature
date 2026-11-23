@@ -1,0 +1,58 @@
+{
+  "id": "anim-open-advisor",
+  "name": "Open advisor",
+  "category": "finance",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card"
+  ],
+  "description": "Calm green shimmer for advisers and analysts.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "shimmer",
+    "width": 440,
+    "height": 124
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#15803d",
+    "text": "#052e16",
+    "muted": "#6b7f72",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Neha Iyer",
+    "title": "Wealth Advisor",
+    "company": "Crestline Partners",
+    "email": "neha@crestline.co",
+    "phone": "+91 98330 99887",
+    "website": "https://crestline.co",
+    "websiteLabel": "crestline.co",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

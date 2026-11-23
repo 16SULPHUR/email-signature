@@ -36,6 +36,17 @@
     "anim-quota",
     "anim-equalizer",
     "anim-growth",
-    "anim-stars"
+    "anim-stars",
+    "anim-open-executive",
+    "anim-open-counsel",
+    "anim-open-advisor",
+    "anim-open-agent",
+    "anim-open-doctor",
+    "anim-open-marker",
+    "anim-open-creator",
+    "anim-open-startup",
+    "anim-open-sales",
+    "anim-open-teacher",
+    "anim-open-recruiter"
   ]
 }

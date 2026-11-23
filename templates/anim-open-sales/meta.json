@@ -1,0 +1,58 @@
+{
+  "id": "anim-open-sales",
+  "name": "Open quota",
+  "category": "sales",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card"
+  ],
+  "description": "A quota bar fills to 100%.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "quota",
+    "width": 440,
+    "height": 108
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#16a34a",
+    "text": "#14532d",
+    "muted": "#6b7280",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Arjun Bose",
+    "title": "Senior Account Executive",
+    "company": "Fieldwork",
+    "email": "arjun@fieldwork.io",
+    "phone": "+91 98989 11122",
+    "website": "https://fieldwork.io",
+    "websiteLabel": "fieldwork.io",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

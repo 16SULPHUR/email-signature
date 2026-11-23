@@ -1,0 +1,58 @@
+{
+  "id": "anim-open-doctor",
+  "name": "Open heartbeat",
+  "category": "healthcare",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card"
+  ],
+  "description": "An ECG trace under your name, on a bare layout.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "pulse",
+    "width": 440,
+    "height": 112
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#e11d48",
+    "text": "#1f2937",
+    "muted": "#6b7280",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Dr. Karan Joshi",
+    "title": "Family Physician",
+    "company": "Greenleaf Health",
+    "email": "care@greenleafhealth.in",
+    "phone": "+91 98200 33445",
+    "website": "https://greenleafhealth.in",
+    "websiteLabel": "greenleafhealth.in",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

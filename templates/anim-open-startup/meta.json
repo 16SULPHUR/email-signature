@@ -1,0 +1,57 @@
+{
+  "id": "anim-open-startup",
+  "name": "Open growth",
+  "category": "startup",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card"
+  ],
+  "description": "A growth curve climbs next to your name.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "growth",
+    "width": 440,
+    "height": 116
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#7c3aed",
+    "text": "#1e1b4b",
+    "muted": "#6b7280",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Zoya Khan",
+    "title": "Founder",
+    "company": "Stackwise",
+    "email": "zoya@stackwise.dev",
+    "website": "https://stackwise.dev",
+    "websiteLabel": "stackwise.dev",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

@@ -665,6 +665,33 @@ function stars(): Scene {
   }
 }
 
+function marker(): Scene {
+  const W = 440
+  const H = 92
+  return {
+    width: W,
+    height: H,
+    frames(i) {
+      const { pal } = i
+      const n = nameLine(i, 0, 0, W - 40, 30, 'sans')
+      const r = role(i)
+      const nameW = Array.from(n.text).length * charW(n.size, 'sans') * 0.93
+      const text =
+        txt(2, 40, n.text, { size: n.size, weight: 700, family: 'sans', fill: pal.text }) +
+        txt(2, 66, truncate(r.join(' · '), 58), { size: 12.5, family: 'sans', fill: pal.muted })
+      const swipe = (k: number) =>
+        `<rect x="0" y="26" width="${(nameW + 6) * k}" height="16" rx="3" fill="${pal.accent}" opacity="0.32" transform="rotate(-0.8 0 34)"/>`
+      const under = (k: number) => `<rect x="2" y="78" width="${64 * k}" height="3" rx="1.5" fill="${pal.accent}"/>`
+      const full = swipe(1) + under(1)
+      const final = full + text
+      const seq: Frame[] = []
+      for (let k = 0; k <= 10; k++) seq.push({ svg: swipe(ease(k / 10)) + text + under(0), delay: 50 })
+      for (let k = 1; k <= 5; k++) seq.push({ svg: swipe(1) + text + under(ease(k / 5)), delay: 50 })
+      return withEnds(final, seq)
+    },
+  }
+}
+
 export const SCENES: Record<string, () => Scene> = {
   terminal,
   build,
@@ -682,6 +709,7 @@ export const SCENES: Record<string, () => Scene> = {
   equalizer,
   growth,
   stars,
+  marker,
 }
 
 export const SCENE_KINDS = Object.keys(SCENES)

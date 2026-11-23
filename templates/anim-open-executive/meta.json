@@ -1,0 +1,58 @@
+{
+  "id": "anim-open-executive",
+  "name": "Open executive",
+  "category": "executive",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card"
+  ],
+  "description": "Subtle name shimmer on a clean open layout.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "shimmer",
+    "width": 440,
+    "height": 124
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#1e3a8a",
+    "text": "#0f172a",
+    "muted": "#64748b",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Priya Sharma",
+    "title": "Chief Operating Officer",
+    "company": "Altura Group",
+    "email": "priya@alturagroup.com",
+    "phone": "+91 98100 22334",
+    "website": "https://alturagroup.com",
+    "websiteLabel": "alturagroup.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}
