@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { CustomFieldsEditor } from '@/components/CustomFieldsEditor'
 import { ExtrasEditor } from '@/components/ExtrasEditor'
+import { ImageField } from '@/components/ImageField'
 import { InstallGuide } from '@/components/InstallGuide'
 import { SignatureFrame } from '@/components/SignatureFrame'
 import { SocialsEditor } from '@/components/SocialsEditor'
@@ -156,9 +157,6 @@ export function Editor({ template }: { template: Template }) {
                   />
                 ))}
               </div>
-              {g.id === 'media' && (
-                <p className="hint">Upload an image or paste a link.</p>
-              )}
             </fieldset>
           )
         })}
@@ -271,19 +269,21 @@ function FieldInput({
   onUploadError: (msg: string) => void
 }) {
   const def = FIELDS[k]
-  const [busy, setBusy] = useState(false)
   const id = `f-${k}`
 
-  const upload = async (file?: File) => {
-    if (!file) return
-    setBusy(true)
-    try {
-      onChange(await api.uploadImage(file, k === 'photoUrl' ? 'photo' : 'logo'))
-    } catch (e) {
-      onUploadError((e as Error).message)
-    } finally {
-      setBusy(false)
-    }
+  if (canUpload) {
+    return (
+      <div className="field">
+        <label>{def.label.replace(/ URL$/, '')}</label>
+        <ImageField
+          kind={k === 'photoUrl' ? 'photo' : 'logo'}
+          value={value}
+          onChange={onChange}
+          onError={onUploadError}
+          label={k === 'photoUrl' ? 'photo' : 'logo'}
+        />
+      </div>
+    )
   }
 
   return (
@@ -299,23 +299,15 @@ function FieldInput({
           onChange={(e) => onChange(e.target.value)}
         />
       ) : (
-        <span className="field__row">
-          <input
-            id={id}
-            className="input"
-            type={def.type === 'url' ? 'text' : def.type || 'text'}
-            inputMode={def.type === 'url' ? 'url' : undefined}
-            placeholder={def.placeholder}
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-          />
-          {canUpload && (
-            <span className="btn btn--sm upload">
-              {busy ? '…' : 'Upload'}
-              <input type="file" accept="image/*" onChange={(e) => upload(e.target.files?.[0])} />
-            </span>
-          )}
-        </span>
+        <input
+          id={id}
+          className="input"
+          type={def.type === 'url' ? 'text' : def.type || 'text'}
+          inputMode={def.type === 'url' ? 'url' : undefined}
+          placeholder={def.placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+        />
       )}
     </div>
   )

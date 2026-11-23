@@ -1362,3 +1362,18 @@ input[type='range'] {
     backdrop-filter: none;
   }
 }
+
+.imgfield {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.imgfield__thumb {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  background: var(--stage);
+  border: 1px solid var(--line-strong);
+}
