@@ -47,6 +47,12 @@
     "anim-open-startup",
     "anim-open-sales",
     "anim-open-teacher",
-    "anim-open-recruiter"
+    "anim-open-recruiter",
+    "anim-open-video-editor",
+    "anim-open-graphic-designer",
+    "anim-open-photo-editor",
+    "anim-open-motion",
+    "anim-open-sound",
+    "anim-open-colorist"
   ]
 }

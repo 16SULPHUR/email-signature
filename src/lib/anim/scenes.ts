@@ -692,6 +692,157 @@ function marker(): Scene {
   }
 }
 
+function timeline(): Scene {
+  const W = 440
+  const H = 112
+  return {
+    width: W,
+    height: H,
+    frames(i) {
+      const { pal } = i
+      const n = nameLine(i, 2, 0, W - 40, 28, 'sans')
+      const r = role(i)
+      const head =
+        txt(2, 32, n.text, { size: n.size, weight: 700, family: 'sans', fill: pal.text }) +
+        txt(2, 52, truncate(r.join(' · '), 58), { size: 12, family: 'sans', fill: pal.muted })
+      const tx = 2
+      const tw = W - 4
+      const clips = [
+        [0, 0.34, 0], [0.36, 0.2, 1], [0.58, 0.4, 0],
+        [0.08, 0.22, 2], [0.32, 0.46, 0], [0.8, 0.2, 1],
+      ]
+      const tone = (k: number) => [pal.accent, pal.accent2, mix(pal.accent, pal.text, 0.5)][k]
+      const track = (k: number) =>
+        clips
+          .map(([s0, w0, c], idx) => {
+            const row = idx < 3 ? 0 : 1
+            const p = ease(clamp(k * 1.8 - (idx % 3) * 0.2 - row * 0.2))
+            return `<rect x="${tx + tw * s0}" y="${68 + row * 18}" width="${Math.max(0, tw * w0 * p - 2)}" height="14" rx="3" fill="${tone(c)}"/>`
+          })
+          .join('')
+      const rule = `<rect x="${tx}" y="62" width="${tw}" height="1" fill="${pal.muted}" opacity="0.35"/>`
+      const head2 = (x: number) => `<rect x="${x - 1}" y="60" width="2" height="48" fill="${pal.text}"/><polygon points="${x - 5},58 ${x + 5},58 ${x},65" fill="${pal.text}"/>`
+      const final = head + rule + track(1)
+      const seq: Frame[] = []
+      for (let k = 0; k <= 8; k++) seq.push({ svg: head + rule + track(k / 8), delay: 55 })
+      for (let k = 0; k <= 14; k++) seq.push({ svg: head + rule + track(1) + head2(tx + (tw * k) / 14), delay: 60 })
+      return withEnds(final, seq)
+    },
+  }
+}
+
+function swatches(): Scene {
+  const W = 440
+  const H = 100
+  return {
+    width: W,
+    height: H,
+    frames(i) {
+      const { pal } = i
+      const n = nameLine(i, 2, 0, W - 40, 28, 'sans')
+      const r = role(i)
+      const head =
+        txt(2, 32, n.text, { size: n.size, weight: 700, family: 'sans', fill: pal.text }) +
+        txt(2, 52, truncate(r.join(' · '), 58), { size: 12, family: 'sans', fill: pal.muted })
+      const cols = [pal.accent, pal.accent2, mix(pal.accent, '#ffffff', 0.45), mix(pal.accent, '#000000', 0.35), pal.muted, pal.text]
+      const row = (k: number, sel = -1) =>
+        cols
+          .map((c, idx) => {
+            const p = ease(clamp(k * 1.7 - idx * 0.14))
+            const size = 26 * p
+            const cx = 15 + idx * 36
+            const ring = idx === sel ? `<circle cx="${cx}" cy="82" r="17" fill="none" stroke="${pal.text}" stroke-width="1.5"/>` : ''
+            return `<circle cx="${cx}" cy="82" r="${(size / 2 + 0.01).toFixed(1)}" fill="${c}"/>${ring}`
+          })
+          .join('')
+      const final = head + row(1)
+      const seq: Frame[] = []
+      for (let k = 0; k <= 10; k++) seq.push({ svg: head + row(k / 10), delay: 55 })
+      for (let sel = 0; sel < cols.length; sel++) seq.push({ svg: head + row(1, sel), delay: 200 })
+      return withEnds(final, seq)
+    },
+  }
+}
+
+function focus(): Scene {
+  const W = 440
+  const H = 100
+  return {
+    width: W,
+    height: H,
+    frames(i) {
+      const { pal } = i
+      const n = nameLine(i, 0, 0, W - 80, 28, 'sans')
+      const r = role(i)
+      const nameW = Math.max(Array.from(n.text).length * charW(n.size, 'sans') * 0.93, Math.min(Array.from(r.join(' · ')).length, 54) * 12 * 0.5)
+      const text = (op = 1) =>
+        txt(22, 46, n.text, { size: n.size, weight: 700, family: 'sans', fill: pal.text, opacity: op }) +
+        txt(22, 70, truncate(r.join(' · '), 54), { size: 12, family: 'sans', fill: pal.muted, opacity: op })
+      const bracket = (inset: number) => {
+        const x0 = 8 - inset
+        const y0 = 12 - inset
+        const x1 = 22 + nameW + 14 + inset
+        const y1 = 82 + inset
+        const l = 12
+        const d = (x: number, y: number, dx: number, dy: number) => `M${x},${y + dy * l} L${x},${y} L${x + dx * l},${y}`
+        return `<path d="${d(x0, y0, 1, 1)} ${d(x1, y0, -1, 1)} ${d(x0, y1, 1, -1)} ${d(x1, y1, -1, -1)}" fill="none" stroke="${pal.accent}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`
+      }
+      const final = text() + bracket(0)
+      const seq: Frame[] = []
+      const blur = [0.15, 0.3, 0.5, 0.75, 1]
+      blur.forEach((op, k) => seq.push({ svg: text(op) + bracket(14 - k * 3.5), delay: 90 }))
+      seq.push({ svg: `<rect x="0" y="0" width="${W}" height="${H}" fill="#ffffff" opacity="0.5"/>` + text() + bracket(0), delay: 60 })
+      return withEnds(final, seq)
+    },
+  }
+}
+
+function curve(): Scene {
+  const W = 440
+  const H = 108
+  return {
+    width: W,
+    height: H,
+    frames(i) {
+      const { pal } = i
+      const n = nameLine(i, 2, 0, W - 40, 28, 'sans')
+      const r = role(i)
+      const head =
+        txt(2, 32, n.text, { size: n.size, weight: 700, family: 'sans', fill: pal.text }) +
+        txt(2, 52, truncate(r.join(' · '), 58), { size: 12, family: 'sans', fill: pal.muted })
+      const x0 = 8
+      const x1 = W - 8
+      const yb = 100
+      const yt = 60
+      const ys = (t: number) => yb - (yb - yt) * (t * t * (3 - 2 * t))
+      const pts = (k: number) =>
+        Array.from({ length: 41 }, (_, s) => s / 40)
+          .filter((t) => t <= k)
+          .map((t) => `${(x0 + (x1 - x0) * t).toFixed(1)},${ys(t).toFixed(1)}`)
+      const draw = (k: number) => {
+        const p = pts(k)
+        if (p.length < 2) return ''
+        const lastT = Math.min(k, 1)
+        const dx = x0 + (x1 - x0) * lastT
+        const dy = ys(lastT)
+        const key = (t: number) => {
+          const kx = x0 + (x1 - x0) * t
+          return k >= t ? `<rect x="${kx - 4}" y="${ys(t) - 4}" width="8" height="8" transform="rotate(45 ${kx} ${ys(t)})" fill="${pal.accent2}"/>` : ''
+        }
+        return (
+          `<polyline points="${p.join(' ')}" fill="none" stroke="${pal.accent}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>` +
+          key(0) + key(1) +
+          `<circle cx="${dx.toFixed(1)}" cy="${dy.toFixed(1)}" r="4" fill="${pal.accent}"/>`
+        )
+      }
+      const final = head + draw(1)
+      const seq: Frame[] = []
+      for (let k = 0; k <= 18; k++) seq.push({ svg: head + draw(k / 18), delay: 55 })
+      return withEnds(final, seq)
+    },
+  }
+}
+
 export const SCENES: Record<string, () => Scene> = {
   terminal,
   build,
@@ -710,6 +861,10 @@ export const SCENES: Record<string, () => Scene> = {
   growth,
   stars,
   marker,
+  timeline,
+  swatches,
+  focus,
+  curve,
 }
 
 export const SCENE_KINDS = Object.keys(SCENES)

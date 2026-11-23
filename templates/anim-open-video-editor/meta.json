@@ -1,0 +1,60 @@
+{
+  "id": "anim-open-video-editor",
+  "name": "Open timeline",
+  "category": "creator",
+  "tags": [
+    "animated",
+    "light",
+    "open",
+    "no-card",
+    "video-editor",
+    "editor",
+    "film"
+  ],
+  "description": "Clips drop onto a timeline and the playhead sweeps past.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "timeline",
+    "width": 440,
+    "height": 112
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#7c3aed",
+    "text": "#111827",
+    "muted": "#6b7280",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Ishaan Rao",
+    "title": "Video Editor",
+    "company": "Cutroom Studio",
+    "email": "ishaan@cutroom.studio",
+    "website": "https://cutroom.studio",
+    "websiteLabel": "cutroom.studio",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}
