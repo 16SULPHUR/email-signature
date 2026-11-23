@@ -618,6 +618,8 @@ textarea.input {
 }
 
 .card:hover {
+  background: var(--panel);
+  color: inherit;
   transform: translate(-4px, -4px);
   box-shadow: 4px 4px 0 var(--accent);
 }
