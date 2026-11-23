@@ -172,6 +172,33 @@ export function ExtrasEditor({ data, onField, onExtras, onError }: Props) {
 
       <div className="field field--wide">
         <label className="check">
+          <input type="checkbox" checked={!!extras.vcard} onChange={(e) => onExtras({ vcard: e.target.checked })} />
+          Add a &quot;Save my contact&quot; link
+        </label>
+        <select
+          className="input"
+          aria-label="QR code"
+          value={extras.qr || 'off'}
+          onChange={(e) => onExtras({ qr: e.target.value as NonNullable<SignatureData['extras']>['qr'] })}
+        >
+          <option value="off">No QR code</option>
+          <option value="contact">QR code that saves my contact</option>
+          <option value="link">QR code for a link</option>
+        </select>
+        {extras.qr === 'link' && (
+          <input
+            className="input"
+            inputMode="url"
+            aria-label="QR link"
+            placeholder="https://…"
+            value={extras.qrLink || ''}
+            onChange={(e) => onExtras({ qrLink: e.target.value })}
+          />
+        )}
+      </div>
+
+      <div className="field field--wide">
+        <label className="check">
           <input type="checkbox" checked={!!extras.utm} onChange={(e) => onExtras({ utm: e.target.checked })} />
           Add UTM tags to my website and button links
         </label>

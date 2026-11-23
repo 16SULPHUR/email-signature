@@ -58,6 +58,9 @@ export type Extras = {
   bannerUrl?: string
   bannerLink?: string
   handwritingUrl?: string
+  vcard?: boolean
+  qr?: 'off' | 'contact' | 'link'
+  qrLink?: string
 }
 
 export type SignatureData = {

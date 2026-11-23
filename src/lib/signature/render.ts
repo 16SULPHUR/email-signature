@@ -2,7 +2,7 @@ import Mustache from 'mustache'
 
 import { animUrl } from '@/lib/anim/url'
 
-import { addUtm, bannerBlock, ctaBlock, disclaimerBlock, extrasBefore, handwritingBlock } from './extras'
+import { addUtm, bannerBlock, ctaBlock, contactBlock, disclaimerBlock, extrasBefore, handwritingBlock } from './extras'
 import { NETWORK_MAP } from './networks'
 import type { SignatureData, Style, Template } from './types'
 
@@ -168,6 +168,13 @@ export function renderSignature(template: Template, data: SignatureData, siteUrl
   let html = extrasBefore(template, ctx) + handwritingBlock(data.extras, ctx.name) + Mustache.render(template.html, ctx)
   html += ctaBlock(template, ctx)
   if (ctx.hasCustomFields && !template.html.includes('customFields')) html += Mustache.render(CUSTOM_FIELDS_BLOCK, ctx)
+  html += contactBlock(data.extras, {
+    siteUrl,
+    fields: data.fields || {},
+    link: safeUrl(data.extras?.qrLink),
+    font: ctx.font,
+    accent: ctx.accent,
+  })
   html += bannerBlock(data.extras, addUtm(safeUrl(data.extras?.bannerLink), data.extras))
   html += disclaimerBlock(template, ctx)
   html = applyPhotoOptions(html, ctx, template, resolveStyle(template, data))

@@ -1,6 +1,6 @@
 import Mustache from 'mustache'
 
-import type { Extras, Template } from './types'
+import type { Extras, Fields, Template } from './types'
 
 export const DISCLAIMER_PRESETS = [
   {
@@ -106,4 +106,26 @@ export function handwritingBlock(extras: Extras | undefined, name: string | unde
   const src = extras?.handwritingUrl?.trim()
   if (!src) return ''
   return Mustache.render(HANDWRITING, { src, name: name || '' })
+}
+
+export function vcardUrl(siteUrl: string, f: Fields) {
+  if (!f.name?.trim()) return ''
+  const q = new URLSearchParams({ n: f.name.trim() })
+  const map = { t: f.title, o: f.company, p: f.phone, m: f.mobile, e: f.email, w: f.website, a: f.address }
+  for (const [k, v] of Object.entries(map)) if (v?.trim()) q.set(k, v.trim())
+  return `${siteUrl}/vcard?${q.toString()}`
+}
+
+const CONTACT = `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:12px;"><tr>{{#qr}}<td valign="middle" style="padding-right:12px;"><img src="{{qr}}" width="72" height="72" alt="QR code" style="display:block;border:0;width:72px;height:72px;"></td>{{/qr}}{{#vcard}}<td valign="middle" style="font-family:{{font}};font-size:12px;line-height:18px;"><a href="{{vcard}}" style="color:{{accent}};text-decoration:none;font-weight:bold;">Save my contact</a></td>{{/vcard}}</tr></table>`
+
+export function contactBlock(
+  extras: Extras | undefined,
+  o: { siteUrl: string; fields: Fields; link: string; font: string; accent: string },
+) {
+  const vcard = vcardUrl(o.siteUrl, o.fields)
+  const target = extras?.qr === 'contact' ? vcard : extras?.qr === 'link' ? o.link : ''
+  const qr = target ? `${o.siteUrl}/qr?${new URLSearchParams({ d: target, c: o.accent.replace('#', '') })}` : ''
+  const showVcard = extras?.vcard && vcard
+  if (!qr && !showVcard) return ''
+  return Mustache.render(CONTACT, { qr, vcard: showVcard ? vcard : '', font: o.font, accent: o.accent })
 }
