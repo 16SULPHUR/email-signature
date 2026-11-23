@@ -1,0 +1,59 @@
+{
+  "id": "anim-equalizer",
+  "name": "Equalizer",
+  "category": "creator",
+  "tags": [
+    "animated",
+    "dark",
+    "audio",
+    "pink"
+  ],
+  "description": "Audio equalizer bars bounce under your name.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "equalizer",
+    "width": 440,
+    "height": 104
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "tagline",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#ec4899",
+    "text": "#fdf2f8",
+    "muted": "#b98aa6",
+    "bg": "#150d14",
+    "font": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Mira Kapoor",
+    "title": "Podcast Host & Creator",
+    "company": "Quiet Hours",
+    "email": "hello@quiethours.fm",
+    "website": "https://quiethours.fm",
+    "websiteLabel": "quiethours.fm",
+    "tagline": "research that compounds",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

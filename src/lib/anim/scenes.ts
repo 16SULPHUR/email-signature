@@ -504,6 +504,167 @@ function skyline(): Scene {
   }
 }
 
+function quota(): Scene {
+  const W = 440
+  const H = 108
+  return {
+    width: W,
+    height: H,
+    frames(i) {
+      const { pal } = i
+      const n = nameLine(i, 22, 0, W - 44, 24, 'sans')
+      const r = role(i)
+      const bx = 22
+      const bw = W - 44
+      const by = 84
+      const label = truncate(i.params.done || 'QUOTA SMASHED', 22).toUpperCase()
+      const head =
+        txt(22, 32, n.text, { size: n.size, weight: 700, family: 'sans', fill: pal.text }) +
+        txt(22, 50, truncate(r.join(' · '), 56), { size: 11.5, family: 'sans', fill: pal.muted })
+      const bar = (k: number) => {
+        const pct = Math.round(k * 100)
+        const color = k >= 1 ? pal.accent2 : pal.accent
+        return (
+          `<rect x="${bx}" y="${by}" width="${bw}" height="10" rx="5" fill="${mix(pal.bg, pal.text, 0.1)}"/>` +
+          (k > 0 ? `<rect x="${bx}" y="${by}" width="${Math.max(10, bw * k)}" height="10" rx="5" fill="${color}"/>` : '') +
+          txt(W - 22, 68, `${pct}%`, { size: 14, weight: 700, family: 'sans', fill: k >= 1 ? pal.accent2 : pal.accent, anchor: 'end' })
+        )
+      }
+      const tag = (op: number) => txt(22, 68, `✓ ${label}`, { size: 11, weight: 700, family: 'sans', fill: pal.accent2, ls: 1.5, opacity: op })
+      const final = head + bar(1) + tag(1)
+      const seq: Frame[] = []
+      for (let k = 0; k <= 16; k++) seq.push({ svg: head + bar(ease(k / 16)), delay: 55 })
+      for (const op of [0.4, 0.8, 1]) seq.push({ svg: head + bar(1) + tag(op), delay: 90 })
+      return withEnds(final, seq)
+    },
+  }
+}
+
+function equalizer(): Scene {
+  const W = 440
+  const H = 104
+  return {
+    width: W,
+    height: H,
+    frames(i) {
+      const { pal } = i
+      const n = nameLine(i, 22, 0, W - 44, 26, 'sans')
+      const r = role(i)
+      const bars = 36
+      const base = 98
+      const gap = (W - 44) / bars
+      const rand = rng(i.name + 'eq')
+      const text =
+        txt(22, 36, n.text, { size: n.size, weight: 700, family: 'sans', fill: pal.text }) +
+        txt(22, 56, truncate(r.join(' · '), 56), { size: 11.5, family: 'sans', fill: pal.muted })
+      const heights = (t: number) =>
+        Array.from({ length: bars }, (_, b) => {
+          const wave = Math.sin(b * 0.45 + t * 1.3) * 0.5 + 0.5
+          return 3 + (wave * 0.7 + rand() * 0.3) * 24
+        })
+      const draw = (hs: number[]) =>
+        hs
+          .map((h, b) => {
+            const col = mix(pal.accent, pal.accent2, b / bars)
+            return `<rect x="${22 + b * gap}" y="${base - h}" width="${(gap * 0.62).toFixed(1)}" height="${h.toFixed(1)}" rx="1.5" fill="${col}"/>`
+          })
+          .join('')
+      const final = text + draw(heights(2))
+      const seq: Frame[] = []
+      for (let f = 0; f < 18; f++) seq.push({ svg: text + draw(heights(f)), delay: 90 })
+      return withEnds(final, seq)
+    },
+  }
+}
+
+function growth(): Scene {
+  const W = 440
+  const H = 116
+  return {
+    width: W,
+    height: H,
+    frames(i) {
+      const { pal } = i
+      const n = nameLine(i, 22, 0, 230, 24, 'sans')
+      const r = role(i)
+      const text =
+        txt(22, 40, n.text, { size: n.size, weight: 700, family: 'sans', fill: pal.text }) +
+        txt(22, 62, truncate((r[0] || '').toUpperCase(), 26), { size: 11, family: 'sans', fill: pal.accent, ls: 1.5 }) +
+        txt(22, 80, truncate(r[1] || '', 32), { size: 11.5, family: 'sans', fill: pal.muted })
+      const pts = [[270, 98], [300, 90], [326, 94], [352, 70], [380, 56], [406, 36], [420, 22]]
+      const path = (k: number) => {
+        const upto = pts.length * k
+        const out: number[][] = []
+        for (let idx = 0; idx < pts.length; idx++) {
+          if (idx < Math.floor(upto)) out.push(pts[idx])
+          else {
+            const f = upto - idx
+            if (idx > 0 && f > 0) out.push([pts[idx - 1][0] + (pts[idx][0] - pts[idx - 1][0]) * f, pts[idx - 1][1] + (pts[idx][1] - pts[idx - 1][1]) * f])
+            break
+          }
+        }
+        return out
+      }
+      const axis = `<rect x="262" y="104" width="164" height="1" fill="${pal.muted}" opacity="0.4"/>`
+      const line = (k: number) => {
+        const p = path(k)
+        if (p.length < 2) return axis
+        const last = p[p.length - 1]
+        const area = `M${p[0][0]},104 L${p.map((q) => q.join(',')).join(' L')} L${last[0]},104 Z`
+        return (
+          axis +
+          `<path d="${area}" fill="${pal.accent}" opacity="0.14"/>` +
+          `<polyline points="${p.map((q) => q.join(',')).join(' ')}" fill="none" stroke="${pal.accent}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>` +
+          `<circle cx="${last[0]}" cy="${last[1]}" r="4" fill="${pal.accent2}"/>`
+        )
+      }
+      const final = text + line(1)
+      const seq: Frame[] = []
+      for (let k = 0; k <= 16; k++) seq.push({ svg: text + line(ease(k / 16)), delay: 60 })
+      for (const r2 of [7, 4, 7]) seq.push({ svg: text + line(1).replace('r="4"', `r="${r2}"`), delay: 160 })
+      return withEnds(final, seq)
+    },
+  }
+}
+
+function stars(): Scene {
+  const W = 440
+  const H = 104
+  return {
+    width: W,
+    height: H,
+    frames(i) {
+      const { pal } = i
+      const n = nameLine(i, 0, 0, W - 44, 26, 'sans')
+      const r = role(i)
+      const cx = W / 2
+      const head =
+        txt(cx, 36, n.text, { size: n.size, weight: 700, family: 'sans', fill: pal.text, anchor: 'middle' }) +
+        txt(cx, 56, truncate(r.join(' · '), 56), { size: 11.5, family: 'sans', fill: pal.muted, anchor: 'middle' })
+      const star = (x: number, y: number, size: number, fill: string, op = 1) => {
+        const pts = Array.from({ length: 10 }, (_, k) => {
+          const rad = k % 2 === 0 ? size : size * 0.42
+          const a = (Math.PI / 5) * k - Math.PI / 2
+          return `${(x + rad * Math.cos(a)).toFixed(1)},${(y + rad * Math.sin(a)).toFixed(1)}`
+        }).join(' ')
+        return `<polygon points="${pts}" fill="${fill}" opacity="${op}"/>`
+      }
+      const row = (lit: number, pop = -1) =>
+        Array.from({ length: 5 }, (_, k) => {
+          const x = cx - 56 + k * 28
+          const on = k < lit
+          const sz = k === pop ? 14 : 11
+          return star(x, 82, sz, on ? pal.accent : mix(pal.bg, pal.text, 0.15))
+        }).join('')
+      const final = head + row(5)
+      const seq: Frame[] = []
+      for (let k = 0; k <= 5; k++) seq.push({ svg: head + row(k, k - 1), delay: 220 })
+      seq.push({ svg: head + row(5), delay: 160 })
+      return withEnds(final, seq)
+    },
+  }
+}
+
 export const SCENES: Record<string, () => Scene> = {
   terminal,
   build,
@@ -517,6 +678,10 @@ export const SCENES: Record<string, () => Scene> = {
   ticker,
   pulse,
   skyline,
+  quota,
+  equalizer,
+  growth,
+  stars,
 }
 
 export const SCENE_KINDS = Object.keys(SCENES)

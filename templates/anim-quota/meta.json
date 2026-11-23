@@ -1,0 +1,63 @@
+{
+  "id": "anim-quota",
+  "name": "Quota bar",
+  "category": "sales",
+  "tags": [
+    "animated",
+    "dark",
+    "progress",
+    "orange"
+  ],
+  "description": "A progress bar fills to 100% above your name.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "quota",
+    "width": 440,
+    "height": 108,
+    "params": {
+      "done": "Quota smashed"
+    }
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "tagline",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#f97316",
+    "text": "#fff7ed",
+    "muted": "#c9a68a",
+    "bg": "#1c1410",
+    "font": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Vikram Nair",
+    "title": "Enterprise Account Executive",
+    "company": "Northwind Software",
+    "email": "vikram@northwind.io",
+    "phone": "+91 98765 43210",
+    "website": "https://northwind.io",
+    "websiteLabel": "northwind.io",
+    "tagline": "research that compounds",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

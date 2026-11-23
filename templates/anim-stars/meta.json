@@ -1,0 +1,58 @@
+{
+  "id": "anim-stars",
+  "name": "Five stars",
+  "category": "hospitality",
+  "tags": [
+    "animated",
+    "light",
+    "centered",
+    "gold"
+  ],
+  "description": "Five stars light up under your name.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "stars",
+    "width": 440,
+    "height": 104
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#d4a017",
+    "text": "#2b2118",
+    "muted": "#8a7a66",
+    "bg": "#fffaf0",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Elena Rossi",
+    "title": "General Manager",
+    "company": "Hotel Belvedere",
+    "email": "elena@belvedere.com",
+    "phone": "+39 055 123 4567",
+    "website": "https://belvedere.com",
+    "websiteLabel": "belvedere.com",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}

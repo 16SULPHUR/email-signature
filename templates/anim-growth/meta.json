@@ -1,0 +1,58 @@
+{
+  "id": "anim-growth",
+  "name": "Growth curve",
+  "category": "startup",
+  "tags": [
+    "animated",
+    "light",
+    "chart",
+    "blue"
+  ],
+  "description": "A growth curve climbs beside your name and role.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "growth",
+    "width": 440,
+    "height": 116
+  },
+  "fields": [
+    "name",
+    "title",
+    "company",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#2563eb",
+    "text": "#0f172a",
+    "muted": "#64748b",
+    "bg": "#ffffff",
+    "font": "Helvetica, Arial, sans-serif",
+    "iconSize": 20
+  },
+  "preview": {
+    "name": "Aarav Mehta",
+    "title": "Co-founder & CEO",
+    "company": "Loopline",
+    "email": "aarav@loopline.co",
+    "phone": "+91 99887 77665",
+    "website": "https://loopline.co",
+    "websiteLabel": "loopline.co",
+    "socials": [
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "x",
+        "url": "https://x.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}
