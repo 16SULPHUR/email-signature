@@ -18,6 +18,7 @@ export const FIELD_KEYS = [
   'ctaUrl',
   'disclaimer',
   'tagline',
+  'signoff',
 ] as const
 
 export type FieldKey = (typeof FIELD_KEYS)[number]
@@ -51,10 +52,16 @@ export type CustomField = {
   value: string
 }
 
+export type Extras = {
+  utm?: boolean
+  utmCampaign?: string
+}
+
 export type SignatureData = {
   fields: Fields
   socials: SocialLink[]
   customFields?: CustomField[]
+  extras?: Extras
   style: Partial<Style>
 }
 

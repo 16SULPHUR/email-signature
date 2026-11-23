@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { CustomFieldsEditor } from '@/components/CustomFieldsEditor'
+import { ExtrasEditor } from '@/components/ExtrasEditor'
 import { InstallGuide } from '@/components/InstallGuide'
 import { SignatureFrame } from '@/components/SignatureFrame'
 import { SocialsEditor } from '@/components/SocialsEditor'
@@ -58,6 +59,7 @@ export function Editor({ template, templates }: Props) {
         fields: draft.fields,
         socials: draft.socials,
         customFields: draft.customFields || [],
+        extras: draft.extras,
         style: draft.styles?.[template.id] || {},
       })
     }
@@ -93,7 +95,7 @@ export function Editor({ template, templates }: Props) {
   const setField = (key: FieldKey, value: string) =>
     setData((d) => ({ ...d, fields: { ...d.fields, [key]: value } }))
 
-  const used = new Set(template.fields)
+  const used = new Set<FieldKey>([...template.fields, 'ctaText', 'ctaUrl', 'disclaimer', 'signoff'])
   const unusedFilled = Object.entries(data.fields).filter(([k, v]) => v && !used.has(k as FieldKey)).length
 
   const onCopy = async () => {
@@ -128,7 +130,7 @@ export function Editor({ template, templates }: Props) {
 
   const onClearSample = () => {
     clearDraft()
-    setData({ fields: {}, socials: [], customFields: [], style: {} })
+    setData({ fields: {}, socials: [], customFields: [], extras: {}, style: {} })
   }
 
   const switchTemplate = (id: string) => {
@@ -157,6 +159,7 @@ export function Editor({ template, templates }: Props) {
 
         {FIELD_GROUPS.map((g) => {
           const keys = template.fields.filter((k) => FIELDS[k]?.group === g.id)
+          if (g.id === 'extras') return null
           if (!keys.length) return null
           return (
             <fieldset key={g.id} className="panel">
@@ -183,6 +186,15 @@ export function Editor({ template, templates }: Props) {
         <fieldset className="panel">
           <legend>Social links</legend>
           <SocialsEditor socials={data.socials} onChange={(socials) => setData((d) => ({ ...d, socials }))} />
+        </fieldset>
+
+        <fieldset className="panel">
+          <legend>Button & extras</legend>
+          <ExtrasEditor
+            data={data}
+            onField={setField}
+            onExtras={(patch) => setData((d) => ({ ...d, extras: { ...d.extras, ...patch } }))}
+          />
         </fieldset>
 
         <fieldset className="panel">

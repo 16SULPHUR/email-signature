@@ -26,6 +26,7 @@ export const FIELDS: Record<FieldKey, FieldDef> = {
   logoUrl: { label: 'Logo URL', placeholder: 'https://…/logo.png', group: 'media', type: 'url' },
   ctaText: { label: 'Button text', placeholder: 'Book a call', group: 'extras' },
   ctaUrl: { label: 'Button link', placeholder: 'https://calendly.com/you', group: 'extras', type: 'url' },
+  signoff: { label: 'Sign-off', placeholder: 'Best regards,', group: 'extras' },
   disclaimer: {
     label: 'Disclaimer',
     placeholder: 'This email and any attachments are confidential…',
@@ -60,6 +61,7 @@ export const SAMPLE_FIELDS = {
   ctaUrl: 'https://calendly.com',
   disclaimer: '',
   tagline: 'Making the complex feel simple',
+  signoff: '',
 }
 
 export const SAMPLE_SOCIALS = [

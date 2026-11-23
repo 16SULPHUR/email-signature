@@ -2,6 +2,7 @@ import Mustache from 'mustache'
 
 import { animUrl } from '@/lib/anim/url'
 
+import { addUtm, ctaBlock, disclaimerBlock, extrasBefore } from './extras'
 import { NETWORK_MAP } from './networks'
 import type { SignatureData, Style, Template } from './types'
 
@@ -96,8 +97,9 @@ export function buildContext(template: Template, data: SignatureData, siteUrl: s
     .filter((c) => c.value?.trim())
     .map((c) => ({ label: c.label?.trim() || '', value: c.value.trim(), href: /^https?:\/\//i.test(c.value.trim()) ? c.value.trim() : '' }))
 
-  const website = safeUrl(f.website)
-  const ctaUrl = safeUrl(f.ctaUrl)
+  const rawWebsite = safeUrl(f.website)
+  const website = addUtm(rawWebsite, data.extras)
+  const ctaUrl = addUtm(safeUrl(f.ctaUrl), data.extras)
   const contactIcon = (name: string) => iconUrl(siteUrl, name, accent)
 
   return {
@@ -105,7 +107,7 @@ export function buildContext(template: Template, data: SignatureData, siteUrl: s
     photoUrl: safeUrl(f.photoUrl),
     logoUrl: safeUrl(f.logoUrl),
     website,
-    websiteLabel: f.websiteLabel?.trim() || (website ? displayHost(website) : ''),
+    websiteLabel: f.websiteLabel?.trim() || (rawWebsite ? displayHost(rawWebsite) : ''),
     ctaUrl,
     ctaText: ctaUrl ? f.ctaText : '',
     phoneHref: telHref(f.phone),
@@ -158,8 +160,10 @@ function applyPhotoOptions(html: string, ctx: ReturnType<typeof buildContext>, t
 
 export function renderSignature(template: Template, data: SignatureData, siteUrl: string): string {
   const ctx = buildContext(template, data, siteUrl)
-  let html = Mustache.render(template.html, ctx)
+  let html = extrasBefore(template, ctx) + Mustache.render(template.html, ctx)
+  html += ctaBlock(template, ctx)
   if (ctx.hasCustomFields && !template.html.includes('customFields')) html += Mustache.render(CUSTOM_FIELDS_BLOCK, ctx)
+  html += disclaimerBlock(template, ctx)
   html = applyPhotoOptions(html, ctx, template, resolveStyle(template, data))
   return html.replace(/>\s*\n\s*</g, '><').trim()
 }

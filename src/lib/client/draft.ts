@@ -2,7 +2,7 @@ import type { SignatureData } from '@/lib/signature/types'
 
 const KEY = 'sig:draft:v1'
 
-type Stored = Pick<SignatureData, 'fields' | 'socials' | 'customFields'> & { styles: Record<string, SignatureData['style']> }
+type Stored = Pick<SignatureData, 'fields' | 'socials' | 'customFields' | 'extras'> & { styles: Record<string, SignatureData['style']> }
 
 export function loadDraft(): Stored | null {
   try {
@@ -20,6 +20,7 @@ export function saveDraft(templateId: string, data: SignatureData) {
       fields: data.fields,
       socials: data.socials,
       customFields: data.customFields,
+      extras: data.extras,
       styles: { ...prev?.styles, [templateId]: data.style },
     }
     localStorage.setItem(KEY, JSON.stringify(next))
