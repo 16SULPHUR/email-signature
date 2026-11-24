@@ -6,7 +6,7 @@ export default function PrivacyPage() {
   return (
     <article className="prose">
       <h1>Privacy policy</h1>
-      <p className="hint">Last updated 22 November 2026</p>
+      <p className="hint">Last updated 24 November 2026</p>
 
       <h2>What we collect</h2>
       <ul>
@@ -26,6 +26,13 @@ export default function PrivacyPage() {
           <strong>Basic usage</strong>: which templates are copied, and a hashed form of your IP address to rate-limit
           uploads. A random ID stored in your browser links your edits together.
         </li>
+        <li>
+          <strong>Email open tracking</strong>, only if you create a tracked email while signed in. For each tracked
+          email we store the subject and recipient name or email you typed. When the tracking pixel in that email is
+          loaded, we record the time, a rough device type, an approximate city and country, and a hashed form of the
+          viewer&apos;s IP address. We never store the raw IP address. Tracked emails and their opens are visible only
+          to the account that created them and are deleted after 180 days or when you delete them.
+        </li>
       </ul>
 
       <h2>Why we collect it</h2>
@@ -39,6 +46,15 @@ export default function PrivacyPage() {
       <p>
         Data is stored with our hosting providers (Vercel and Neon) in Singapore. Images in your signature are public
         to anyone who receives an email with it.
+      </p>
+
+      <h2>If you received a tracked email</h2>
+      <p>
+        An email you received may contain a tiny invisible image that tells its sender when it was opened. Opens are
+        approximate: mail apps such as Apple Mail and Gmail may load the image automatically, and blocking remote
+        images in your mail app stops the tracking. To ask us to delete the tracking data about you, email{' '}
+        <a href="mailto:ankit@ankit.ninja">ankit@ankit.ninja</a>. Senders using tracking are responsible for telling
+        their recipients where the law requires it.
       </p>
 
       <h2>Your choices</h2>

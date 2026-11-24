@@ -1426,3 +1426,82 @@ input[type='range'] {
 .hint--warn {
   color: var(--warn, #e0a030);
 }
+
+.tracker {
+  display: grid;
+  gap: 16px;
+  padding-bottom: 48px;
+}
+
+.tracker__form {
+  display: grid;
+  gap: 12px;
+}
+
+.tracker__form h2,
+.tracker__item h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.tracker__list {
+  display: grid;
+  gap: 12px;
+}
+
+.tracker__item {
+  display: grid;
+  gap: 12px;
+}
+
+.tracker__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tracker__row .hint {
+  margin: 4px 0 0;
+}
+
+.tracker__status {
+  font-family: var(--mono);
+  font-size: 13px;
+  align-self: start;
+  padding: 4px 8px;
+  border: 1px solid var(--line-strong);
+  opacity: 0.7;
+}
+
+.tracker__status--on {
+  opacity: 1;
+  color: var(--accent-text);
+  border-color: var(--accent);
+}
+
+.tracker__actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tracker__opens {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 13px;
+  display: block;
+  overflow-x: auto;
+}
+
+.tracker__opens th,
+.tracker__opens td {
+  text-align: left;
+  padding: 6px 12px 6px 0;
+  white-space: nowrap;
+}
+
+.tracker__muted {
+  opacity: 0.5;
+}
