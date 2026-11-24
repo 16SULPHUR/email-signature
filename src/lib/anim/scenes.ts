@@ -66,6 +66,63 @@ function terminal(): Scene {
   }
 }
 
+function zsh(): Scene {
+  const W = 440
+  const H = 176
+  return {
+    width: W,
+    height: H,
+    frames(i) {
+      const { pal } = i
+      const user = ((i.name.split(/\s+/)[0] || 'me').toLowerCase().replace(/[^a-z0-9._-]/g, '') || 'me').slice(0, 14)
+      const cmd = truncate(i.params.cmd || 'whoami', 20)
+      const link = i.params.link || pal.accent
+      const cw = charW(13)
+      const base =
+        `<rect width="${W}" height="28" fill="${mix(pal.bg, pal.text, 0.06)}"/>` +
+        ['#ff5f57', '#febc2e', '#28c840'].map((f, k) => `<circle cx="${16 + k * 16}" cy="14" r="5" fill="${f}"/>`).join('') +
+        txt(W / 2, 18, `${user} — zsh`, { size: 12, fill: pal.muted, anchor: 'middle' })
+      const prompt = (y: number, typed: string, cursor: boolean) => {
+        const head = `${user}@dev`
+        const x = 18 + (head.length + 4) * cw
+        return (
+          txt(18, y, head, { size: 13, fill: pal.accent, weight: 700 }) +
+          txt(18 + head.length * cw, y, ':~$', { size: 13, fill: pal.muted }) +
+          (typed ? txt(x, y, typed, { size: 13, fill: pal.text }) : '') +
+          (cursor ? `<rect x="${x + typed.length * cw + 2}" y="${y - 12}" width="${cw}" height="16" fill="${pal.text}" opacity="0.85"/>` : '')
+        )
+      }
+      const n = nameLine(i, 18, 0, W - 36, 18)
+      const nameSvg = txt(18, 86, n.text, { size: n.size, fill: '#ffffff', weight: 700 })
+      const tagline = i.tagline
+      const roleSvg =
+        i.title || tagline
+          ? txt(18, 102.5, truncate(i.title, 30), { size: 13, fill: pal.accent2 }) +
+            (tagline
+              ? txt(18 + Array.from(truncate(i.title, 30)).length * cw, 102.5, `${i.title ? ' · ' : ''}${truncate(tagline, 48 - Array.from(truncate(i.title, 30)).length)}`, {
+                  size: 13,
+                  fill: pal.muted,
+                })
+              : '')
+          : ''
+      const site = i.params.site
+      const linkSvg = site
+        ? txt(18, 121.5, '→ ', { size: 13, fill: pal.muted }) + txt(18 + 2 * cw, 121.5, truncate(site, 40), { size: 13, fill: link })
+        : ''
+      const out = nameSvg + roleSvg + linkSvg
+      const bg = (inner: string) => base + inner
+      const done = (cursor: boolean) => bg(prompt(57, cmd, false) + out + prompt(148.5, '', cursor))
+      const frames: Frame[] = [hold(done(true), HOLD_START)]
+      frames.push(hold(bg(prompt(57, '', true)), 450), hold(bg(prompt(57, '', false)), 450), hold(bg(prompt(57, '', true)), 450))
+      for (let k = 1; k <= cmd.length; k++) frames.push(hold(bg(prompt(57, cmd.slice(0, k), true)), 110))
+      const typed = prompt(57, cmd, false)
+      frames.push(hold(bg(typed + nameSvg), 240), hold(bg(typed + nameSvg + roleSvg), 240), hold(bg(typed + out + prompt(148.5, '', true)), 240))
+      for (let k = 0; k < 6; k++) frames.push(hold(done(k % 2 === 0), 550))
+      return frames
+    },
+  }
+}
+
 function build(): Scene {
   const W = 440
   const H = 184
@@ -845,6 +902,7 @@ function curve(): Scene {
 
 export const SCENES: Record<string, () => Scene> = {
   terminal,
+  zsh,
   build,
   crt,
   typename,

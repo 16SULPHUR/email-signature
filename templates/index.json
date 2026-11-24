@@ -53,6 +53,7 @@
     "anim-open-photo-editor",
     "anim-open-motion",
     "anim-open-sound",
-    "anim-open-colorist"
+    "anim-open-colorist",
+    "anim-zsh"
   ]
 }

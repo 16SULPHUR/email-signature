@@ -1,7 +1,7 @@
 import type { Template } from '@/lib/signature/types'
 
 type Colors = { accent: string; text: string; muted: string; bg: string }
-type Texts = { name?: string; title?: string; company?: string; tagline?: string }
+type Texts = { name?: string; title?: string; company?: string; tagline?: string; site?: string }
 
 const bare = (c: string) => c.replace('#', '')
 
@@ -15,6 +15,7 @@ export function animUrl(siteUrl: string, anim: NonNullable<Template['animation']
   put('t', f.title)
   put('c', f.company)
   put('g', f.tagline)
+  put('w', f.site)
   q.set('a', bare(c.accent))
   q.set('x', bare(c.text))
   q.set('m', bare(c.muted))

@@ -1,0 +1,72 @@
+{
+  "id": "anim-zsh",
+  "name": "Terminal zsh",
+  "category": "developer",
+  "tags": [
+    "animated",
+    "dark",
+    "monospace",
+    "tech",
+    "terminal"
+  ],
+  "description": "A macOS-style zsh window types whoami, then prints your name, role and site.",
+  "width": 440,
+  "animated": true,
+  "animation": {
+    "kind": "zsh",
+    "width": 440,
+    "height": 176,
+    "params": {
+      "a": "9ece6a",
+      "a2": "bb9af7",
+      "k": "7dcfff"
+    }
+  },
+  "fields": [
+    "name",
+    "title",
+    "tagline",
+    "email",
+    "phone",
+    "website",
+    "websiteLabel"
+  ],
+  "theme": {
+    "accent": "#bb9af7",
+    "text": "#c0caf5",
+    "muted": "#565f89",
+    "bg": "#16161e",
+    "font": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "iconSize": 22
+  },
+  "preview": {
+    "name": "Ankit Patil",
+    "title": "Backend Developer",
+    "tagline": "Node / NestJS / Medusa",
+    "email": "akpatil51340@gmail.com",
+    "phone": "+91 95124 67691",
+    "website": "https://ankit.ninja",
+    "websiteLabel": "ankit.ninja",
+    "socials": [
+      {
+        "network": "website",
+        "url": "https://ankit.ninja"
+      },
+      {
+        "network": "whatsapp",
+        "url": "https://wa.me/919512467691"
+      },
+      {
+        "network": "linkedin",
+        "url": "https://linkedin.com/in/example"
+      },
+      {
+        "network": "github",
+        "url": "https://github.com/example"
+      }
+    ]
+  },
+  "defaults": {
+    "iconStyle": "mono"
+  }
+}
