@@ -1376,6 +1376,8 @@ input[type='range'] {
   object-fit: contain;
   background: var(--stage);
   border: 1px solid var(--line-strong);
+}
+
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -1423,6 +1425,8 @@ input[type='range'] {
 
 .advanced > .panel {
   margin: 16px;
+}
+
 .hint--warn {
   color: var(--warn, #e0a030);
 }
@@ -1433,45 +1437,135 @@ input[type='range'] {
   padding-bottom: 48px;
 }
 
-.tracker__form {
-  display: grid;
-  gap: 12px;
+.tracker--narrow {
+  max-width: 640px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.tracker__form h2,
-.tracker__item h3 {
+.tracker .panel {
   margin: 0;
-  font-size: 16px;
 }
 
-.tracker__list {
+.tracker__notice {
+  margin: 0;
+}
+
+.tracker__stats {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 12px;
 }
 
-.tracker__item {
+.tracker__stats .panel {
   display: grid;
-  gap: 12px;
+  gap: 4px;
 }
 
-.tracker__row {
+.tracker__stat {
+  font-family: var(--mono);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.tracker__stat--on {
+  color: var(--accent-text);
+}
+
+.tracker__heading {
+  font-family: var(--mono);
+  font-size: 15px;
+  margin: 8px 0 0;
+}
+
+.tracker__toolbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.tracker__row .hint {
-  margin: 4px 0 0;
+.tracker__search {
+  max-width: 280px;
+  width: 100%;
+}
+
+.tracker__empty {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+}
+
+.tracker__empty h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.tracker__steps ol {
+  margin: 0 0 16px;
+  padding-left: 20px;
+  display: grid;
+  gap: 6px;
+}
+
+.tracker__form {
+  display: grid;
+  gap: 16px;
+}
+
+.tracker__tablewrap {
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.tracker__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tracker__table th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line-strong);
+  white-space: nowrap;
+}
+
+.tracker__table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+.tracker__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.tracker__table tbody tr:hover {
+  background: var(--accent-soft);
+}
+
+.tracker__subject {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.tracker__subject:hover {
+  text-decoration: underline;
 }
 
 .tracker__status {
   font-family: var(--mono);
-  font-size: 13px;
-  align-self: start;
-  padding: 4px 8px;
+  font-size: 12px;
+  padding: 3px 8px;
   border: 1px solid var(--line-strong);
-  opacity: 0.7;
+  white-space: nowrap;
+  opacity: 0.75;
 }
 
 .tracker__status--on {
@@ -1484,24 +1578,70 @@ input[type='range'] {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
-.tracker__opens {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: var(--mono);
-  font-size: 13px;
-  display: block;
-  overflow-x: auto;
-}
-
-.tracker__opens th,
-.tracker__opens td {
-  text-align: left;
-  padding: 6px 12px 6px 0;
+td.tracker__actions {
+  display: table-cell;
   white-space: nowrap;
+  text-align: right;
+}
+
+td.tracker__actions > * {
+  margin-left: 6px;
 }
 
 .tracker__muted {
   opacity: 0.5;
+}
+
+@media (max-width: 720px) {
+  .tracker__table thead {
+    display: none;
+  }
+
+  .tracker__table,
+  .tracker__table tbody,
+  .tracker__table tr,
+  .tracker__table td {
+    display: block;
+  }
+
+  .tracker__table tr {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .tracker__table tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  .tracker__table td {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 0;
+    border: 0;
+  }
+
+  .tracker__table td::before {
+    content: attr(data-label);
+    font-family: var(--mono);
+    font-size: 12px;
+    opacity: 0.6;
+  }
+
+  .tracker__table td.tracker__actions {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 8px;
+  }
+
+  .tracker__table td.tracker__actions::before {
+    content: none;
+  }
+
+  td.tracker__actions > * {
+    margin-left: 0;
+  }
 }
