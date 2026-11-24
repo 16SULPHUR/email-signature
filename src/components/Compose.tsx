@@ -47,6 +47,17 @@ function ComposeInner() {
       .catch(() => {})
   }, [user, router])
 
+  useEffect(() => {
+    if (!status?.email) return
+    const timer = setTimeout(() => {
+      api
+        .mailPreview(body, sigId)
+        .then((r) => setPreview(r.html))
+        .catch(() => {})
+    }, 350)
+    return () => clearTimeout(timer)
+  }, [status?.email, body, sigId])
+
   if (!user) return null
 
   const note = NOTES[params.get('mail') || '']
@@ -63,15 +74,6 @@ function ComposeInner() {
       if ((err as { reconnect?: boolean }).reconnect) setStatus((s) => s && { ...s, email: null })
     } finally {
       setBusy(false)
-    }
-  }
-
-  const showPreview = async () => {
-    setError('')
-    try {
-      setPreview((await api.mailPreview(body, sigId)).html)
-    } catch (err) {
-      setError((err as Error).message)
     }
   }
 
@@ -116,7 +118,7 @@ function ComposeInner() {
   }
 
   return (
-    <div className="tracker tracker--narrow">
+    <div className="tracker compose">
       <div className="account__head">
         <div>
           <h1>Compose</h1>
@@ -152,115 +154,112 @@ function ComposeInner() {
           </div>
         </div>
       ) : (
-        <form className="panel tracker__form" onSubmit={send}>
-          <p className="hint">
-            From <strong>{status.email}</strong> ·{' '}
-            <button type="button" className="btn btn--text" onClick={disconnect}>
-              Disconnect
-            </button>
-          </p>
-          <div className="fields">
-            <div className="field">
-              <label htmlFor="cp-to">To</label>
-              <input
-                id="cp-to"
-                type="email"
-                className="input"
-                required
-                maxLength={200}
-                autoFocus
-                autoComplete="off"
-                value={to}
-                onChange={(e) => setTo(e.target.value)}
-              />
+        <div className="compose__grid">
+          <form className="panel tracker__form" onSubmit={send}>
+            <p className="hint">
+              From <strong>{status.email}</strong> ·{' '}
+              <button type="button" className="btn btn--text" onClick={disconnect}>
+                Disconnect
+              </button>
+            </p>
+            <div className="fields">
+              <div className="field">
+                <label htmlFor="cp-to">To</label>
+                <input
+                  id="cp-to"
+                  type="email"
+                  className="input"
+                  required
+                  maxLength={200}
+                  autoFocus
+                  autoComplete="off"
+                  value={to}
+                  onChange={(e) => setTo(e.target.value)}
+                />
+              </div>
+              <div className="field">
+                <label htmlFor="cp-name">Recipient name (optional)</label>
+                <input
+                  id="cp-name"
+                  className="input"
+                  maxLength={200}
+                  autoComplete="off"
+                  value={toName}
+                  onChange={(e) => setToName(e.target.value)}
+                />
+              </div>
+              <div className="field field--wide">
+                <label htmlFor="cp-subject">Subject</label>
+                <input
+                  id="cp-subject"
+                  className="input"
+                  required
+                  maxLength={300}
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                />
+              </div>
+              <div className="field field--wide">
+                <label htmlFor="cp-body">Message</label>
+                <textarea
+                  id="cp-body"
+                  className="input"
+                  required
+                  rows={12}
+                  maxLength={status.limits.bodyChars}
+                  value={body}
+                  onChange={(e) => setBody(e.target.value)}
+                />
+              </div>
+              <div className="field field--wide">
+                <label htmlFor="cp-sig">Signature</label>
+                <select
+                  id="cp-sig"
+                  className="input"
+                  value={sigId}
+                  onChange={(e) => setSigId(e.target.value)}
+                >
+                  <option value="">No signature</option>
+                  {saved.map((s) => (
+                    <option key={s.id} value={String(s.id)}>
+                      {s.name}
+                    </option>
+                  ))}
+                </select>
+                {!saved.length && (
+                  <p className="hint">
+                    No saved signatures yet. <Link href="/templates">Create one</Link>.
+                  </p>
+                )}
+              </div>
             </div>
-            <div className="field">
-              <label htmlFor="cp-name">Recipient name (optional)</label>
-              <input
-                id="cp-name"
-                className="input"
-                maxLength={200}
-                autoComplete="off"
-                value={toName}
-                onChange={(e) => setToName(e.target.value)}
-              />
+            <p className="hint">
+              A tracking pixel is added automatically. Limits: {status.limits.perHour} emails an
+              hour, {status.limits.perDay} a day. The recipient, subject and message are sent
+              through Gmail; we keep the subject, recipient and open history, not the message body.
+            </p>
+            {error && <p className="error">{error}</p>}
+            <div className="tracker__actions">
+              <button className="btn btn--primary" disabled={busy}>
+                {busy ? 'Sending…' : 'Send'}
+              </button>
+              <Link href="/track" className="btn btn--text">
+                Cancel
+              </Link>
             </div>
-            <div className="field field--wide">
-              <label htmlFor="cp-subject">Subject</label>
-              <input
-                id="cp-subject"
-                className="input"
-                required
-                maxLength={300}
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-              />
-            </div>
-            <div className="field field--wide">
-              <label htmlFor="cp-body">Message</label>
-              <textarea
-                id="cp-body"
-                className="input"
-                required
-                rows={12}
-                maxLength={status.limits.bodyChars}
-                value={body}
-                onChange={(e) => setBody(e.target.value)}
-              />
-            </div>
-            <div className="field field--wide">
-              <label htmlFor="cp-sig">Signature</label>
-              <select
-                id="cp-sig"
-                className="input"
-                value={sigId}
-                onChange={(e) => setSigId(e.target.value)}
-              >
-                <option value="">No signature</option>
-                {saved.map((s) => (
-                  <option key={s.id} value={String(s.id)}>
-                    {s.name}
-                  </option>
-                ))}
-              </select>
-              {!saved.length && (
-                <p className="hint">
-                  No saved signatures yet. <Link href="/templates">Create one</Link>.
-                </p>
-              )}
-            </div>
-          </div>
-          <p className="hint">
-            A tracking pixel is added automatically. Limits: {status.limits.perHour} emails an hour,{' '}
-            {status.limits.perDay} a day. The recipient, subject and message are sent through Gmail;
-            we keep the subject, recipient and open history, not the message body.
-          </p>
-          {preview !== undefined && (
-            <div className="compose__preview">
-              <p className="hint">
-                Preview, from {status.email} to {to || '…'} · Subject: {subject || '…'}
-              </p>
-              <iframe
-                title="Email preview"
-                sandbox=""
-                srcDoc={`<body style="margin:16px;background:#fff">${preview}</body>`}
-                className="compose__frame"
-              />
-            </div>
-          )}
-          {error && <p className="error">{error}</p>}
-          <div className="tracker__actions">
-            <button type="button" className="btn" onClick={showPreview} disabled={!body.trim()}>
-              {preview === undefined ? 'Preview' : 'Refresh preview'}
-            </button>
-            <button className="btn btn--primary" disabled={busy}>
-              {busy ? 'Sending…' : 'Send'}
-            </button>
-            <Link href="/track" className="btn btn--text">
-              Cancel
-            </Link>
-          </div>
-        </form>
+          </form>
+          <aside className="panel compose__preview">
+            <p className="hint">
+              Preview · to {to || '…'} · {subject || 'no subject'}
+            </p>
+            <iframe
+              title="Email preview"
+              sandbox=""
+              srcDoc={`<body style="margin:20px;background:#fff">${preview ?? ''}</body>`}
+              className="compose__frame"
+            />
+          </aside>
+        </div>
       )}
 
       <TrackerNotice />
