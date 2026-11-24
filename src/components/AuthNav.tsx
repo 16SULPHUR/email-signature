@@ -9,6 +9,9 @@ export function AuthNav() {
   if (user === undefined) return <span className="nav__placeholder" />
   return user ? (
     <>
+      <Link href="/compose" className="nav__link">
+        compose
+      </Link>
       <Link href="/track" className="nav__link">
         tracking
       </Link>

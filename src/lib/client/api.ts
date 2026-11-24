@@ -86,6 +86,22 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     }).then((r) => json<{ id: string }>(r)),
+  mailStatus: () =>
+    fetch('/api/mail/status', { credentials: 'include' }).then((r) =>
+      json<{ available: boolean; email: string | null; limits: { perHour: number; perDay: number; bodyChars: number } }>(r),
+    ),
+  mailDisconnect: () => fetch('/api/mail/disconnect', { method: 'POST', credentials: 'include' }).then((r) => json(r)),
+  mailSend: async (body: { to: string; toName: string; subject: string; body: string; signatureId: string }) => {
+    const res = await fetch('/api/mail/send', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    })
+    const out = await res.json().catch(() => ({}))
+    if (!res.ok) throw Object.assign(new Error(out.error || 'Could not send'), { reconnect: Boolean(out.reconnect) })
+    return out as { id: string }
+  },
   deleteTracked: (id: string) =>
     fetch(`/tracked/${id}`, { method: 'DELETE', credentials: 'include' }).then((r) => json(r)),
   trackCopy: (template: string, kind: 'rich' | 'html' | 'download') =>
