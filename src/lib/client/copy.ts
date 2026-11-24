@@ -24,6 +24,33 @@ export async function copyRich(html: string) {
   el.remove()
 }
 
+export async function copyRichLater(htmlPromise: Promise<string>): Promise<boolean> {
+  try {
+    await navigator.clipboard.write([
+      new ClipboardItem({
+        'text/html': htmlPromise.then((h) => new Blob([h], { type: 'text/html' })),
+        'text/plain': htmlPromise.then((h) => new Blob([toPlainText(h)], { type: 'text/plain' })),
+      }),
+    ])
+    return true
+  } catch {}
+  const html = await htmlPromise.catch(() => '')
+  if (!html) return false
+  const el = document.createElement('div')
+  el.innerHTML = html
+  el.style.cssText = 'position:fixed;left:-9999px;top:0;background:#fff'
+  document.body.appendChild(el)
+  const range = document.createRange()
+  range.selectNodeContents(el)
+  const sel = window.getSelection()
+  sel?.removeAllRanges()
+  sel?.addRange(range)
+  const ok = document.execCommand('copy')
+  sel?.removeAllRanges()
+  el.remove()
+  return ok
+}
+
 export async function copyText(text: string) {
   try {
     await navigator.clipboard.writeText(text)
