@@ -37,7 +37,7 @@ export default function PrivacyPage() {
           <strong>Sending email from {SITE_NAME}</strong>, only if you connect Gmail. We request permission to send
           email only, not to read your mail. We store your Gmail address and an encrypted refresh token so we can send
           on your behalf until you disconnect. When you send, your message passes through our server to Gmail and is
-          not stored; we keep only the subject and recipient as a tracked email. You can revoke access at any time
+          not stored, and neither are attachments; we keep only the subject and recipient as a tracked email. You can revoke access at any time
           from the compose page or your Google account.
         </li>
       </ul>

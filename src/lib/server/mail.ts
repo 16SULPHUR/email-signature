@@ -4,7 +4,13 @@ export const MAIL_LIMITS = {
   perHour: 20,
   perDay: 100,
   bodyChars: 20000,
+  htmlChars: 100000,
+  attachments: 5,
+  attachmentBytes: 4 * 1024 * 1024,
 }
+
+export const BLOCKED_ATTACHMENT =
+  /\.(exe|bat|cmd|com|scr|pif|js|jse|vbs|vbe|msi|jar|dll|lnk|ps1|sh|reg|hta|cpl|apk)$/i
 
 const SCOPES = 'openid email https://www.googleapis.com/auth/gmail.send'
 
@@ -98,6 +104,10 @@ const encodeHeader = (s: string) =>
 export const isEmail = (s: string) =>
   /^[^\s@<>",;]+@[^\s@<>",;]+\.[^\s@<>",;]+$/.test(s) && s.length <= 200
 
+export type MailAttachment = { filename: string; type: string; data: Buffer }
+
+const wrap76 = (b: Buffer) => b.toString('base64').replace(/(.{76})/g, '$1\r\n')
+
 export function buildMime(o: {
   from: string
   to: string
@@ -105,27 +115,63 @@ export function buildMime(o: {
   subject: string
   html: string
   text: string
+  attachments?: MailAttachment[]
 }) {
-  const boundary = `sigrio_${crypto.randomBytes(12).toString('hex')}`
+  const rand = () => crypto.randomBytes(12).toString('hex')
+  const outer = `sigrio_m_${rand()}`
+  const alt = `sigrio_a_${rand()}`
   const to = o.toName ? `${encodeHeader(clean(o.toName).replace(/["\\]/g, ''))} <${o.to}>` : o.to
-  return [
-    `From: ${o.from}`,
-    `To: ${to}`,
-    `Subject: ${encodeHeader(clean(o.subject))}`,
-    'MIME-Version: 1.0',
-    `Content-Type: multipart/alternative; boundary="${boundary}"`,
-    '',
-    `--${boundary}`,
+  const files = o.attachments || []
+  const body = [
+    `--${alt}`,
     'Content-Type: text/plain; charset=UTF-8',
     'Content-Transfer-Encoding: base64',
     '',
     b64(o.text),
-    `--${boundary}`,
+    `--${alt}`,
     'Content-Type: text/html; charset=UTF-8',
     'Content-Transfer-Encoding: base64',
     '',
     b64(o.html),
-    `--${boundary}--`,
+    `--${alt}--`,
+  ]
+  const head = [
+    `From: ${o.from}`,
+    `To: ${to}`,
+    `Subject: ${encodeHeader(clean(o.subject))}`,
+    'MIME-Version: 1.0',
+  ]
+  if (!files.length) {
+    return [
+      ...head,
+      `Content-Type: multipart/alternative; boundary="${alt}"`,
+      '',
+      ...body,
+      '',
+    ].join('\r\n')
+  }
+  const parts = files.flatMap((f) => {
+    const name = clean(f.filename).replace(/["\\]/g, '_')
+    const ascii = name.replace(/[^\x20-\x7e]/g, '_')
+    return [
+      `--${outer}`,
+      `Content-Type: ${f.type}; name="${ascii}"`,
+      `Content-Disposition: attachment; filename="${ascii}"; filename*=UTF-8''${encodeURIComponent(name)}`,
+      'Content-Transfer-Encoding: base64',
+      '',
+      wrap76(f.data),
+    ]
+  })
+  return [
+    ...head,
+    `Content-Type: multipart/mixed; boundary="${outer}"`,
+    '',
+    `--${outer}`,
+    `Content-Type: multipart/alternative; boundary="${alt}"`,
+    '',
+    ...body,
+    ...parts,
+    `--${outer}--`,
     '',
   ].join('\r\n')
 }
@@ -153,15 +199,84 @@ export async function gmailSend(refreshToken: string, mime: string) {
 
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
 
-export function bodyToHtml(text: string) {
-  const paras = text
-    .replace(/\r\n/g, '\n')
-    .trim()
-    .split(/\n{2,}/)
-    .map((p) => `<p style="margin:0 0 14px">${esc(p).replace(/\n/g, '<br>')}</p>`)
-    .join('')
-  return `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#222">${paras}</div>`
+const ALLOWED = new Set([
+  'p',
+  'div',
+  'br',
+  'b',
+  'strong',
+  'i',
+  'em',
+  'u',
+  's',
+  'strike',
+  'ul',
+  'ol',
+  'li',
+  'blockquote',
+  'a',
+  'span',
+])
+const DROP_CONTENT = new Set([
+  'script',
+  'style',
+  'iframe',
+  'object',
+  'embed',
+  'noscript',
+  'template',
+])
+
+export function sanitizeHtml(input: string) {
+  const out: string[] = []
+  const stack: string[] = []
+  let skip = ''
+  const re = /<(\/?)([a-zA-Z][a-zA-Z0-9]*)((?:"[^"]*"|'[^']*'|[^'">])*)>|<!--[\s\S]*?-->|<|[^<]+/g
+  for (const m of input.matchAll(re)) {
+    const [raw, close, rawName, attrs] = m
+    if (!rawName) {
+      if (!skip) out.push(raw === '<' ? '&lt;' : raw.startsWith('<!--') ? '' : raw)
+      continue
+    }
+    const name = rawName.toLowerCase()
+    if (skip) {
+      if (close && name === skip) skip = ''
+      continue
+    }
+    if (DROP_CONTENT.has(name)) {
+      if (!close) skip = name
+      continue
+    }
+    if (!ALLOWED.has(name)) continue
+    if (close) {
+      const i = stack.lastIndexOf(name)
+      if (i === -1) continue
+      while (stack.length > i) out.push(`</${stack.pop()}>`)
+      continue
+    }
+    if (name === 'br') {
+      out.push('<br>')
+      continue
+    }
+    if (name === 'a') {
+      const href = /href\s*=\s*(?:"([^"]*)"|'([^']*)')/i.exec(attrs || '')
+      const url = (href?.[1] ?? href?.[2] ?? '').replace(/&amp;/g, '&').trim()
+      out.push(/^(https?:\/\/|mailto:)/i.test(url) ? `<a href="${esc(url)}">` : '<a>')
+    } else if (name === 'blockquote') {
+      out.push(
+        '<blockquote style="margin:0 0 0 0.8ex;border-left:1px solid #ccc;padding-left:1ex">',
+      )
+    } else {
+      out.push(`<${name}>`)
+    }
+    stack.push(name)
+  }
+  while (stack.length) out.push(`</${stack.pop()}>`)
+  return out.join('')
 }
+
+export const wrapBody = (safeHtml: string) =>
+  `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#222">${safeHtml}</div>`
 
 export function htmlToText(html: string) {
   return html

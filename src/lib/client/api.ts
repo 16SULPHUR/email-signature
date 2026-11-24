@@ -37,11 +37,13 @@ export const api = {
     await fetch('/api/auth/sign-out', { method: 'POST', credentials: 'include' }).catch(() => {})
   },
   listSignatures: () =>
-    fetch('/api/signatures?limit=100&sort=-updatedAt&depth=0', { credentials: 'include' }).then((r) =>
-      json<{ docs: SavedSignature[] }>(r),
+    fetch('/api/signatures?limit=100&sort=-updatedAt&depth=0', { credentials: 'include' }).then(
+      (r) => json<{ docs: SavedSignature[] }>(r),
     ),
   getSignature: (id: string) =>
-    fetch(`/api/signatures/${id}?depth=0`, { credentials: 'include' }).then((r) => json<SavedSignature>(r)),
+    fetch(`/api/signatures/${id}?depth=0`, { credentials: 'include' }).then((r) =>
+      json<SavedSignature>(r),
+    ),
   saveSignature: (body: Omit<SavedSignature, 'id' | 'updatedAt'>, id?: string | number) =>
     fetch(id ? `/api/signatures/${id}` : '/api/signatures', {
       method: id ? 'PATCH' : 'POST',
@@ -50,7 +52,9 @@ export const api = {
       body: JSON.stringify(body),
     }).then((r) => json<{ doc: SavedSignature }>(r)),
   deleteSignature: (id: string | number) =>
-    fetch(`/api/signatures/${id}`, { method: 'DELETE', credentials: 'include' }).then((r) => json(r)),
+    fetch(`/api/signatures/${id}`, { method: 'DELETE', credentials: 'include' }).then((r) =>
+      json(r),
+    ),
   uploadImage: async (file: File, kind: 'photo' | 'logo' | 'banner' | 'handwriting') => {
     const form = new FormData()
     form.append('file', file)
@@ -67,8 +71,14 @@ export const api = {
       body: JSON.stringify({ template, data }),
     }).then((r) => json<{ id: string }>(r)),
   getShare: (id: string) =>
-    fetch(`/share/${id}`).then((r) => json<{ template: string; data: import('@/lib/signature/types').SignatureData }>(r)),
-  collect: (template: string, data: import('@/lib/signature/types').SignatureData, copied = false) =>
+    fetch(`/share/${id}`).then((r) =>
+      json<{ template: string; data: import('@/lib/signature/types').SignatureData }>(r),
+    ),
+  collect: (
+    template: string,
+    data: import('@/lib/signature/types').SignatureData,
+    copied = false,
+  ) =>
     fetch('/collect', {
       method: 'POST',
       credentials: 'include',
@@ -76,7 +86,8 @@ export const api = {
       body: JSON.stringify({ visitorId: visitorId(), template, data, copied }),
       keepalive: true,
     }).catch(() => {}),
-  listTracked: () => fetch('/tracked', { credentials: 'include' }).then((r) => json<{ docs: TrackedEmail[] }>(r)),
+  listTracked: () =>
+    fetch('/tracked', { credentials: 'include' }).then((r) => json<{ docs: TrackedEmail[] }>(r)),
   getTracked: (id: string) =>
     fetch(`/tracked/${id}`, { credentials: 'include' }).then((r) => json<TrackedDetail>(r)),
   createTracked: (body: { subject: string; recipientName: string; recipientEmail: string }) =>
@@ -88,25 +99,49 @@ export const api = {
     }).then((r) => json<{ id: string }>(r)),
   mailStatus: () =>
     fetch('/api/mail/status', { credentials: 'include' }).then((r) =>
-      json<{ available: boolean; email: string | null; limits: { perHour: number; perDay: number; bodyChars: number } }>(r),
+      json<{
+        available: boolean
+        email: string | null
+        limits: {
+          perHour: number
+          perDay: number
+          bodyChars: number
+          attachments: number
+          attachmentBytes: number
+        }
+      }>(r),
     ),
-  mailPreview: (body: string, signatureId: string) =>
+  mailPreview: (html: string, signatureId: string) =>
     fetch('/api/mail/preview', {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ body, signatureId }),
+      body: JSON.stringify({ html, signatureId }),
     }).then((r) => json<{ html: string }>(r)),
-  mailDisconnect: () => fetch('/api/mail/disconnect', { method: 'POST', credentials: 'include' }).then((r) => json(r)),
-  mailSend: async (body: { to: string; toName: string; subject: string; body: string; signatureId: string }) => {
+  mailDisconnect: () =>
+    fetch('/api/mail/disconnect', { method: 'POST', credentials: 'include' }).then((r) => json(r)),
+  mailSend: async (input: {
+    to: string
+    toName: string
+    subject: string
+    html: string
+    signatureId: string
+    files: File[]
+  }) => {
+    const form = new FormData()
+    for (const k of ['to', 'toName', 'subject', 'html', 'signatureId'] as const)
+      form.append(k, input[k])
+    for (const f of input.files) form.append('attachments', f)
     const res = await fetch('/api/mail/send', {
       method: 'POST',
       credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      body: form,
     })
     const out = await res.json().catch(() => ({}))
-    if (!res.ok) throw Object.assign(new Error(out.error || 'Could not send'), { reconnect: Boolean(out.reconnect) })
+    if (!res.ok)
+      throw Object.assign(new Error(out.error || 'Could not send'), {
+        reconnect: Boolean(out.reconnect),
+      })
     return out as { id: string }
   },
   deleteTracked: (id: string) =>
@@ -145,7 +180,10 @@ export type SavedSignature = {
 export function useSession() {
   const [user, setUser] = useState<SessionUser | null | undefined>(undefined)
   useEffect(() => {
-    api.me().then(setUser).catch(() => setUser(null))
+    api
+      .me()
+      .then(setUser)
+      .catch(() => setUser(null))
   }, [])
   return user
 }
@@ -162,5 +200,11 @@ export type TrackedEmail = {
 }
 
 export type TrackedDetail = TrackedEmail & {
-  opens: { opened_at: string; kind: 'open' | 'proxy' | 'bot'; device: string | null; country: string | null; city: string | null }[]
+  opens: {
+    opened_at: string
+    kind: 'open' | 'proxy' | 'bot'
+    device: string | null
+    country: string | null
+    city: string | null
+  }[]
 }
