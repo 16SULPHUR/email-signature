@@ -34,6 +34,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ file: st
       text: color(q.get('x'), 'FFFFFF'),
       muted: color(q.get('m'), '888888'),
       accent: color(q.get('a'), 'FF7A1A'),
+      ...(HEX.test(q.get('a2') || '') ? { accent2: `#${q.get('a2')}` } : {}),
     })
     const input = {
       name: clean(q.get('n'), 40) || 'Your Name',
@@ -41,7 +42,13 @@ export async function GET(req: Request, { params }: { params: Promise<{ file: st
       company: clean(q.get('c'), 40),
       tagline: clean(q.get('g'), 60),
       pal,
-      params: { cmd: clean(q.get('cmd'), 30), done: clean(q.get('done'), 34), font: clean(q.get('font'), 8) },
+      params: {
+        cmd: clean(q.get('cmd'), 30),
+        done: clean(q.get('done'), 34),
+        font: clean(q.get('font'), 8),
+        site: clean(q.get('w'), 40),
+        link: HEX.test(q.get('k') || '') ? `#${q.get('k')}` : '',
+      },
     }
     const scale = q.get('sc') === '1' ? 1 : 2
     const loop = q.get('lp') === '0' ? 0 : 2

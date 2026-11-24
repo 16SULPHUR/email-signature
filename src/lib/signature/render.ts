@@ -95,6 +95,7 @@ export function buildContext(template: Template, data: SignatureData, siteUrl: s
         iconMono: mono,
         iconBadge: badge,
         iconBadgeMono: badgeMono,
+        iconBadgeDark: iconUrl(siteUrl, n.id, bg, accent),
       }
     })
 
@@ -131,7 +132,7 @@ export function buildContext(template: Template, data: SignatureData, siteUrl: s
     webIcon: contactIcon('website'),
     addressIcon: contactIcon('address'),
     animUrl: template.animation
-      ? animUrl(siteUrl, template.animation, f, { accent: `#${accent}`, text: `#${text}`, muted: `#${muted}`, bg: `#${bg}` })
+      ? animUrl(siteUrl, template.animation, { ...f, site: f.websiteLabel?.trim() || (rawWebsite ? displayHost(rawWebsite) : '') }, { accent: `#${accent}`, text: `#${text}`, muted: `#${muted}`, bg: `#${bg}` })
       : '',
     socials,
     hasSocials: socials.length > 0,
