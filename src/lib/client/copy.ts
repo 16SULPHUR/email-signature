@@ -1,6 +1,6 @@
 import { toPlainText } from '@/lib/signature/render'
 
-export async function copyRich(html: string) {
+export async function copyRich(html: string): Promise<boolean> {
   try {
     await navigator.clipboard.write([
       new ClipboardItem({
@@ -8,7 +8,7 @@ export async function copyRich(html: string) {
         'text/plain': new Blob([toPlainText(html)], { type: 'text/plain' }),
       }),
     ])
-    return
+    return true
   } catch {}
   const el = document.createElement('div')
   el.innerHTML = html
@@ -19,9 +19,13 @@ export async function copyRich(html: string) {
   const sel = window.getSelection()
   sel?.removeAllRanges()
   sel?.addRange(range)
-  document.execCommand('copy')
+  let ok = false
+  try {
+    ok = document.execCommand('copy')
+  } catch {}
   sel?.removeAllRanges()
   el.remove()
+  return ok
 }
 
 export async function copyText(text: string) {

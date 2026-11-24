@@ -2,68 +2,26 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
-import { api, type SavedSignature, type TrackedDetail, type TrackedEmail, useSession } from '@/lib/client/api'
+import { api, type SavedSignature, type TrackedEmail, useSession } from '@/lib/client/api'
 import { copyRich } from '@/lib/client/copy'
-import { renderSignature } from '@/lib/signature/render'
-import { siteUrl } from '@/lib/site'
+import { ago, pixelHtml, recipientLabel } from '@/lib/client/tracking'
 import type { Template } from '@/lib/signature/types'
 
-const pixelHtml = (id: string) =>
-  `<img src="${siteUrl()}/t/${id}.gif" width="1" height="1" alt="" style="display:block;border:0;width:1px;height:1px">`
+import { NewTrackedModal } from './NewTrackedModal'
 
-const ago = (iso: string) => {
-  const s = Math.max(1, Math.round((Date.now() - new Date(iso).getTime()) / 1000))
-  if (s < 60) return 'just now'
-  if (s < 3600) return `${Math.round(s / 60)} min ago`
-  if (s < 86400) return `${Math.round(s / 3600)} h ago`
-  return `${Math.round(s / 86400)} d ago`
-}
-
-function Detail({ id }: { id: string }) {
-  const [detail, setDetail] = useState<TrackedDetail>()
-  useEffect(() => {
-    api.getTracked(id).then(setDetail).catch(() => {})
-  }, [id])
-  if (!detail) return <p className="hint">Loading…</p>
-  if (!detail.opens.length) return <p className="hint">No opens recorded yet.</p>
-  return (
-    <table className="tracker__opens">
-      <thead>
-        <tr>
-          <th>When</th>
-          <th>Device</th>
-          <th>Where</th>
-          <th>Type</th>
-        </tr>
-      </thead>
-      <tbody>
-        {detail.opens.map((o, i) => (
-          <tr key={i} className={o.kind === 'bot' ? 'tracker__muted' : undefined}>
-            <td>{new Date(o.opened_at).toLocaleString()}</td>
-            <td>{o.device || 'Unknown'}</td>
-            <td>{[o.city, o.country].filter(Boolean).join(', ') || 'Hidden'}</td>
-            <td>{o.kind === 'bot' ? 'Scanner (not counted)' : o.kind === 'proxy' ? 'Via Gmail proxy' : 'Direct'}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  )
-}
+type Filter = 'all' | 'opened' | 'unopened'
 
 export function Tracker({ templates }: { templates: Template[] }) {
   const router = useRouter()
   const user = useSession()
   const [items, setItems] = useState<TrackedEmail[]>()
   const [saved, setSaved] = useState<SavedSignature[]>([])
-  const [subject, setSubject] = useState('')
-  const [recipientName, setRecipientName] = useState('')
-  const [recipientEmail, setRecipientEmail] = useState('')
-  const [sigId, setSigId] = useState('')
-  const [open, setOpen] = useState<string>()
-  const [msg, setMsg] = useState('')
-  const [busy, setBusy] = useState(false)
+  const [modal, setModal] = useState(false)
+  const [query, setQuery] = useState('')
+  const [filter, setFilter] = useState<Filter>('all')
+  const [toast, setToast] = useState('')
 
   const load = useCallback(() => api.listTracked().then((r) => setItems(r.docs)).catch(() => {}), [])
 
@@ -76,39 +34,45 @@ export function Tracker({ templates }: { templates: Template[] }) {
     return () => clearInterval(timer)
   }, [user, router, load])
 
+  const stats = useMemo(() => {
+    const list = items ?? []
+    const opened = list.filter((t) => t.open_count > 0).length
+    return {
+      total: list.length,
+      opened,
+      rate: list.length ? Math.round((opened / list.length) * 100) : 0,
+      opens: list.reduce((n, t) => n + t.open_count, 0),
+    }
+  }, [items])
+
+  const visible = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    return (items ?? []).filter((t) => {
+      if (filter === 'opened' && !t.open_count) return false
+      if (filter === 'unopened' && t.open_count) return false
+      if (!q) return true
+      return [t.subject, t.recipient_name, t.recipient_email].some((v) => v?.toLowerCase().includes(q))
+    })
+  }, [items, query, filter])
+
   if (!user) return null
 
-  const create = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setBusy(true)
-    setMsg('')
-    try {
-      const { id } = await api.createTracked({ subject, recipientName, recipientEmail })
-      const sig = saved.find((s) => String(s.id) === sigId)
-      const tpl = sig && templates.find((t) => t.id === sig.template)
-      const html = (sig && tpl ? renderSignature(tpl, sig.data, siteUrl()) : '') + pixelHtml(id)
-      await copyRich(html)
-      setMsg(
-        sig
-          ? 'Copied the signature with its tracking pixel. Paste it at the end of your email.'
-          : 'Copied the tracking pixel. Paste it at the end of your email.',
-      )
-      setSubject('')
-      setRecipientName('')
-      setRecipientEmail('')
-      await load()
-    } catch (err) {
-      setMsg((err as Error).message)
-    } finally {
-      setBusy(false)
-    }
+  const flash = (text: string) => {
+    setToast(text)
+    setTimeout(() => setToast(''), 2500)
   }
 
-  const remove = async (id: string) => {
-    if (!window.confirm('Delete this tracked email and its open history?')) return
-    await api.deleteTracked(id)
-    setItems((list) => list?.filter((t) => t.id !== id))
+  const remove = async (t: TrackedEmail) => {
+    if (!window.confirm(`Delete "${t.subject}" and its open history?`)) return
+    await api.deleteTracked(t.id)
+    setItems((list) => list?.filter((x) => x.id !== t.id))
   }
+
+  const filters: [Filter, string][] = [
+    ['all', 'All'],
+    ['opened', 'Opened'],
+    ['unopened', 'Not opened'],
+  ]
 
   return (
     <div className="tracker">
@@ -117,44 +81,124 @@ export function Tracker({ templates }: { templates: Template[] }) {
           <h1>Tracked emails</h1>
           <p className="hint">See which emails were opened, by whom, and when.</p>
         </div>
+        <button type="button" className="btn btn--primary" onClick={() => setModal(true)}>
+          + New tracked email
+        </button>
       </div>
 
-      <form className="panel tracker__form" onSubmit={create}>
-        <h2>Track a new email</h2>
-        <div className="fields">
-          <div className="field field--wide">
-            <label htmlFor="tr-subject">Subject or note</label>
-            <input id="tr-subject" className="input" required maxLength={300} value={subject} onChange={(e) => setSubject(e.target.value)} placeholder="Proposal for Acme" />
-          </div>
-          <div className="field">
-            <label htmlFor="tr-name">Recipient name</label>
-            <input id="tr-name" className="input" maxLength={200} value={recipientName} onChange={(e) => setRecipientName(e.target.value)} />
-          </div>
-          <div className="field">
-            <label htmlFor="tr-email">Recipient email</label>
-            <input id="tr-email" type="email" className="input" maxLength={200} value={recipientEmail} onChange={(e) => setRecipientEmail(e.target.value)} />
-          </div>
-          <div className="field field--wide">
-            <label htmlFor="tr-sig">Include a saved signature</label>
-            <select id="tr-sig" className="input" value={sigId} onChange={(e) => setSigId(e.target.value)}>
-              <option value="">Tracking pixel only</option>
-              {saved.map((s) => (
-                <option key={s.id} value={String(s.id)}>
-                  {s.name}
-                </option>
-              ))}
-            </select>
-          </div>
+      <div className="tracker__stats">
+        <div className="stat">
+          <span className="stat__value">{stats.total}</span>
+          <span className="stat__label">Tracked</span>
         </div>
-        <p className="hint">
-          Each tracked email gets its own invisible pixel. Create one per email you send, then paste it at the end of
-          the message. Recipient details stay with your account and are never shown to anyone else.
-        </p>
-        {msg && <p className="hint">{msg}</p>}
-        <button className="btn btn--primary" disabled={busy}>
-          Create and copy
-        </button>
-      </form>
+        <div className="stat">
+          <span className="stat__value">{stats.opened}</span>
+          <span className="stat__label">Opened</span>
+        </div>
+        <div className="stat">
+          <span className="stat__value">{stats.rate}%</span>
+          <span className="stat__label">Open rate</span>
+        </div>
+        <div className="stat">
+          <span className="stat__value">{stats.opens}</span>
+          <span className="stat__label">Total opens</span>
+        </div>
+      </div>
+
+      <div className="tracker__toolbar">
+        <input
+          className="input tracker__search"
+          type="search"
+          placeholder="Search subject or recipient"
+          aria-label="Search tracked emails"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <div className="tracker__filters" role="group" aria-label="Filter by status">
+          {filters.map(([key, label]) => (
+            <button
+              key={key}
+              type="button"
+              className={`chip${filter === key ? ' chip--on' : ''}`}
+              aria-pressed={filter === key}
+              onClick={() => setFilter(key)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {items === undefined ? (
+        <p className="empty">Loading…</p>
+      ) : items.length === 0 ? (
+        <div className="empty tracker__empty">
+          <p>No tracked emails yet.</p>
+          <button type="button" className="btn btn--primary" onClick={() => setModal(true)}>
+            Track your first email
+          </button>
+        </div>
+      ) : visible.length === 0 ? (
+        <p className="empty">Nothing matches your search.</p>
+      ) : (
+        <div className="table-wrap">
+          <table className="table tracker__table">
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Recipient</th>
+                <th>Status</th>
+                <th className="num">Opens</th>
+                <th>Created</th>
+                <th aria-label="Actions" />
+              </tr>
+            </thead>
+            <tbody>
+              {visible.map((t) => (
+                <tr key={t.id}>
+                  <td className="table__main">
+                    <Link href={`/track/${t.id}`} title={t.subject}>
+                      {t.subject}
+                    </Link>
+                  </td>
+                  <td title={t.recipient_email ?? undefined}>
+                    <span className={t.recipient_name || t.recipient_email ? undefined : 'table__none'}>
+                      {recipientLabel(t.recipient_name, t.recipient_email)}
+                    </span>
+                  </td>
+                  <td>
+                    {t.open_count ? (
+                      <span className="badge badge--on">Opened {ago(t.last_opened_at!)}</span>
+                    ) : (
+                      <span className="badge">Not opened</span>
+                    )}
+                  </td>
+                  <td className="num">{t.open_count}</td>
+                  <td className="table__none">{ago(t.created_at)}</td>
+                  <td className="table__actions">
+                    <button
+                      type="button"
+                      className="btn btn--text btn--sm"
+                      onClick={async () => {
+                        await copyRich(pixelHtml(t.id))
+                        flash('Tracking pixel copied')
+                      }}
+                    >
+                      Copy pixel
+                    </button>
+                    <Link className="btn btn--text btn--sm" href={`/track/${t.id}`}>
+                      Opens →
+                    </Link>
+                    <button type="button" className="btn btn--text btn--sm" onClick={() => remove(t)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       <p className="hint hint--warn">
         Opens are approximate. Apple Mail and some other apps load images automatically, which can show an open that
@@ -163,49 +207,12 @@ export function Tracker({ templates }: { templates: Template[] }) {
         <Link href="/privacy">privacy policy</Link>.
       </p>
 
-      {items?.length === 0 && <p className="empty">No tracked emails yet.</p>}
-
-      <div className="tracker__list">
-        {items?.map((t) => (
-          <article key={t.id} className="panel tracker__item">
-            <div className="tracker__row">
-              <div>
-                <h3>{t.subject}</h3>
-                <p className="hint">
-                  {t.recipient_name || t.recipient_email
-                    ? `To ${[t.recipient_name, t.recipient_email && `<${t.recipient_email}>`].filter(Boolean).join(' ')}`
-                    : 'No recipient set'}{' '}
-                  · created {ago(t.created_at)}
-                </p>
-              </div>
-              <span className={`tracker__status${t.open_count ? ' tracker__status--on' : ''}`}>
-                {t.open_count
-                  ? `Opened${t.open_count > 1 ? ` ×${t.open_count}` : ''} · ${ago(t.last_opened_at!)}`
-                  : 'Not opened'}
-              </span>
-            </div>
-            <div className="tracker__actions">
-              <button
-                type="button"
-                className="btn btn--sm"
-                onClick={async () => {
-                  await copyRich(pixelHtml(t.id))
-                  setMsg('Copied the tracking pixel.')
-                }}
-              >
-                Copy pixel
-              </button>
-              <button type="button" className="btn btn--sm" onClick={() => setOpen(open === t.id ? undefined : t.id)}>
-                {open === t.id ? 'Hide opens' : 'Show opens'}
-              </button>
-              <button type="button" className="btn btn--text btn--sm" onClick={() => remove(t.id)}>
-                Delete
-              </button>
-            </div>
-            {open === t.id && <Detail id={t.id} />}
-          </article>
-        ))}
-      </div>
+      <NewTrackedModal open={modal} onClose={() => setModal(false)} onCreated={load} templates={templates} saved={saved} />
+      {toast && (
+        <div className="toast" role="status">
+          {toast}
+        </div>
+      )}
     </div>
   )
 }
