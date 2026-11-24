@@ -1855,9 +1855,48 @@ td.tracker__actions > * {
   }
 }
 
+.compose {
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.compose__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.compose__preview {
+  position: sticky;
+  top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .compose__frame {
   width: 100%;
-  height: 420px;
+  height: calc(100vh - 160px);
+  min-height: 480px;
   border: 1px solid var(--line);
   background: #fff;
+}
+
+@media (max-width: 960px) {
+  .compose__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .compose__preview {
+    position: static;
+  }
+  .compose__frame {
+    height: 420px;
+    min-height: 0;
+  }
+}
+
+.compose > .tracker__form {
+  max-width: 640px;
 }
