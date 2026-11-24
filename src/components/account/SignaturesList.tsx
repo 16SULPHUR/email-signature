@@ -1,25 +1,20 @@
 'use client'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { SignatureFrame } from '@/components/SignatureFrame'
-import { api, type SavedSignature, useSession } from '@/lib/client/api'
+import { PageHead } from '@/components/account/AccountShell'
+import { api, type SavedSignature } from '@/lib/client/api'
 import { renderSignature } from '@/lib/signature/render'
 import type { Template } from '@/lib/signature/types'
 
-export function Account({ templates }: { templates: Template[] }) {
-  const router = useRouter()
-  const user = useSession()
+export function SignaturesList({ templates }: { templates: Template[] }) {
   const [items, setItems] = useState<SavedSignature[]>()
 
   useEffect(() => {
-    if (user === null) router.replace('/login')
-    if (user) api.listSignatures().then((r) => setItems(r.docs))
-  }, [user, router])
-
-  if (!user) return null
+    api.listSignatures().then((r) => setItems(r.docs))
+  }, [])
 
   const remove = async (id: SavedSignature['id']) => {
     if (!window.confirm('Delete this saved signature?')) return
@@ -28,24 +23,8 @@ export function Account({ templates }: { templates: Template[] }) {
   }
 
   return (
-    <div className="account">
-      <div className="account__head">
-        <div>
-          <h1>My signatures</h1>
-          <p className="hint">{user.email}</p>
-        </div>
-        <button
-          type="button"
-          className="btn"
-          onClick={async () => {
-            await api.logout()
-            router.push('/')
-            router.refresh()
-          }}
-        >
-          Log out
-        </button>
-      </div>
+    <>
+      <PageHead title="Signatures" />
 
       {items?.length === 0 && (
         <p className="empty">
@@ -78,6 +57,6 @@ export function Account({ templates }: { templates: Template[] }) {
           )
         })}
       </div>
-    </div>
+    </>
   )
 }
