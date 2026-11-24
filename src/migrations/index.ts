@@ -4,6 +4,7 @@ import * as migration_20261122_082859_templates from './20261122_082859_template
 import * as migration_20261122_084419_templates from './20261122_084419_templates';
 import * as migration_20261123_shared_signatures from './20261123_shared_signatures';
 import * as migration_20261124_email_tracking from './20261124_email_tracking';
+import * as migration_20261124_mail_compose from './20261124_mail_compose';
 
 export const migrations = [
   {
@@ -35,5 +36,10 @@ export const migrations = [
     up: migration_20261124_email_tracking.up,
     down: migration_20261124_email_tracking.down,
     name: '20261124_email_tracking',
+  },
+  {
+    up: migration_20261124_mail_compose.up,
+    down: migration_20261124_mail_compose.down,
+    name: '20261124_mail_compose',
   },
 ];

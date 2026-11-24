@@ -62,9 +62,14 @@ export function TrackerList() {
           <h1>Tracked emails</h1>
           <p className="hint">See which emails were opened and when.</p>
         </div>
-        <Link href="/track/new" className="btn btn--primary">
-          New tracked email
-        </Link>
+        <div className="tracker__actions">
+          <Link href="/compose" className="btn btn--primary">
+            Compose
+          </Link>
+          <Link href="/track/new" className="btn">
+            Track an email
+          </Link>
+        </div>
       </div>
 
       <div className="tracker__stats">
