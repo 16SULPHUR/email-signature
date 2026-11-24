@@ -172,8 +172,10 @@ function ComposeInner() {
       ) : (
         <div className="compose__grid">
           <form className="panel tracker__form" onSubmit={send}>
-            <p className="hint">
-              From <strong>{status.email}</strong> ·{' '}
+            <p className="compose__from">
+              <span>
+                From <strong>{status.email}</strong>
+              </span>
               <button type="button" className="btn btn--text" onClick={disconnect}>
                 Disconnect
               </button>
@@ -220,17 +222,26 @@ function ComposeInner() {
                 <RichEditor id="cp-body" value={html} onChange={setHtml} resetKey={editorKey} />
               </div>
               <div className="field field--wide">
-                <label htmlFor="cp-files">Attachments</label>
-                <input
-                  id="cp-files"
-                  type="file"
-                  multiple
-                  className="input"
-                  onChange={(e) => {
-                    addFiles(e.target.files)
-                    e.target.value = ''
-                  }}
-                />
+                <span className="field__label">Attachments</span>
+                <div className="compose__attach">
+                  <label className="btn" htmlFor="cp-files">
+                    + Attach files
+                  </label>
+                  <input
+                    id="cp-files"
+                    type="file"
+                    multiple
+                    hidden
+                    onChange={(e) => {
+                      addFiles(e.target.files)
+                      e.target.value = ''
+                    }}
+                  />
+                  <span className="hint">
+                    Up to {status.limits.attachments} files,{' '}
+                    {status.limits.attachmentBytes / 1024 / 1024} MB total
+                  </span>
+                </div>
                 {files.length > 0 && (
                   <ul className="compose__files">
                     {files.map((f, i) => (
