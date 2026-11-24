@@ -8,9 +8,14 @@ export function AuthNav() {
   const user = useSession()
   if (user === undefined) return <span className="nav__placeholder" />
   return user ? (
-    <Link href="/account" className="btn btn--ghost">
-      my signatures
-    </Link>
+    <>
+      <Link href="/track" className="nav__link">
+        tracking
+      </Link>
+      <Link href="/account" className="btn btn--ghost">
+        my signatures
+      </Link>
+    </>
   ) : (
     <>
       <Link href="/login" className="nav__link">
