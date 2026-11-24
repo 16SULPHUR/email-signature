@@ -90,6 +90,13 @@ export const api = {
     fetch('/api/mail/status', { credentials: 'include' }).then((r) =>
       json<{ available: boolean; email: string | null; limits: { perHour: number; perDay: number; bodyChars: number } }>(r),
     ),
+  mailPreview: (body: string, signatureId: string) =>
+    fetch('/api/mail/preview', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ body, signatureId }),
+    }).then((r) => json<{ html: string }>(r)),
   mailDisconnect: () => fetch('/api/mail/disconnect', { method: 'POST', credentials: 'include' }).then((r) => json(r)),
   mailSend: async (body: { to: string; toName: string; subject: string; body: string; signatureId: string }) => {
     const res = await fetch('/api/mail/send', {
