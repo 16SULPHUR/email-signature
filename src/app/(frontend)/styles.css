@@ -1803,6 +1803,8 @@ td.tracker__actions > * {
 
   .acct__nav {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 @media (max-width: 720px) {
   .tracker__table thead {
@@ -1899,4 +1901,68 @@ td.tracker__actions > * {
 
 .compose > .tracker__form {
   max-width: 640px;
+}
+
+.editor {
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.editor__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 6px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel-2);
+}
+
+.editor__btn {
+  min-width: 32px;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.editor__btn:hover {
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.editor__area {
+  position: relative;
+  min-height: 260px;
+  border: 0;
+  overflow-y: auto;
+  outline: none;
+  line-height: 1.5;
+}
+
+.editor__area[data-empty]::before {
+  content: attr(data-placeholder);
+  color: var(--muted);
+  pointer-events: none;
+  position: absolute;
+}
+
+.editor__area blockquote {
+  margin: 0 0 0 0.8ex;
+  padding-left: 1ex;
+  border-left: 2px solid var(--line-strong);
+}
+
+.editor__area a {
+  color: var(--accent-text);
+}
+
+.compose__files {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
 }

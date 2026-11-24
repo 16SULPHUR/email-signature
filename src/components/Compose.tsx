@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useState } from 'react'
 
+import { RichEditor } from '@/components/RichEditor'
 import { TrackerNotice } from '@/components/TrackerNotice'
 import { api, type SavedSignature, useSession } from '@/lib/client/api'
 
@@ -24,7 +25,9 @@ function ComposeInner() {
   const [to, setTo] = useState('')
   const [toName, setToName] = useState('')
   const [subject, setSubject] = useState('')
-  const [body, setBody] = useState('')
+  const [html, setHtml] = useState('')
+  const [files, setFiles] = useState<File[]>([])
+  const [editorKey, setEditorKey] = useState(0)
   const [sigId, setSigId] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
@@ -51,12 +54,12 @@ function ComposeInner() {
     if (!status?.email) return
     const timer = setTimeout(() => {
       api
-        .mailPreview(body, sigId)
+        .mailPreview(html, sigId)
         .then((r) => setPreview(r.html))
         .catch(() => {})
     }, 350)
     return () => clearTimeout(timer)
-  }, [status?.email, body, sigId])
+  }, [status?.email, html, sigId])
 
   if (!user) return null
 
@@ -67,7 +70,7 @@ function ComposeInner() {
     setBusy(true)
     setError('')
     try {
-      const { id } = await api.mailSend({ to, toName, subject, body, signatureId: sigId })
+      const { id } = await api.mailSend({ to, toName, subject, html, signatureId: sigId, files })
       setSent({ id, to })
     } catch (err) {
       setError((err as Error).message)
@@ -82,7 +85,20 @@ function ComposeInner() {
     setTo('')
     setToName('')
     setSubject('')
-    setBody('')
+    setHtml('')
+    setFiles([])
+    setEditorKey((k) => k + 1)
+  }
+
+  const addFiles = (list: FileList | null) => {
+    if (!list || !status) return
+    const next = [...files, ...Array.from(list)]
+    const { attachments, attachmentBytes } = status.limits
+    if (next.length > attachments) return setError(`Attach up to ${attachments} files`)
+    if (next.reduce((n, f) => n + f.size, 0) > attachmentBytes)
+      return setError(`Attachments must total under ${attachmentBytes / 1024 / 1024} MB`)
+    setError('')
+    setFiles(next)
   }
 
   const disconnect = async () => {
@@ -201,15 +217,37 @@ function ComposeInner() {
               </div>
               <div className="field field--wide">
                 <label htmlFor="cp-body">Message</label>
-                <textarea
-                  id="cp-body"
+                <RichEditor id="cp-body" value={html} onChange={setHtml} resetKey={editorKey} />
+              </div>
+              <div className="field field--wide">
+                <label htmlFor="cp-files">Attachments</label>
+                <input
+                  id="cp-files"
+                  type="file"
+                  multiple
                   className="input"
-                  required
-                  rows={12}
-                  maxLength={status.limits.bodyChars}
-                  value={body}
-                  onChange={(e) => setBody(e.target.value)}
+                  onChange={(e) => {
+                    addFiles(e.target.files)
+                    e.target.value = ''
+                  }}
                 />
+                {files.length > 0 && (
+                  <ul className="compose__files">
+                    {files.map((f, i) => (
+                      <li key={`${f.name}-${i}`}>
+                        {f.name}{' '}
+                        <span className="hint">{Math.max(1, Math.round(f.size / 1024))} KB</span>{' '}
+                        <button
+                          type="button"
+                          className="btn btn--text"
+                          onClick={() => setFiles(files.filter((_, j) => j !== i))}
+                        >
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
               <div className="field field--wide">
                 <label htmlFor="cp-sig">Signature</label>
@@ -236,11 +274,12 @@ function ComposeInner() {
             <p className="hint">
               A tracking pixel is added automatically. Limits: {status.limits.perHour} emails an
               hour, {status.limits.perDay} a day. The recipient, subject and message are sent
-              through Gmail; we keep the subject, recipient and open history, not the message body.
+              through Gmail; we keep the subject, recipient and open history, not the message body
+              or attachments.
             </p>
             {error && <p className="error">{error}</p>}
             <div className="tracker__actions">
-              <button className="btn btn--primary" disabled={busy}>
+              <button className="btn btn--primary" disabled={busy || !html}>
                 {busy ? 'Sending…' : 'Send'}
               </button>
               <Link href="/track" className="btn btn--text">
