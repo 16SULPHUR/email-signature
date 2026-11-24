@@ -12,9 +12,11 @@ const BUTTONS: { cmd: string; label: string; title: string; style?: React.CSSPro
     title: 'Strikethrough',
     style: { textDecoration: 'line-through' },
   },
-  { cmd: 'insertUnorderedList', label: '• List', title: 'Bulleted list' },
-  { cmd: 'insertOrderedList', label: '1. List', title: 'Numbered list' },
-  { cmd: 'formatBlock:blockquote', label: '” Quote', title: 'Quote' },
+  { cmd: '|', label: '', title: '' },
+  { cmd: 'insertUnorderedList', label: '•', title: 'Bulleted list' },
+  { cmd: 'insertOrderedList', label: '1.', title: 'Numbered list' },
+  { cmd: '|', label: '', title: '' },
+  { cmd: 'formatBlock:blockquote', label: '”', title: 'Quote' },
   { cmd: 'removeFormat', label: 'Tx', title: 'Clear formatting' },
 ]
 
@@ -55,25 +57,29 @@ export function RichEditor({ id, value, onChange, resetKey }: Props) {
   }
 
   return (
-    <div className="editor">
-      <div className="editor__bar" role="toolbar" aria-label="Formatting">
-        {BUTTONS.map((b) => (
-          <button
-            key={b.cmd}
-            type="button"
-            className="editor__btn"
-            title={b.title}
-            aria-label={b.title}
-            style={b.style}
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={() => run(b.cmd)}
-          >
-            {b.label}
-          </button>
-        ))}
+    <div className="rte">
+      <div className="rte__bar" role="toolbar" aria-label="Formatting">
+        {BUTTONS.map((b, i) =>
+          b.cmd === '|' ? (
+            <span key={i} className="rte__sep" aria-hidden />
+          ) : (
+            <button
+              key={b.cmd}
+              type="button"
+              className="rte__btn"
+              title={b.title}
+              aria-label={b.title}
+              style={b.style}
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => run(b.cmd)}
+            >
+              {b.label}
+            </button>
+          ),
+        )}
         <button
           type="button"
-          className="editor__btn"
+          className="rte__btn"
           title="Insert link"
           onMouseDown={(e) => e.preventDefault()}
           onClick={link}
@@ -82,7 +88,7 @@ export function RichEditor({ id, value, onChange, resetKey }: Props) {
         </button>
         <button
           type="button"
-          className="editor__btn"
+          className="rte__btn"
           title="Undo"
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => run('undo')}
@@ -91,7 +97,7 @@ export function RichEditor({ id, value, onChange, resetKey }: Props) {
         </button>
         <button
           type="button"
-          className="editor__btn"
+          className="rte__btn"
           title="Redo"
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => run('redo')}
@@ -102,7 +108,7 @@ export function RichEditor({ id, value, onChange, resetKey }: Props) {
       <div
         id={id}
         ref={ref}
-        className="editor__area input"
+        className="rte__area input"
         contentEditable
         suppressContentEditableWarning
         role="textbox"

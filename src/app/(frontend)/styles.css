@@ -1903,12 +1903,12 @@ td.tracker__actions > * {
   max-width: 640px;
 }
 
-.editor {
+.rte {
   border: 1px solid var(--line);
   background: var(--bg);
 }
 
-.editor__bar {
+.rte__bar {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
@@ -1917,7 +1917,7 @@ td.tracker__actions > * {
   background: var(--panel-2);
 }
 
-.editor__btn {
+.rte__btn {
   min-width: 32px;
   padding: 4px 8px;
   border: 1px solid var(--line);
@@ -1928,12 +1928,12 @@ td.tracker__actions > * {
   cursor: pointer;
 }
 
-.editor__btn:hover {
+.rte__btn:hover {
   border-color: var(--accent);
   color: var(--accent-text);
 }
 
-.editor__area {
+.rte__area {
   position: relative;
   min-height: 260px;
   border: 0;
@@ -1942,20 +1942,20 @@ td.tracker__actions > * {
   line-height: 1.5;
 }
 
-.editor__area[data-empty]::before {
+.rte__area[data-empty]::before {
   content: attr(data-placeholder);
   color: var(--muted);
   pointer-events: none;
   position: absolute;
 }
 
-.editor__area blockquote {
+.rte__area blockquote {
   margin: 0 0 0 0.8ex;
   padding-left: 1ex;
   border-left: 2px solid var(--line-strong);
 }
 
-.editor__area a {
+.rte__area a {
   color: var(--accent-text);
 }
 
@@ -1965,4 +1965,71 @@ td.tracker__actions > * {
   padding: 0;
   display: grid;
   gap: 4px;
+}
+
+.compose__from {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.compose__from strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.compose__attach {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.compose__files li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+.compose__files li .btn {
+  margin-left: auto;
+}
+
+.rte__sep {
+  width: 1px;
+  margin: 2px 4px;
+  background: var(--line-strong);
+}
+
+.rte__btn {
+  font-family: var(--mono);
+  height: 30px;
+}
+
+.rte:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 2px 0 var(--accent);
+}
+
+.rte__area:focus {
+  background: transparent;
+  box-shadow: none;
+}
+
+@media (max-width: 520px) {
+  .rte__sep {
+    display: none;
+  }
 }
