@@ -13,7 +13,7 @@ export function AuthNav() {
         tracking
       </Link>
       <Link href="/account" className="btn btn--ghost">
-        my signatures
+        account
       </Link>
     </>
   ) : (

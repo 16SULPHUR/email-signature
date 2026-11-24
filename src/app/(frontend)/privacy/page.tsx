@@ -59,9 +59,10 @@ export default function PrivacyPage() {
 
       <h2>Your choices</h2>
       <p>
-        Don&apos;t type details you don&apos;t want stored. To see, correct or delete the data we hold about you, or to
-        withdraw your consent, email <a href="mailto:ankit@ankit.ninja">ankit@ankit.ninja</a> and we&apos;ll act on it
-        within 30 days.
+        Don&apos;t type details you don&apos;t want stored. If you have an account, you can see, export and delete your
+        data yourself under <a href="/account/data">Account → Data &amp; privacy</a>. For anything else, or to withdraw
+        your consent, email <a href="mailto:ankit@ankit.ninja">ankit@ankit.ninja</a> and we&apos;ll act on it within 30
+        days.
       </p>
     </article>
   )
