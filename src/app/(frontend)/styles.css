@@ -1854,3 +1854,10 @@ td.tracker__actions > * {
     margin-left: 0;
   }
 }
+
+.compose__frame {
+  width: 100%;
+  height: 420px;
+  border: 1px solid var(--line);
+  background: #fff;
+}

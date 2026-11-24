@@ -154,3 +154,14 @@ export function htmlToText(html: string) {
     .filter(Boolean)
     .join('\n')
 }
+
+export async function loadSignatureHtml(userId: number | string, signatureId: number) {
+  const { getPool } = await import('@/lib/server/db')
+  const { getTemplates } = await import('@/lib/server/templates')
+  const { renderSignature } = await import('@/lib/signature/render')
+  const pool = await getPool()
+  const sig = (await pool.query('select template, data from signatures where id = $1 and owner_id = $2', [signatureId, userId])).rows[0]
+  const tpl = sig && (await getTemplates()).find((t) => t.id === sig.template)
+  if (!sig || !tpl) return null
+  return renderSignature(tpl, sig.data, siteOrigin())
+}

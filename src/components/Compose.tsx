@@ -28,6 +28,7 @@ function ComposeInner() {
   const [sigId, setSigId] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  const [preview, setPreview] = useState<string>()
   const [sent, setSent] = useState<{ id: string; to: string }>()
 
   useEffect(() => {
@@ -62,6 +63,15 @@ function ComposeInner() {
       if ((err as { reconnect?: boolean }).reconnect) setStatus((s) => s && { ...s, email: null })
     } finally {
       setBusy(false)
+    }
+  }
+
+  const showPreview = async () => {
+    setError('')
+    try {
+      setPreview((await api.mailPreview(body, sigId)).html)
+    } catch (err) {
+      setError((err as Error).message)
     }
   }
 
@@ -225,8 +235,24 @@ function ComposeInner() {
             {status.limits.perDay} a day. The recipient, subject and message are sent through Gmail;
             we keep the subject, recipient and open history, not the message body.
           </p>
+          {preview !== undefined && (
+            <div className="compose__preview">
+              <p className="hint">
+                Preview, from {status.email} to {to || '…'} · Subject: {subject || '…'}
+              </p>
+              <iframe
+                title="Email preview"
+                sandbox=""
+                srcDoc={`<body style="margin:16px;background:#fff">${preview}</body>`}
+                className="compose__frame"
+              />
+            </div>
+          )}
           {error && <p className="error">{error}</p>}
           <div className="tracker__actions">
+            <button type="button" className="btn" onClick={showPreview} disabled={!body.trim()}>
+              {preview === undefined ? 'Preview' : 'Refresh preview'}
+            </button>
             <button className="btn btn--primary" disabled={busy}>
               {busy ? 'Sending…' : 'Send'}
             </button>

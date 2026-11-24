@@ -10,33 +10,41 @@ import {
   gmailSend,
   htmlToText,
   isEmail,
+  loadSignatureHtml,
   siteOrigin,
   unseal,
 } from '@/lib/server/mail'
-import { getTemplates } from '@/lib/server/templates'
 import { TRACKING_LIMITS } from '@/lib/server/tracking'
-import { renderSignature } from '@/lib/signature/render'
-import type { SignatureData } from '@/lib/signature/types'
 
-const fail = (error: string, status: number, extra: object = {}) => Response.json({ error, ...extra }, { status })
+const fail = (error: string, status: number, extra: object = {}) =>
+  Response.json({ error, ...extra }, { status })
 
 export async function POST(req: Request) {
   const { user, error } = await requireUser()
   if (error) return error
   const input = await req.json().catch(() => ({}))
   const to = String(input.to || '').trim()
-  const toName = String(input.toName || '').trim().slice(0, 200)
-  const subject = String(input.subject || '').trim().slice(0, 300)
+  const toName = String(input.toName || '')
+    .trim()
+    .slice(0, 200)
+  const subject = String(input.subject || '')
+    .trim()
+    .slice(0, 300)
   const text = String(input.body || '')
   const signatureId = input.signatureId ? Number(input.signatureId) : null
 
   if (!isEmail(to)) return fail('Enter a valid recipient email', 400)
   if (!subject) return fail('Add a subject', 400)
   if (!text.trim()) return fail('Write a message', 400)
-  if (text.length > MAIL_LIMITS.bodyChars) return fail(`Message is too long (max ${MAIL_LIMITS.bodyChars} characters)`, 400)
+  if (text.length > MAIL_LIMITS.bodyChars)
+    return fail(`Message is too long (max ${MAIL_LIMITS.bodyChars} characters)`, 400)
 
   const pool = await getPool()
-  const conn = (await pool.query('select email, refresh_token from mail_connections where user_id = $1', [user.id])).rows[0]
+  const conn = (
+    await pool.query('select email, refresh_token from mail_connections where user_id = $1', [
+      user.id,
+    ])
+  ).rows[0]
   if (!conn) return fail('Connect your Gmail first', 409, { reconnect: true })
 
   const counts = (
@@ -48,18 +56,21 @@ export async function POST(req: Request) {
       [user.id],
     )
   ).rows[0]
-  if (counts.hour >= MAIL_LIMITS.perHour) return fail('Hourly sending limit reached, try again later', 429)
-  if (counts.day >= MAIL_LIMITS.perDay) return fail('Daily sending limit reached, try again tomorrow', 429)
+  if (counts.hour >= MAIL_LIMITS.perHour)
+    return fail('Hourly sending limit reached, try again later', 429)
+  if (counts.day >= MAIL_LIMITS.perDay)
+    return fail('Daily sending limit reached, try again tomorrow', 429)
   if (counts.total >= TRACKING_LIMITS.perUser)
-    return fail(`You can track up to ${TRACKING_LIMITS.perUser} emails. Delete old ones first.`, 429)
+    return fail(
+      `You can track up to ${TRACKING_LIMITS.perUser} emails. Delete old ones first.`,
+      429,
+    )
 
   let signature = ''
   if (signatureId) {
-    const sig = (await pool.query('select template, data from signatures where id = $1 and owner_id = $2', [signatureId, user.id]))
-      .rows[0]
-    const tpl = sig && (await getTemplates()).find((t) => t.id === sig.template)
-    if (!sig || !tpl) return fail('That signature is no longer available', 400)
-    signature = renderSignature(tpl, sig.data as SignatureData, siteOrigin())
+    const html = await loadSignatureHtml(user.id, signatureId)
+    if (html === null) return fail('That signature is no longer available', 400)
+    signature = html
   }
 
   const id = crypto.randomBytes(9).toString('base64url')
